@@ -1,0 +1,30 @@
+# Dependencies
+site/node_modules/
+
+# Next.js
+site/.next/
+site/out/
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+site/.env
+site/.env.*
+
+# Vercel
+site/.vercel/
+
+# Debug & OS
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# TypeScript / tooling
+site/*.tsbuildinfo
+site/next-env.d.ts
+
+# Testing
+site/coverage/

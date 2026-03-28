@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* EazyAccess design tokens — plan spec */
+:root {
+  --color-void: #0a0a0c;
+  --color-bone: #f0ebe1;
+  --color-ember: #c8622a;
+  --color-stone: #8a8680;
+  --color-surface: #141412;
+  --font-display: var(--font-dm-serif), "DM Serif Display", Georgia, serif;
+  --font-body: var(--font-dm-sans), "DM Sans", -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --radius-card: 12px;
+  --radius-button: 6px;
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-bone);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Brand-scoped tokens (product pages set data-brand="slug") */
+[data-brand="hushrealm"] {
+  --color-accent: #6c5ce7;
+  --color-brand-bg: #05050d;
+  --color-brand-text: #e8e4f0;
+}
+[data-brand="pageperfect"] {
+  --color-accent: #1c3d5a;
+  --color-brand-bg: #f5f0e8;
+  --color-brand-text: #1a1510;
+}
+[data-brand="farmcompanion"] {
+  --color-accent: #4a7c2f;
+  --color-brand-bg: #f2ede3;
+  --color-brand-text: #1a1f12;
+}
+[data-brand="allowanceguard"] {
+  --color-accent: #b8860b;
+  --color-brand-bg: #f7f2e8;
+  --color-brand-text: #1c1e14;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
