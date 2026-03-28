@@ -31,3 +31,4 @@ npm start
 ## Deploy
 
 The app is configured for production at `eazyaccess.org` (see `metadataBase` and sitemap in `site/src/app/`). Deploy `site/` to [Vercel](https://vercel.com) or any Node host that supports Next.js 14.
+# EA
