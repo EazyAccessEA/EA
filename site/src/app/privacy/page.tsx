@@ -1,5 +1,6 @@
 import { Nav } from "@/components/ui/Nav";
 import { Footer } from "@/components/ui/Footer";
+import { FadeIn } from "@/components/ui/FadeIn";
 
 export const metadata = {
   title: "Privacy Policy — EazyAccess",
@@ -8,38 +9,65 @@ export const metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col" style={{ background: "var(--color-bg)" }}>
       <Nav />
 
-      <main className="flex-1 px-6 py-16 md:px-9">
-        <div className="mx-auto max-w-2xl">
-          <h1 className="font-display text-3xl font-normal italic leading-tight tracking-tight text-bone sm:text-4xl">
-            Privacy Policy
-          </h1>
-          <p className="mt-4 font-body text-sm text-stone">
-            Last updated: {new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}
-          </p>
-          <div className="mt-10 space-y-6 font-body text-stone leading-relaxed">
-            <p>
-              EazyAccess (“we”) respects your privacy. This site (eazyaccess.org) is the parent brand site for our portfolio of products. We do not sell your data. We use minimal, privacy-respecting analytics (e.g. Vercel Analytics) where applicable; we do not use Google Analytics or advertising trackers on this site.
-            </p>
-            <p>
-              For product-specific privacy practices (e.g. HushRealm, PagePerfect), please refer to the privacy policy on each product’s domain when you use that product.
-            </p>
-            <p>
-              If you contact us (e.g. via press@eazyaccess.org), we use your details only to respond. We do not add you to marketing lists without your consent.
-            </p>
-            <p>
-              For questions about this policy, contact{" "}
-              <a
-                href="mailto:press@eazyaccess.org"
-                className="text-ember underline decoration-ember/50 underline-offset-2 hover:decoration-ember"
+      <main className="flex-1 pt-14">
+        <section className="px-6 pb-16 pt-24 md:px-10">
+          <div className="mx-auto max-w-[720px]">
+            <FadeIn>
+              <h1
+                className="font-display italic text-ink"
+                style={{ fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 0.95 }}
               >
-                press@eazyaccess.org
-              </a>.
-            </p>
+                Privacy Policy
+              </h1>
+              <p className="mt-4 font-body text-sm text-faint">
+                Last updated: March 2026
+              </p>
+            </FadeIn>
           </div>
+        </section>
+
+        <div className="mx-auto max-w-[720px] px-6 md:px-10">
+          <div className="h-px bg-rule-light" />
         </div>
+
+        <section className="px-6 py-16 md:px-10">
+          <div className="mx-auto max-w-[720px] space-y-6">
+            <FadeIn>
+              <p className="font-body text-[15px] font-light leading-[1.85] text-mid">
+                EazyAccess (&ldquo;we&rdquo;) respects your privacy. This site (eazyaccess.org) is
+                the parent brand site for our portfolio of products. We do not sell your data. We do
+                not use cookies. We use minimal, privacy-respecting analytics (Vercel Analytics)
+                where applicable. We do not use Google Analytics or advertising trackers.
+              </p>
+            </FadeIn>
+            <FadeIn delay={60}>
+              <p className="font-body text-[15px] font-light leading-[1.85] text-mid">
+                For product-specific privacy practices (e.g. HushRealm, PagePerfect, OneSchool),
+                please refer to the privacy policy on each product&rsquo;s domain.
+              </p>
+            </FadeIn>
+            <FadeIn delay={120}>
+              <p className="font-body text-[15px] font-light leading-[1.85] text-mid">
+                If you contact us (e.g. via info@eazyaccess.org), we use your details only to
+                respond. We do not add you to marketing lists without your consent.
+              </p>
+            </FadeIn>
+            <FadeIn delay={180}>
+              <p className="font-body text-[15px] font-light leading-[1.85] text-mid">
+                For questions about this policy, contact{" "}
+                <a
+                  href="mailto:info@eazyaccess.org"
+                  className="font-medium text-accent underline decoration-accent/30 underline-offset-2 transition-colors hover:decoration-accent"
+                >
+                  info@eazyaccess.org
+                </a>.
+              </p>
+            </FadeIn>
+          </div>
+        </section>
       </main>
 
       <Footer />

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, DM_Serif_Display } from "next/font/google";
+import { Cormorant, Outfit } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -9,16 +9,15 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-const dmSans = DM_Sans({
+const cormorant = Cormorant({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  variable: "--font-cormorant",
   display: "swap",
 });
 
-const dmSerifDisplay = DM_Serif_Display({
-  weight: "400",
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-dm-serif",
+  variable: "--font-outfit",
   display: "swap",
 });
 
@@ -26,10 +25,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://eazyaccess.org"),
   title: "EazyAccess — Access everything.",
   description:
-    "A sovereign portfolio of tools for British life. HushRealm, PagePerfect, FarmCompanion, AllowanceGuard.",
+    "A permanent portfolio of software built for the serious, practical parts of British life. Five products. Seven domains. Never for sale.",
   openGraph: {
     title: "EazyAccess — Access everything.",
-    description: "A sovereign portfolio of tools for British life.",
+    description:
+      "A permanent portfolio of software built for the serious, practical parts of British life.",
     type: "website",
   },
 };
@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${dmSerifDisplay.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${cormorant.variable} ${outfit.variable} ${geistMono.variable}`}>
       <body className="antialiased">
         {children}
       </body>

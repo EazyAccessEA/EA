@@ -9,15 +9,28 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        bg: "var(--color-bg)",
+        surface: "var(--color-surface)",
+        "surface-deep": "var(--color-surface-deep)",
+        rule: "var(--color-rule)",
+        "rule-light": "var(--color-rule-light)",
+        ink: "var(--color-ink)",
+        "ink-mid": "var(--color-ink-mid)",
+        mid: "var(--color-mid)",
+        faint: "var(--color-faint)",
+        ghost: "var(--color-ghost)",
+        accent: "var(--color-accent)",
+        "accent-dark": "var(--color-accent-dark)",
+        "accent-bg": "var(--color-accent-bg)",
+        /* Legacy — used in dark sections */
         void: "var(--color-void)",
         bone: "var(--color-bone)",
-        ember: "var(--color-ember)",
-        stone: "var(--color-stone)",
-        surface: "var(--color-surface)",
+        /* Ember shorthand */
+        ember: "var(--color-accent)",
       },
       fontFamily: {
-        display: ["var(--font-dm-serif)", "DM Serif Display", "Georgia", "serif"],
-        body: ["var(--font-dm-sans)", "DM Sans", "sans-serif"],
+        display: ["var(--font-cormorant)", "Cormorant", "Georgia", "serif"],
+        body: ["var(--font-outfit)", "Outfit", "-apple-system", "sans-serif"],
         mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
       },
       borderRadius: {
