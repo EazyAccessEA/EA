@@ -69,14 +69,27 @@ export function Nav() {
       </div>
 
       {/* Mobile menu */}
-      {menuOpen && (
-        <div className="border-t border-rule bg-bg px-6 py-4 md:hidden">
-          {navLinks.map(({ label, href }) => (
+      <div
+        className="overflow-hidden border-t bg-bg transition-all duration-300 ease-out md:hidden"
+        style={{
+          maxHeight: menuOpen ? 320 : 0,
+          opacity: menuOpen ? 1 : 0,
+          borderColor: menuOpen ? "var(--color-rule)" : "transparent",
+        }}
+      >
+        <div className="px-6 py-4">
+          {navLinks.map(({ label, href }, i) => (
             <Link
               key={href}
               href={href}
               onClick={() => setMenuOpen(false)}
               className="block py-3 font-body text-sm text-mid transition-colors hover:text-ink"
+              style={{
+                transitionDelay: menuOpen ? `${i * 40}ms` : "0ms",
+                opacity: menuOpen ? 1 : 0,
+                transform: menuOpen ? "none" : "translateY(-4px)",
+                transition: "opacity 0.25s ease, transform 0.25s ease, color 0.2s",
+              }}
             >
               {label}
             </Link>
@@ -84,12 +97,18 @@ export function Nav() {
           <Link
             href="/products"
             onClick={() => setMenuOpen(false)}
-            className="mt-2 inline-block rounded-button border border-accent px-5 py-2 font-body text-xs font-medium text-accent"
+            className="mt-2 inline-block rounded-button border border-accent px-5 py-2 font-body text-xs font-medium text-accent transition-colors hover:bg-accent hover:text-[#FDFCFA]"
+            style={{
+              transitionDelay: menuOpen ? "160ms" : "0ms",
+              opacity: menuOpen ? 1 : 0,
+              transform: menuOpen ? "none" : "translateY(-4px)",
+              transition: "opacity 0.25s ease, transform 0.25s ease, background-color 0.2s, color 0.2s",
+            }}
           >
             Explore →
           </Link>
         </div>
-      )}
+      </div>
     </header>
   );
 }

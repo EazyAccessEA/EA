@@ -43,7 +43,10 @@ const outfit = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://eazyaccess.org"),
-  title: "EazyAccess — Access everything.",
+  title: {
+    default: "EazyAccess — Access everything.",
+    template: "%s — EazyAccess",
+  },
   description:
     "A permanent portfolio of software built for the serious, practical parts of British life. Five products. Seven domains. Never for sale.",
   openGraph: {
@@ -51,6 +54,17 @@ export const metadata: Metadata = {
     description:
       "A permanent portfolio of software built for the serious, practical parts of British life.",
     type: "website",
+    siteName: "EazyAccess",
+    locale: "en_GB",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "EazyAccess — Access everything.",
+    description:
+      "A permanent portfolio of software built for the serious, practical parts of British life.",
+  },
+  other: {
+    "theme-color": "#C8622A",
   },
 };
 
@@ -62,6 +76,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${outfit.variable} ${geistMono.variable}`}>
       <body className="antialiased">
+        {/* Top accent bar */}
+        <div
+          className="fixed left-0 right-0 top-0 z-[600] h-[2px]"
+          style={{ background: "linear-gradient(90deg, var(--color-accent), var(--color-accent-dark), var(--color-accent))" }}
+        />
         {children}
       </body>
     </html>

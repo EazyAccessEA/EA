@@ -13,7 +13,17 @@ export default function HomePage() {
 
       <main className="flex-1">
         {/* ─── SECTION 1: HERO ─── */}
-        <section className="relative flex min-h-screen flex-col justify-center px-6 pt-14 md:px-10">
+        <section className="relative flex min-h-screen flex-col justify-center px-6 pt-14 md:px-10 overflow-hidden">
+          {/* Decorative background elements */}
+          <div
+            className="pointer-events-none absolute -right-[200px] -top-[200px] h-[600px] w-[600px] rounded-full opacity-[0.04]"
+            style={{ background: "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)" }}
+          />
+          <div
+            className="pointer-events-none absolute -bottom-[100px] -left-[100px] h-[400px] w-[400px] rounded-full opacity-[0.03]"
+            style={{ background: "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)" }}
+          />
+
           <div className="mx-auto w-full max-w-[960px]">
             <FadeIn duration={1000}>
               <p className="font-body text-[10px] font-medium uppercase tracking-[0.2em] text-faint">
@@ -40,9 +50,10 @@ export default function HomePage() {
               <div className="mt-11 flex items-center gap-6">
                 <Link
                   href="/products"
-                  className="inline-block rounded-button border-[1.5px] border-accent bg-transparent px-7 py-[11px] font-body text-[13px] font-medium text-accent transition-all hover:bg-accent hover:text-[#FDFCFA]"
+                  className="group inline-flex items-center gap-2 rounded-button border-[1.5px] border-accent bg-transparent px-7 py-[11px] font-body text-[13px] font-medium text-accent transition-all hover:bg-accent hover:text-[#FDFCFA]"
                 >
                   Explore our products
+                  <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
                 </Link>
                 <Link
                   href="/philosophy"
@@ -56,7 +67,7 @@ export default function HomePage() {
 
           {/* Scroll indicator */}
           <FadeIn delay={600} className="absolute bottom-11 left-6 flex items-center gap-3 md:left-10">
-            <div className="h-9 w-px bg-rule" />
+            <div className="hero-scroll-line h-9 w-px bg-rule" />
             <span className="font-body text-[10px] font-medium uppercase tracking-[0.2em] text-faint">
               Scroll
             </span>
@@ -96,7 +107,9 @@ export default function HomePage() {
             <div className="mt-12 grid gap-3.5 sm:grid-cols-2">
               {products.map((p, i) => (
                 <FadeIn key={p.slug} delay={i * 70}>
-                  <ProductCard product={p} />
+                  <Link href={`/products/${p.slug}`}>
+                    <ProductCard product={p} />
+                  </Link>
                 </FadeIn>
               ))}
             </div>
@@ -169,7 +182,7 @@ export default function HomePage() {
             <div className="border-t border-rule">
               {domains.map((d, i) => (
                 <FadeIn key={d.number} delay={i * 55}>
-                  <div className="grid grid-cols-[48px_1fr] gap-x-4 border-b border-rule-light py-6 sm:grid-cols-[48px_1fr_140px]">
+                  <div className="domain-row grid grid-cols-[48px_1fr] gap-x-4 border-b border-rule-light py-6 sm:grid-cols-[48px_1fr_140px]">
                     <p className="pt-0.5 font-display text-2xl italic font-light text-ghost">
                       {d.number}
                     </p>
@@ -267,7 +280,7 @@ export default function HomePage() {
                 },
               ].map((item, i) => (
                 <FadeIn key={item.name} delay={i * 80}>
-                  <div className="rounded-[12px] border border-rule bg-surface p-7">
+                  <div className="platform-card rounded-[12px] border border-rule bg-surface p-7">
                     <h3 className="font-body text-[15px] font-semibold tracking-tight text-ink">
                       {item.name}
                     </h3>
@@ -389,7 +402,7 @@ export default function HomePage() {
                 { n: "06", title: "Remove more than we add.", desc: "Our products do fewer things than our competitors. They do those things better." },
               ].map((item, i) => (
                 <FadeIn key={item.n} delay={i * 60}>
-                  <div className="rounded-[12px] border border-rule-light bg-bg p-6 transition-colors hover:border-rule hover:bg-surface">
+                  <div className="philosophy-card rounded-[12px] border border-rule-light bg-bg p-6 hover:border-rule hover:bg-surface">
                     <span className="font-display text-lg italic text-ghost">{item.n}</span>
                     <h3 className="mt-2 font-body text-[15px] font-semibold tracking-tight text-ink">
                       {item.title}
@@ -416,7 +429,17 @@ export default function HomePage() {
         </section>
 
         {/* ─── SECTION 8: WE WILL NEVER SELL ─── */}
-        <section style={{ background: "var(--color-void)" }}>
+        <section className="relative overflow-hidden" style={{ background: "var(--color-void)" }}>
+          {/* Subtle gradient glow */}
+          <div
+            className="pointer-events-none absolute left-1/2 top-0 h-[1px] w-[60%] -translate-x-1/2"
+            style={{ background: "linear-gradient(90deg, transparent, rgba(200,98,42,0.4), transparent)" }}
+          />
+          <div
+            className="pointer-events-none absolute -right-[200px] top-[50%] h-[500px] w-[500px] -translate-y-1/2 rounded-full opacity-[0.06]"
+            style={{ background: "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)" }}
+          />
+
           <div className="mx-auto max-w-[960px] px-6 py-28 md:px-10">
             <FadeIn>
               <p className="font-body text-[10px] font-medium uppercase tracking-[0.2em] text-accent">
@@ -441,7 +464,7 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="mt-13 flex flex-wrap gap-12">
+              <div className="mt-14 flex flex-wrap gap-12 border-t border-[#1A1810] pt-10">
                 {[
                   { label: "Founded", value: "UK" },
                   { label: "Investment taken", value: "None" },
