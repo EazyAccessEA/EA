@@ -50,6 +50,7 @@ export function Footer() {
                 { label: "For Founders", href: "/founders" },
                 { label: "Press", href: "/press" },
                 { label: "About", href: "/about" },
+                { label: "Contact", href: "/contact" },
               ].map(({ label, href }) => (
                 <Link
                   key={href}

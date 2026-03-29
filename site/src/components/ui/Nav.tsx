@@ -57,10 +57,10 @@ export function Nav() {
         </nav>
 
         <Link
-          href="/products"
+          href="/contact"
           className="hidden rounded-button border border-accent bg-transparent px-5 py-[7px] font-body text-xs font-medium text-accent transition-all hover:bg-accent hover:text-[#FDFCFA] md:inline-flex"
         >
-          Explore →
+          Contact →
         </Link>
 
         {/* Mobile hamburger */}
@@ -102,7 +102,7 @@ export function Nav() {
             </Link>
           ))}
           <Link
-            href="/products"
+            href="/contact"
             onClick={() => setMenuOpen(false)}
             className="mt-2 inline-block rounded-button border border-accent px-5 py-2 font-body text-xs font-medium text-accent transition-colors hover:bg-accent hover:text-[#FDFCFA]"
             style={{
@@ -112,7 +112,7 @@ export function Nav() {
               transition: "opacity 0.25s ease, transform 0.25s ease, background-color 0.2s, color 0.2s",
             }}
           >
-            Explore →
+            Contact →
           </Link>
         </div>
       </div>
