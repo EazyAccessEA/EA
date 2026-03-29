@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Nav } from "@/components/ui/Nav";
 import { Footer } from "@/components/ui/Footer";
 import { FadeIn } from "@/components/ui/FadeIn";
-import { getProductBySlug, getAllSlugs } from "@/lib/products";
+import { getProductBySlug, getAllSlugs, products } from "@/lib/products";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -191,22 +191,65 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
         </section>
 
-        {/* Part of the EazyAccess family */}
+        {/* Other products */}
         <section
-          className="border-t px-6 py-10 md:px-10"
+          className="border-t px-6 py-14 md:px-10"
           style={{ borderColor: `${product.accent}22` }}
         >
-          <div className="mx-auto flex max-w-[720px] flex-wrap items-center justify-between gap-4">
-            <p className="font-body text-sm opacity-60" style={{ color: product.text }}>
-              Part of the EazyAccess family.
-            </p>
-            <Link
-              href="/products"
-              className="font-body text-[13px] font-medium transition-opacity hover:opacity-80"
-              style={{ color: product.accent }}
-            >
-              ← All products
-            </Link>
+          <div className="mx-auto max-w-[720px]">
+            <FadeIn>
+              <p className="font-body text-[10px] font-medium uppercase tracking-[0.2em]" style={{ color: product.muted }}>
+                Also from EazyAccess
+              </p>
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                {products
+                  .filter((p) => p.slug !== product.slug)
+                  .slice(0, 2)
+                  .map((p) => (
+                    <Link
+                      key={p.slug}
+                      href={`/products/${p.slug}`}
+                      className="group flex items-center gap-4 rounded-[10px] border p-4 transition-all hover:shadow-sm"
+                      style={{
+                        borderColor: `${p.accent}22`,
+                        background: `${p.accent}08`,
+                      }}
+                    >
+                      <div
+                        className="h-3 w-3 flex-shrink-0 rounded-full"
+                        style={{ background: p.accent }}
+                      />
+                      <div className="min-w-0">
+                        <p className="font-body text-[13px] font-semibold" style={{ color: p.text }}>
+                          {p.name}
+                        </p>
+                        <p className="truncate font-body text-[11px] font-light" style={{ color: p.muted }}>
+                          {p.tagline}
+                        </p>
+                      </div>
+                      <span
+                        className="ml-auto flex-shrink-0 font-body text-[11px] opacity-0 transition-opacity group-hover:opacity-100"
+                        style={{ color: p.accent }}
+                      >
+                        →
+                      </span>
+                    </Link>
+                  ))}
+              </div>
+            </FadeIn>
+
+            <div className="mt-8 flex items-center justify-between">
+              <p className="font-body text-sm opacity-60" style={{ color: product.text }}>
+                Part of the EazyAccess family.
+              </p>
+              <Link
+                href="/products"
+                className="font-body text-[13px] font-medium transition-opacity hover:opacity-80"
+                style={{ color: product.accent }}
+              >
+                ← All products
+              </Link>
+            </div>
           </div>
         </section>
       </main>

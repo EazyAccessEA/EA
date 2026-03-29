@@ -23,13 +23,17 @@ export function Footer() {
             </p>
             <div className="mt-4 flex flex-col gap-2.5">
               {products.map((p) => (
-                <div key={p.slug} className="flex items-center gap-2">
+                <Link
+                  key={p.slug}
+                  href={`/products/${p.slug}`}
+                  className="flex items-center gap-2 transition-opacity hover:opacity-70"
+                >
                   <div
                     className="h-[5px] w-[5px] flex-shrink-0 rounded-full"
                     style={{ background: p.accent }}
                   />
                   <span className="font-mono text-[10px] text-[#6E6A60]">{p.domain}</span>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

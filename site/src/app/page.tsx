@@ -351,6 +351,9 @@ export default function HomePage() {
         <section className="px-6 py-24 md:px-10">
           <div className="mx-auto max-w-[960px]">
             <FadeIn>
+              <p className="mb-6 font-body text-[10px] font-medium uppercase tracking-[0.2em] text-faint">
+                The path from five products to British institution
+              </p>
               <div className="grid grid-cols-2 gap-0 rounded-[12px] border border-rule bg-surface sm:grid-cols-4">
                 {[
                   { phase: "Now", metric: "5 products", sub: "Being built" },

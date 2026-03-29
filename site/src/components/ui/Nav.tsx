@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { LogoMark } from "@/components/brand/LogoMark";
 
 const navLinks = [
@@ -12,6 +13,7 @@ const navLinks = [
 ];
 
 export function Nav() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -38,15 +40,20 @@ export function Nav() {
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">
-          {navLinks.map(({ label, href }) => (
-            <Link
-              key={href}
-              href={href}
-              className="font-body text-[13px] font-normal text-mid transition-colors hover:text-ink"
-            >
-              {label}
-            </Link>
-          ))}
+          {navLinks.map(({ label, href }) => {
+            const isActive = pathname === href || pathname.startsWith(href + "/");
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={`font-body text-[13px] transition-colors hover:text-ink ${
+                  isActive ? "font-medium text-ink" : "font-normal text-mid"
+                }`}
+              >
+                {label}
+              </Link>
+            );
+          })}
         </nav>
 
         <Link
