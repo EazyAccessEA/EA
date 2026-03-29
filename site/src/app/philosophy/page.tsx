@@ -85,12 +85,16 @@ export default function PhilosophyPage() {
           <div className="mx-auto max-w-[720px]">
             {decisions.map((d, i) => (
               <FadeIn key={d.number} delay={i * 60}>
-                <div className={`${i > 0 ? "mt-16" : ""}`}>
-                  <span className="font-display text-2xl italic text-ghost">{d.number}</span>
-                  <h2 className="mt-3 font-body text-lg font-semibold tracking-tight text-ink">
-                    {d.title}
-                  </h2>
-                  <p className="mt-4 font-body text-[15px] font-light leading-[1.85] text-mid">
+                <div className={`group ${i > 0 ? "mt-14 border-t border-rule-light pt-14" : ""}`}>
+                  <div className="flex items-baseline gap-5">
+                    <span className="font-display text-3xl italic text-ghost transition-colors group-hover:text-accent">
+                      {d.number}
+                    </span>
+                    <h2 className="font-body text-lg font-semibold tracking-tight text-ink">
+                      {d.title}
+                    </h2>
+                  </div>
+                  <p className="mt-4 max-w-[600px] font-body text-[15px] font-light leading-[1.85] text-mid">
                     {d.body}
                   </p>
                 </div>

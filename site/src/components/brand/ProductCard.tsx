@@ -21,11 +21,11 @@ export function ProductCard({ product: p }: ProductCardProps) {
         padding: p.featured ? "36px 32px 32px" : "32px 28px 28px",
         border: `1px solid ${p.accent}${p.featured ? "33" : "1A"}`,
         boxShadow: hovered
-          ? `0 20px 56px ${p.accent}18, 0 4px 16px rgba(0,0,0,0.06)`
+          ? `0 12px 40px ${p.accent}14, 0 4px 12px rgba(0,0,0,0.05)`
           : p.featured
             ? `0 4px 24px ${p.accent}14`
             : "0 2px 12px rgba(0,0,0,0.04)",
-        transform: hovered ? "translateY(-5px)" : "none",
+        transform: hovered ? "translateY(-2px)" : "none",
         transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)",
         position: "relative",
       }}
