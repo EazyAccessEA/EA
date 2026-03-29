@@ -1,33 +1,12 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { useFormState, useFormStatus } from "react-dom";
-import { submitContactForm, type ContactFormState } from "./action";
+import { useState, useCallback, type FormEvent } from "react";
 import { Turnstile } from "@/components/ui/Turnstile";
 
-const initialState: ContactFormState = { success: false };
-
-function SubmitButton() {
-  const { pending } = useFormStatus();
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="group inline-flex items-center gap-2 rounded-button border-[1.5px] border-accent bg-accent px-7 py-[11px] font-body text-[13px] font-medium text-[#FDFCFA] transition-all hover:bg-accent-dark hover:border-accent-dark disabled:opacity-50 disabled:cursor-not-allowed"
-    >
-      {pending ? "Sending..." : "Send message"}
-      {!pending && (
-        <span className="inline-block transition-transform group-hover:translate-x-0.5">
-          →
-        </span>
-      )}
-    </button>
-  );
-}
-
 export function ContactForm() {
-  const [state, formAction] = useFormState(submitContactForm, initialState);
   const [turnstileToken, setTurnstileToken] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleVerify = useCallback((token: string) => {
     setTurnstileToken(token);
@@ -37,7 +16,45 @@ export function ContactForm() {
     setTurnstileToken("");
   }, []);
 
-  if (state.success) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("sending");
+    setErrorMessage("");
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    const body = {
+      name: data.get("name"),
+      email: data.get("email"),
+      subject: data.get("subject"),
+      message: data.get("message"),
+      company_url: data.get("company_url"), // honeypot
+      "cf-turnstile-response": turnstileToken,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        setStatus("success");
+      } else {
+        setStatus("error");
+        setErrorMessage(result.error || "Something went wrong.");
+      }
+    } catch {
+      setStatus("error");
+      setErrorMessage("Could not send your message. Please try again.");
+    }
+  }
+
+  if (status === "success") {
     return (
       <div className="rounded-[12px] border border-rule bg-surface p-8 text-center">
         <p className="font-display text-2xl italic text-ink">Message sent.</p>
@@ -50,7 +67,7 @@ export function ContactForm() {
   }
 
   return (
-    <form action={formAction} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6">
       {/* Honeypot — invisible to real users, bots fill it in */}
       <div className="absolute -left-[9999px] -top-[9999px]" aria-hidden="true">
         <label htmlFor="company_url">Company URL</label>
@@ -62,9 +79,6 @@ export function ContactForm() {
           autoComplete="off"
         />
       </div>
-
-      {/* Hidden Turnstile token field */}
-      <input type="hidden" name="cf-turnstile-response" value={turnstileToken} />
 
       {/* Name */}
       <div>
@@ -153,14 +167,25 @@ export function ContactForm() {
       <Turnstile onVerify={handleVerify} onExpire={handleExpire} />
 
       {/* Error message */}
-      {state.error && (
+      {status === "error" && errorMessage && (
         <p className="rounded-[8px] border border-red-200 bg-red-50 px-4 py-3 font-body text-[13px] font-medium text-red-700">
-          {state.error}
+          {errorMessage}
         </p>
       )}
 
       {/* Submit */}
-      <SubmitButton />
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="group inline-flex items-center gap-2 rounded-button border-[1.5px] border-accent bg-accent px-7 py-[11px] font-body text-[13px] font-medium text-[#FDFCFA] transition-all hover:bg-accent-dark hover:border-accent-dark disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {status === "sending" ? "Sending..." : "Send message"}
+        {status !== "sending" && (
+          <span className="inline-block transition-transform group-hover:translate-x-0.5">
+            →
+          </span>
+        )}
+      </button>
 
       <p className="font-body text-[11px] font-light leading-relaxed text-faint">
         We read every message. If your enquiry requires a response, we will
