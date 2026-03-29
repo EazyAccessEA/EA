@@ -43,7 +43,7 @@ export default function ProductsPage() {
               {products.map((p, i) => (
                 <FadeIn key={p.slug} delay={i * 70}>
                   <Link href={`/products/${p.slug}`}>
-                    <ProductCard product={p} index={i} />
+                    <ProductCard product={p} />
                   </Link>
                 </FadeIn>
               ))}
