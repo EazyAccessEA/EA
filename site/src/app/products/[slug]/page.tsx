@@ -40,27 +40,27 @@ export default async function ProductPage({ params }: ProductPageProps) {
     >
       <Nav />
 
-      <main className="flex-1 pt-14">
+      <main className="flex-1 pt-16">
         {/* Hero */}
-        <section className="px-6 pb-16 pt-24 md:px-10" style={{ color: product.text }}>
-          <div className="mx-auto max-w-[720px]">
+        <section className="px-6 pb-20 pt-28 md:px-12" style={{ color: product.text }}>
+          <div className="mx-auto max-w-[740px]">
             <FadeIn>
               <p
-                className="font-body text-[10px] font-medium uppercase tracking-[0.2em]"
+                className="font-body text-[11px] font-medium uppercase tracking-[0.2em]"
                 style={{ color: product.accent }}
               >
                 {product.category}
               </p>
-              <h1 className="mt-3 font-body text-4xl font-bold tracking-tight md:text-5xl">
+              <h1 className="mt-4 font-body text-4xl font-bold tracking-tight md:text-5xl">
                 {product.name}
               </h1>
               <p
-                className="mt-3 font-display text-xl italic md:text-2xl"
-                style={{ color: product.accent }}
+                className="mt-4 font-display text-xl italic md:text-[26px]"
+                style={{ color: product.accent, lineHeight: 1.2 }}
               >
                 {product.tagline}
               </p>
-              <p className="mt-6 max-w-[560px] font-body text-base font-light leading-relaxed opacity-80 md:text-[17px]">
+              <p className="mt-8 max-w-[560px] font-body text-[16px] leading-[1.75] opacity-75 md:text-[17px]">
                 {product.oneliner}
               </p>
             </FadeIn>
@@ -69,22 +69,22 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
         {/* Why it exists */}
         <section
-          className="border-t px-6 py-14 md:px-10"
-          style={{ borderColor: `${product.accent}22`, color: product.text }}
+          className="border-t px-6 py-16 md:px-12"
+          style={{ borderColor: `${product.accent}18`, color: product.text }}
         >
-          <div className="mx-auto max-w-[720px]">
+          <div className="mx-auto max-w-[740px]">
             <FadeIn>
               <div
-                className="rounded-[12px] border-l-[3px] py-5 pl-6 pr-5"
+                className="rounded-[14px] border-l-[3px] py-6 pl-8 pr-6"
                 style={{
-                  background: `${product.accent}0D`,
+                  background: `${product.accent}0A`,
                   borderColor: product.accent,
                 }}
               >
-                <p className="font-body text-[10px] font-medium uppercase tracking-[0.2em]" style={{ color: product.accent }}>
+                <p className="font-body text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: product.accent }}>
                   Why it exists
                 </p>
-                <p className="mt-2.5 font-body text-[15px] font-light leading-[1.8] opacity-90">
+                <p className="mt-3 font-body text-[16px] leading-[1.8] opacity-85">
                   {product.why}
                 </p>
               </div>
@@ -94,25 +94,25 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
         {/* Features */}
         {product.features && product.features.length > 0 && (
-          <section className="px-6 py-14 md:px-10" style={{ color: product.text }}>
-            <div className="mx-auto max-w-[720px]">
+          <section className="px-6 py-16 md:px-12" style={{ color: product.text }}>
+            <div className="mx-auto max-w-[740px]">
               <FadeIn>
                 <p
-                  className="font-body text-[10px] font-medium uppercase tracking-[0.2em]"
+                  className="font-body text-[11px] font-medium uppercase tracking-[0.18em]"
                   style={{ color: product.accent }}
                 >
                   What it does
                 </p>
               </FadeIn>
-              <div className="mt-8 space-y-6">
+              <div className="mt-9 space-y-7">
                 {product.features.map((paragraph, i) => (
-                  <FadeIn key={i} delay={i * 80}>
-                    <div className="flex gap-4">
+                  <FadeIn key={i} delay={i * 70}>
+                    <div className="flex gap-5">
                       <div
-                        className="mt-2 h-[6px] w-[6px] flex-shrink-0 rounded-full"
+                        className="mt-2.5 h-[6px] w-[6px] flex-shrink-0 rounded-full"
                         style={{ background: product.accent }}
                       />
-                      <p className="font-body text-[15px] font-light leading-[1.8] opacity-85">
+                      <p className="font-body text-[16px] leading-[1.8] opacity-80">
                         {paragraph}
                       </p>
                     </div>
@@ -124,23 +124,23 @@ export default async function ProductPage({ params }: ProductPageProps) {
         )}
 
         {/* Colour palette */}
-        <section className="px-6 py-14 md:px-10" style={{ color: product.text }}>
-          <div className="mx-auto max-w-[720px]">
+        <section className="px-6 py-16 md:px-12" style={{ color: product.text }}>
+          <div className="mx-auto max-w-[740px]">
             <FadeIn>
               <p
-                className="font-body text-[10px] font-medium uppercase tracking-[0.2em]"
+                className="font-body text-[11px] font-medium uppercase tracking-[0.18em]"
                 style={{ color: product.accent }}
               >
                 Brand palette
               </p>
-              <div className="mt-5 flex gap-2">
+              <div className="mt-6 flex gap-3">
                 {product.palette.map((c) => (
-                  <div key={c.hex} className="group flex flex-col items-center gap-2">
+                  <div key={c.hex} className="group flex flex-col items-center gap-2.5">
                     <div
-                      className="h-12 w-12 rounded-lg border transition-transform group-hover:scale-110 sm:h-14 sm:w-14"
+                      className="h-14 w-14 rounded-[10px] border transition-transform duration-300 group-hover:scale-105 sm:h-16 sm:w-16"
                       style={{
                         background: c.hex,
-                        borderColor: `${product.accent}22`,
+                        borderColor: `${product.accent}18`,
                       }}
                     />
                     <span className="font-mono text-[9px]" style={{ color: product.muted }}>
@@ -154,21 +154,21 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </section>
 
         {/* CTA */}
-        <section className="px-6 py-14 md:px-10" style={{ color: product.text }}>
-          <div className="mx-auto max-w-[720px]">
+        <section className="px-6 py-16 md:px-12" style={{ color: product.text }}>
+          <div className="mx-auto max-w-[740px]">
             <FadeIn>
               <div
-                className="flex flex-col items-start gap-5 rounded-[12px] p-7 sm:flex-row sm:items-center sm:justify-between"
+                className="flex flex-col items-start gap-6 rounded-[14px] p-8 sm:flex-row sm:items-center sm:justify-between"
                 style={{
-                  background: `${product.accent}0A`,
-                  border: `1px solid ${product.accent}18`,
+                  background: `${product.accent}08`,
+                  border: `1px solid ${product.accent}14`,
                 }}
               >
                 <div>
-                  <p className="font-body text-[15px] font-semibold" style={{ color: product.text }}>
+                  <p className="font-body text-[16px] font-semibold" style={{ color: product.text }}>
                     {product.name}
                   </p>
-                  <p className="mt-0.5 font-mono text-[11px]" style={{ color: product.muted }}>
+                  <p className="mt-1 font-mono text-[11px]" style={{ color: product.muted }}>
                     {product.domain}
                   </p>
                 </div>
@@ -176,7 +176,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   href={`https://${product.domain}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-button border px-6 py-2.5 font-body text-[13px] font-medium transition-all duration-200 hover:opacity-80"
+                  className="inline-flex items-center gap-2.5 rounded-button border px-7 py-3 font-body text-[13px] font-medium tracking-wide transition-all duration-300 hover:opacity-80"
                   style={{
                     borderColor: product.accent,
                     color: product.accent,
@@ -193,15 +193,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
         {/* Other products */}
         <section
-          className="border-t px-6 py-14 md:px-10"
-          style={{ borderColor: `${product.accent}22` }}
+          className="border-t px-6 py-16 md:px-12"
+          style={{ borderColor: `${product.accent}18` }}
         >
-          <div className="mx-auto max-w-[720px]">
+          <div className="mx-auto max-w-[740px]">
             <FadeIn>
-              <p className="font-body text-[10px] font-medium uppercase tracking-[0.2em]" style={{ color: product.muted }}>
+              <p className="font-body text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: product.muted }}>
                 Also from EazyAccess
               </p>
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <div className="mt-7 grid gap-4 sm:grid-cols-2">
                 {products
                   .filter((p) => p.slug !== product.slug)
                   .slice(0, 2)
@@ -209,10 +209,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     <Link
                       key={p.slug}
                       href={`/products/${p.slug}`}
-                      className="group flex items-center gap-4 rounded-[10px] border p-4 transition-all hover:shadow-sm"
+                      className="group flex items-center gap-4 rounded-[12px] border p-5 transition-all duration-300 hover:shadow-sm"
                       style={{
-                        borderColor: `${p.accent}22`,
-                        background: `${p.accent}08`,
+                        borderColor: `${p.accent}18`,
+                        background: `${p.accent}06`,
                       }}
                     >
                       <div
@@ -220,15 +220,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
                         style={{ background: p.accent }}
                       />
                       <div className="min-w-0">
-                        <p className="font-body text-[13px] font-semibold" style={{ color: p.text }}>
+                        <p className="font-body text-[14px] font-semibold" style={{ color: p.text }}>
                           {p.name}
                         </p>
-                        <p className="truncate font-body text-[11px] font-light" style={{ color: p.muted }}>
+                        <p className="truncate font-body text-[12px]" style={{ color: p.muted }}>
                           {p.tagline}
                         </p>
                       </div>
                       <span
-                        className="ml-auto flex-shrink-0 font-body text-[11px] opacity-0 transition-opacity group-hover:opacity-100"
+                        className="ml-auto flex-shrink-0 font-body text-[11px] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                         style={{ color: p.accent }}
                       >
                         →
@@ -238,13 +238,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </div>
             </FadeIn>
 
-            <div className="mt-8 flex items-center justify-between">
-              <p className="font-body text-sm opacity-60" style={{ color: product.text }}>
+            <div className="mt-10 flex items-center justify-between">
+              <p className="font-body text-[14px] opacity-55" style={{ color: product.text }}>
                 Part of the EazyAccess family.
               </p>
               <Link
                 href="/products"
-                className="font-body text-[13px] font-medium transition-opacity hover:opacity-80"
+                className="font-body text-[13px] font-medium transition-opacity duration-300 hover:opacity-75"
                 style={{ color: product.accent }}
               >
                 ← All products

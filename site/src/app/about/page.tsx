@@ -14,23 +14,23 @@ export default function AboutPage() {
     <div className="flex min-h-screen flex-col" style={{ background: "var(--color-bg)" }}>
       <Nav />
 
-      <main className="flex-1 pt-14">
+      <main className="flex-1 pt-16">
         {/* Hero */}
-        <section className="px-6 pb-16 pt-24 md:px-10">
-          <div className="mx-auto max-w-[720px]">
+        <section className="px-6 pb-20 pt-28 md:px-12">
+          <div className="mx-auto max-w-[740px]">
             <FadeIn>
-              <p className="font-body text-[10px] font-medium uppercase tracking-[0.2em] text-faint">
+              <p className="font-body text-[11px] font-medium uppercase tracking-[0.2em] text-faint">
                 About EazyAccess
               </p>
               <h1
-                className="mt-6 font-display italic text-ink"
-                style={{ fontSize: "clamp(40px, 6vw, 72px)", lineHeight: 0.95 }}
+                className="mt-7 font-display italic text-ink"
+                style={{ fontSize: "clamp(42px, 6vw, 72px)", lineHeight: 0.95 }}
               >
                 The permanent home
               </h1>
               <h1
                 className="font-display italic text-accent"
-                style={{ fontSize: "clamp(40px, 6vw, 72px)", lineHeight: 0.95 }}
+                style={{ fontSize: "clamp(42px, 6vw, 72px)", lineHeight: 0.95 }}
               >
                 for British software.
               </h1>
@@ -38,15 +38,11 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <div className="mx-auto max-w-[720px] px-6 md:px-10">
-          <div className="h-px bg-rule-light" />
-        </div>
-
         {/* The story */}
-        <section className="px-6 py-16 md:px-10">
-          <div className="mx-auto max-w-[720px] space-y-8">
+        <section className="px-6 py-20 md:px-12" style={{ background: "var(--color-surface)" }}>
+          <div className="mx-auto max-w-[740px] space-y-8">
             <FadeIn>
-              <p className="font-body text-[15px] font-light leading-[1.85] text-mid">
+              <p className="font-body text-[16px] leading-[1.85] text-mid">
                 EazyAccess is a permanent capital vehicle for British software. We build and acquire
                 tools for the serious, practical parts of British life — documents, education,
                 agriculture, family finance — and hold them permanently. No venture capital. No exit
@@ -55,7 +51,7 @@ export default function AboutPage() {
             </FadeIn>
 
             <FadeIn delay={60}>
-              <p className="font-body text-[15px] font-light leading-[1.85] text-mid">
+              <p className="font-body text-[16px] leading-[1.85] text-mid">
                 The model is Constellation Software meets 37signals, made British. Patient capital.
                 Permanent ownership. A design standard and philosophical identity that creates trust
                 over years, not quarters. Five products today. Thirty within fifteen years.
@@ -63,7 +59,7 @@ export default function AboutPage() {
             </FadeIn>
 
             <FadeIn delay={120}>
-              <p className="font-body text-[15px] font-light leading-[1.85] text-ink">
+              <p className="font-body text-[16px] leading-[1.85] text-ink">
                 If you want the one-paragraph version: EazyAccess builds tools that give control back
                 to the people using them. No extraction, no complexity, no compromise. Just clean,
                 considered software that works.
@@ -72,26 +68,22 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <div className="mx-auto max-w-[720px] px-6 md:px-10">
-          <div className="h-px bg-rule-light" />
-        </div>
-
         {/* The model */}
-        <section className="px-6 py-16 md:px-10">
-          <div className="mx-auto max-w-[720px]">
+        <section className="px-6 py-24 md:px-12">
+          <div className="mx-auto max-w-[740px]">
             <FadeIn>
-              <p className="font-body text-[10px] font-medium uppercase tracking-[0.2em] text-faint">
+              <p className="font-body text-[11px] font-medium uppercase tracking-[0.2em] text-faint">
                 How we operate
               </p>
               <h2
-                className="mt-4 font-display italic text-ink"
-                style={{ fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.05 }}
+                className="mt-5 font-display italic text-ink"
+                style={{ fontSize: "clamp(30px, 4vw, 48px)", lineHeight: 1.05 }}
               >
                 The model.
               </h2>
             </FadeIn>
 
-            <div className="mt-10 grid gap-8 sm:grid-cols-2">
+            <div className="mt-12 grid gap-10 sm:grid-cols-2">
               {[
                 {
                   title: "Build from scratch",
@@ -115,7 +107,7 @@ export default function AboutPage() {
                     <h3 className="font-body text-[15px] font-semibold tracking-tight text-ink">
                       {item.title}
                     </h3>
-                    <p className="mt-2.5 font-body text-[13px] font-light leading-relaxed text-mid">
+                    <p className="mt-3 font-body text-[14px] leading-[1.75] text-mid">
                       {item.body}
                     </p>
                   </div>
@@ -125,15 +117,66 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <div className="mx-auto max-w-[720px] px-6 md:px-10">
-          <div className="h-px bg-rule-light" />
-        </div>
+        {/* Platform infrastructure */}
+        <section className="px-6 py-24 md:px-12" style={{ background: "var(--color-surface)" }}>
+          <div className="mx-auto max-w-[740px]">
+            <FadeIn>
+              <p className="font-body text-[11px] font-medium uppercase tracking-[0.2em] text-faint">
+                Shared infrastructure
+              </p>
+              <h2
+                className="mt-5 font-display italic text-ink"
+                style={{ fontSize: "clamp(30px, 4vw, 48px)", lineHeight: 1.05 }}
+              >
+                Four products are a portfolio.
+              </h2>
+              <h2
+                className="font-display italic text-accent"
+                style={{ fontSize: "clamp(30px, 4vw, 48px)", lineHeight: 1.05 }}
+              >
+                Four on shared infrastructure are a platform.
+              </h2>
+            </FadeIn>
+
+            <div className="mt-12 grid gap-5 sm:grid-cols-2">
+              {[
+                {
+                  name: "EazyAccess ID",
+                  desc: "One account. One login. Every product. The switching cost of leaving five is significant.",
+                },
+                {
+                  name: "EazyAccess Vault",
+                  desc: "Encrypted document storage built for HushRealm, shared across the portfolio. Your will, school reports, compliance certificates — one secure layer.",
+                },
+                {
+                  name: "EazyAccess Pay",
+                  desc: "One payment relationship. One family subscription. Users stop evaluating individual products on price and start evaluating the platform on value.",
+                },
+                {
+                  name: "EazyAccess Acquire",
+                  desc: "The capability to identify, purchase, redesign, and integrate existing British software businesses. Not a product — a process.",
+                },
+              ].map((item, i) => (
+                <FadeIn key={item.name} delay={i * 60}>
+                  <div className="platform-card rounded-[14px] border border-rule bg-bg p-7">
+                    <h3 className="font-body text-[15px] font-semibold tracking-tight text-ink">
+                      {item.name}
+                    </h3>
+                    <p className="mt-3 font-body text-[14px] leading-[1.75] text-mid">
+                      {item.desc}
+                    </p>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Key facts */}
-        <section className="px-6 py-16 md:px-10">
-          <div className="mx-auto max-w-[720px]">
+        <section className="px-6 py-24 md:px-12">
+          <div className="mx-auto max-w-[740px]">
             <FadeIn>
-              <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+              <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
                 {[
                   { label: "Founded", value: "2025" },
                   { label: "Headquarters", value: "United Kingdom" },
@@ -144,7 +187,7 @@ export default function AboutPage() {
                     <p className="font-body text-[10px] font-medium uppercase tracking-[0.2em] text-ghost">
                       {label}
                     </p>
-                    <p className="mt-1.5 font-display text-xl italic text-accent">{value}</p>
+                    <p className="mt-2 font-display text-[22px] italic text-accent">{value}</p>
                   </div>
                 ))}
               </div>
@@ -152,40 +195,36 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <div className="mx-auto max-w-[720px] px-6 md:px-10">
-          <div className="h-px bg-rule-light" />
-        </div>
-
         {/* The gap */}
-        <section className="px-6 py-16 md:px-10">
-          <div className="mx-auto max-w-[720px]">
+        <section className="px-6 py-24 md:px-12" style={{ background: "var(--color-surface)" }}>
+          <div className="mx-auto max-w-[740px]">
             <FadeIn>
-              <p className="font-body text-[10px] font-medium uppercase tracking-[0.2em] text-faint">
+              <p className="font-body text-[11px] font-medium uppercase tracking-[0.2em] text-faint">
                 Why this exists
               </p>
               <h2
-                className="mt-4 font-display italic text-ink"
-                style={{ fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.05 }}
+                className="mt-5 font-display italic text-ink"
+                style={{ fontSize: "clamp(30px, 4vw, 48px)", lineHeight: 1.05 }}
               >
                 The gap we fill.
               </h2>
             </FadeIn>
 
             <FadeIn delay={80}>
-              <div className="mt-8 space-y-6">
-                <p className="font-body text-[15px] font-light leading-[1.85] text-mid">
+              <div className="mt-10 space-y-7">
+                <p className="font-body text-[16px] leading-[1.85] text-mid">
                   No British-owned, design-led software organisation serves the unglamorous
                   necessities of British life. School management systems are built by companies
                   preparing for acquisition. Document vaults are American. Farm directories do
                   not exist. Family finance tools are built by banks optimising for their own
                   balance sheets.
                 </p>
-                <p className="font-body text-[15px] font-light leading-[1.85] text-mid">
+                <p className="font-body text-[16px] leading-[1.85] text-mid">
                   Every tool is American, VC-backed, and being quietly prepared for sale. The
                   people using these tools can feel it — in the dark patterns, in the neglected
                   interfaces, in the features added for investors rather than users.
                 </p>
-                <p className="font-body text-[15px] font-light leading-[1.85] text-ink">
+                <p className="font-body text-[16px] leading-[1.85] text-ink">
                   That gap is ours.
                 </p>
               </div>
@@ -195,29 +234,29 @@ export default function AboutPage() {
 
         {/* CTA — dark section */}
         <section style={{ background: "var(--color-void)" }}>
-          <div className="mx-auto max-w-[720px] px-6 py-24 md:px-10">
+          <div className="mx-auto max-w-[740px] px-6 py-28 md:px-12">
             <FadeIn>
-              <p className="font-body text-[15px] font-light leading-[1.85] text-[#8A8680]">
+              <p className="font-body text-[16px] leading-[1.85] text-[#7A776F]">
                 We are building something that will take fifteen years to fully realise. Every
                 decision we make today is tested against the organisation we are trying to build,
                 not the one we have now.
               </p>
-              <div className="mt-10 flex flex-wrap gap-6">
+              <div className="mt-12 flex flex-wrap gap-8">
                 <Link
                   href="/philosophy"
-                  className="font-body text-[13px] font-medium text-accent transition-colors hover:text-[#FDFCFA]"
+                  className="font-body text-[13px] font-medium text-accent transition-colors duration-300 hover:text-[#FDFCFA]"
                 >
                   Read our philosophy →
                 </Link>
                 <Link
                   href="/founders"
-                  className="font-body text-[13px] font-medium text-accent transition-colors hover:text-[#FDFCFA]"
+                  className="font-body text-[13px] font-medium text-accent transition-colors duration-300 hover:text-[#FDFCFA]"
                 >
                   Letter to founders →
                 </Link>
                 <Link
                   href="/products"
-                  className="font-body text-[13px] font-medium text-accent transition-colors hover:text-[#FDFCFA]"
+                  className="font-body text-[13px] font-medium text-accent transition-colors duration-300 hover:text-[#FDFCFA]"
                 >
                   View our products →
                 </Link>

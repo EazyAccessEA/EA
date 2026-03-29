@@ -16,8 +16,8 @@ export function FadeIn({
   className = "",
   threshold = 0.1,
   delay = 0,
-  duration = 700,
-  translateY = 20,
+  duration = 600,
+  translateY = 14,
 }: FadeInProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -55,7 +55,7 @@ export function FadeIn({
       style={prefersReducedMotion ? {} : {
         opacity: visible ? 1 : 0,
         transform: visible ? "none" : `translateY(${translateY}px)`,
-        transition: `opacity ${duration}ms ease ${delay}ms, transform ${duration}ms ease ${delay}ms`,
+        transition: `opacity ${duration}ms cubic-bezier(0.25, 0.1, 0.25, 1) ${delay}ms, transform ${duration}ms cubic-bezier(0.25, 0.1, 0.25, 1) ${delay}ms`,
       }}
     >
       {children}
