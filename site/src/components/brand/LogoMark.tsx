@@ -10,7 +10,6 @@ interface LogoMarkProps {
 const EMBER = "#C8622A";
 const BONE = "#F0EBE1";
 const INK = "#141210";
-const BG = "#FDFCFA";
 
 export function LogoMark({
   size = 28,

@@ -5,7 +5,7 @@ export function PortfolioGrid() {
   return (
     <div className="grid gap-3.5 sm:grid-cols-2">
       {products.map((p, i) => (
-        <ProductCard key={p.slug} product={p} index={i} />
+        <ProductCard key={p.slug} product={p} />
       ))}
     </div>
   );

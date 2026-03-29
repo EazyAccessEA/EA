@@ -96,7 +96,7 @@ export default function HomePage() {
             <div className="mt-12 grid gap-3.5 sm:grid-cols-2">
               {products.map((p, i) => (
                 <FadeIn key={p.slug} delay={i * 70}>
-                  <ProductCard product={p} index={i} />
+                  <ProductCard product={p} />
                 </FadeIn>
               ))}
             </div>

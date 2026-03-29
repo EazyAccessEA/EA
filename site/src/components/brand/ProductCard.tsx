@@ -5,10 +5,9 @@ import type { Product } from "@/lib/products";
 
 interface ProductCardProps {
   product: Product;
-  index: number;
 }
 
-export function ProductCard({ product: p, index }: ProductCardProps) {
+export function ProductCard({ product: p }: ProductCardProps) {
   const [hovered, setHovered] = useState(false);
 
   return (
