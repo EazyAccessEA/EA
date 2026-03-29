@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Cormorant, Outfit } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -9,16 +8,27 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-const cormorant = Cormorant({
-  subsets: ["latin"],
+const cormorant = localFont({
+  src: [
+    {
+      path: "./fonts/cormorant-latin-wght-normal.woff2",
+      style: "normal",
+    },
+    {
+      path: "./fonts/cormorant-latin-wght-italic.woff2",
+      style: "italic",
+    },
+  ],
   variable: "--font-cormorant",
   display: "swap",
+  weight: "300 700",
 });
 
-const outfit = Outfit({
-  subsets: ["latin"],
+const outfit = localFont({
+  src: "./fonts/outfit-latin-wght-normal.woff2",
   variable: "--font-outfit",
   display: "swap",
+  weight: "100 900",
 });
 
 export const metadata: Metadata = {
