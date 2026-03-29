@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@fontsource-variable/cormorant": "^5.2.8",
-    "@fontsource-variable/outfit": "^5.2.8",
     "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18"

@@ -10,25 +10,35 @@ const geistMono = localFont({
 
 const cormorant = localFont({
   src: [
-    {
-      path: "./fonts/cormorant-latin-wght-normal.woff2",
-      style: "normal",
-    },
-    {
-      path: "./fonts/cormorant-latin-wght-italic.woff2",
-      style: "italic",
-    },
+    { path: "./fonts/Cormorant-Light.ttf", weight: "300", style: "normal" },
+    { path: "./fonts/Cormorant-LightItalic.ttf", weight: "300", style: "italic" },
+    { path: "./fonts/Cormorant-Regular.ttf", weight: "400", style: "normal" },
+    { path: "./fonts/Cormorant-Italic.ttf", weight: "400", style: "italic" },
+    { path: "./fonts/Cormorant-Medium.ttf", weight: "500", style: "normal" },
+    { path: "./fonts/Cormorant-MediumItalic.ttf", weight: "500", style: "italic" },
+    { path: "./fonts/Cormorant-SemiBold.ttf", weight: "600", style: "normal" },
+    { path: "./fonts/Cormorant-SemiBoldItalic.ttf", weight: "600", style: "italic" },
+    { path: "./fonts/Cormorant-Bold.ttf", weight: "700", style: "normal" },
+    { path: "./fonts/Cormorant-BoldItalic.ttf", weight: "700", style: "italic" },
   ],
   variable: "--font-cormorant",
   display: "swap",
-  weight: "300 700",
 });
 
 const outfit = localFont({
-  src: "./fonts/outfit-latin-wght-normal.woff2",
+  src: [
+    { path: "./fonts/Outfit-Thin.ttf", weight: "100" },
+    { path: "./fonts/Outfit-ExtraLight.ttf", weight: "200" },
+    { path: "./fonts/Outfit-Light.ttf", weight: "300" },
+    { path: "./fonts/Outfit-Regular.ttf", weight: "400" },
+    { path: "./fonts/Outfit-Medium.ttf", weight: "500" },
+    { path: "./fonts/Outfit-SemiBold.ttf", weight: "600" },
+    { path: "./fonts/Outfit-Bold.ttf", weight: "700" },
+    { path: "./fonts/Outfit-ExtraBold.ttf", weight: "800" },
+    { path: "./fonts/Outfit-Black.ttf", weight: "900" },
+  ],
   variable: "--font-outfit",
   display: "swap",
-  weight: "100 900",
 });
 
 export const metadata: Metadata = {
