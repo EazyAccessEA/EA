@@ -76,10 +76,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${outfit.variable} ${geistMono.variable}`}>
       <body className="antialiased">
-        {/* Top accent bar */}
+        {/* Top accent rule — thin, confident */}
         <div
           className="fixed left-0 right-0 top-0 z-[600] h-[2px]"
-          style={{ background: "linear-gradient(90deg, var(--color-accent), var(--color-accent-dark), var(--color-accent))" }}
+          style={{ background: "var(--color-accent)" }}
         />
         {children}
       </body>

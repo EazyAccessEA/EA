@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* EazyAccess design tokens — light theme (council decision) */
+/* ── EazyAccess Design Tokens ── Light Theme ── */
 :root {
   /* Backgrounds */
   --color-bg: #FDFCFA;
@@ -16,26 +16,26 @@
   /* Text */
   --color-ink: #141210;
   --color-ink-mid: #3D3A36;
-  --color-mid: #6E6A64;
-  --color-faint: #A8A49E;
-  --color-ghost: #D4CFC8;
+  --color-mid: #5C5852;
+  --color-faint: #918D87;
+  --color-ghost: #C8C3BC;
 
   /* Accent — Ember */
   --color-accent: #C8622A;
   --color-accent-dark: #A84F20;
   --color-accent-bg: #F6EDE4;
 
-  /* Legacy mappings for dark sections */
-  --color-void: #0a0a0c;
-  --color-bone: #f0ebe1;
+  /* Legacy for dark sections */
+  --color-void: #0A0A0C;
+  --color-bone: #F0EBE1;
 
   /* Fonts */
   --font-display: var(--font-cormorant), "Cormorant", Georgia, serif;
   --font-body: var(--font-outfit), "Outfit", -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  /* Radii */
-  --radius-card: 12px;
+  /* Radii — consistent */
+  --radius-card: 14px;
   --radius-button: 6px;
 }
 
@@ -47,30 +47,32 @@ body {
   background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-body);
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Selection */
 ::selection {
-  background: rgba(200, 98, 42, 0.15);
+  background: rgba(200, 98, 42, 0.14);
   color: var(--color-ink);
 }
 
 /* Focus-visible for keyboard accessibility */
 :focus-visible {
   outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+  outline-offset: 3px;
   border-radius: 4px;
 }
 
-/* Subtle noise texture overlay */
+/* Subtle paper texture overlay — lowered z-index, reduced opacity */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 100;
   pointer-events: none;
-  opacity: 0.025;
+  opacity: 0.018;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
@@ -103,52 +105,49 @@ body::before {
   --color-brand-text: #0A1A24;
 }
 
-/* Scroll indicator pulse */
-@keyframes scroll-pulse {
-  0%, 100% { opacity: 0.4; transform: scaleY(1); }
-  50% { opacity: 1; transform: scaleY(1.3); }
-}
+/* ── Interaction States ── */
 
-.hero-scroll-line {
-  animation: scroll-pulse 2.4s ease-in-out infinite;
-  transform-origin: bottom;
-}
-
-/* Domain row hover */
+/* Domain row hover — subtle background shift */
 .domain-row {
-  transition: background 0.3s ease, border-color 0.3s ease;
-  border-radius: 8px;
-  margin-left: -12px;
-  margin-right: -12px;
-  padding-left: 12px;
-  padding-right: 12px;
+  transition: background 0.35s ease;
+  border-radius: 10px;
+  margin-left: -16px;
+  margin-right: -16px;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 .domain-row:hover {
   background: var(--color-surface);
 }
 
-/* Philosophy card subtle lift */
+/* Philosophy card — refined lift */
 .philosophy-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.2s ease, background-color 0.2s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s ease,
+              border-color 0.3s ease,
+              background-color 0.3s ease;
 }
 
 .philosophy-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
 }
 
-/* Platform card hover */
+/* Platform card — gentle lift */
 .platform-card {
-  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s ease, border-color 0.2s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s ease,
+              border-color 0.3s ease;
 }
 
 .platform-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.06);
-  border-color: var(--color-rule) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.05);
+  border-color: var(--color-rule);
 }
 
+/* ── Smooth anchor scrolling ── */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
