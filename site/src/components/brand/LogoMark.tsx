@@ -9,20 +9,26 @@ interface LogoMarkProps {
 
 const EMBER = "#C8622A";
 const BONE = "#F0EBE1";
-const VOID = "#0A0A0C";
+const INK = "#141210";
+const BG = "#FDFCFA";
 
 export function LogoMark({
   size = 28,
-  variant = "light",
+  variant = "dark",
   showWordmark = true,
   className = "",
 }: LogoMarkProps) {
-  const strokeMain = variant === "ember" ? "rgba(240,235,225,0.5)" : variant === "light" ? BONE : VOID;
-  const strokeAccent = EMBER;
-  const wordmarkColor = variant === "dark" ? "text-void" : "text-bone";
+  const strokeMain =
+    variant === "ember"
+      ? "rgba(240,235,225,0.5)"
+      : variant === "light"
+        ? BONE
+        : INK;
+  const wordmarkColor =
+    variant === "light" ? "text-bone" : variant === "dark" ? "text-ink" : "text-bone";
 
   return (
-    <div className={`flex items-center gap-3 ${className}`}>
+    <div className={`flex items-center gap-2.5 ${className}`}>
       <svg
         width={size}
         height={size}
@@ -33,7 +39,7 @@ export function LogoMark({
       >
         <path
           d="M6 4H4V24H24V22"
-          stroke={strokeAccent}
+          stroke={EMBER}
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="miter"
@@ -47,8 +53,11 @@ export function LogoMark({
         />
       </svg>
       {showWordmark && (
-        <span className={`font-body text-sm font-extrabold tracking-tight ${wordmarkColor}`}>
-          EAZY<span className="text-ember">ACCESS</span>
+        <span
+          className={`font-body font-semibold tracking-tight ${wordmarkColor}`}
+          style={{ fontSize: size * 0.72, letterSpacing: "-0.025em" }}
+        >
+          EAZY<span className="text-accent">ACCESS</span>
         </span>
       )}
     </div>

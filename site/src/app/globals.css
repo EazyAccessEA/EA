@@ -2,47 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
-/* EazyAccess design tokens — plan spec */
+/* EazyAccess design tokens — light theme (council decision) */
 :root {
+  /* Backgrounds */
+  --color-bg: #FDFCFA;
+  --color-surface: #F4F1EC;
+  --color-surface-deep: #EDE8E0;
+
+  /* Borders */
+  --color-rule: #DDD8D0;
+  --color-rule-light: #EDE9E3;
+
+  /* Text */
+  --color-ink: #141210;
+  --color-ink-mid: #3D3A36;
+  --color-mid: #6E6A64;
+  --color-faint: #A8A49E;
+  --color-ghost: #D4CFC8;
+
+  /* Accent — Ember */
+  --color-accent: #C8622A;
+  --color-accent-dark: #A84F20;
+  --color-accent-bg: #F6EDE4;
+
+  /* Legacy mappings for dark sections */
   --color-void: #0a0a0c;
   --color-bone: #f0ebe1;
-  --color-ember: #c8622a;
-  --color-stone: #8a8680;
-  --color-surface: #141412;
-  --font-display: var(--font-dm-serif), "DM Serif Display", Georgia, serif;
-  --font-body: var(--font-dm-sans), "DM Sans", -apple-system, sans-serif;
+
+  /* Fonts */
+  --font-display: var(--font-cormorant), "Cormorant", Georgia, serif;
+  --font-body: var(--font-outfit), "Outfit", -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Radii */
   --radius-card: 12px;
   --radius-button: 6px;
 }
 
 body {
-  background: var(--color-void);
-  color: var(--color-bone);
+  background: var(--color-bg);
+  color: var(--color-ink);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
 }
 
 /* Brand-scoped tokens (product pages set data-brand="slug") */
 [data-brand="hushrealm"] {
-  --color-accent: #6c5ce7;
+  --color-accent: #5B4FD4;
   --color-brand-bg: #05050d;
   --color-brand-text: #e8e4f0;
 }
 [data-brand="pageperfect"] {
-  --color-accent: #1c3d5a;
+  --color-accent: #1B3D5C;
   --color-brand-bg: #f5f0e8;
   --color-brand-text: #1a1510;
 }
 [data-brand="farmcompanion"] {
-  --color-accent: #4a7c2f;
+  --color-accent: #3A6824;
   --color-brand-bg: #f2ede3;
   --color-brand-text: #1a1f12;
 }
 [data-brand="allowanceguard"] {
-  --color-accent: #b8860b;
+  --color-accent: #9C7200;
   --color-brand-bg: #f7f2e8;
   --color-brand-text: #1c1e14;
+}
+[data-brand="oneschool"] {
+  --color-accent: #1A5276;
+  --color-brand-bg: #F0F7FC;
+  --color-brand-text: #0A1A24;
 }
 
 @layer utilities {

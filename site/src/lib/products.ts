@@ -16,14 +16,48 @@ export interface Product {
   surface: string;
   text: string;
   accent: string;
+  accentBg: string;
   muted: string;
   fonts: { display: string; body: string };
   palette: ProductPaletteItem[];
-  /** Optional: 3 editorial feature paragraphs for product page */
   features?: string[];
+  type: string;
+  featured?: boolean;
 }
 
 export const products: Product[] = [
+  {
+    slug: "oneschool",
+    name: "OneSchool",
+    domain: "oneschool.co.uk",
+    tagline: "One platform. Every school.",
+    oneliner:
+      "A unified operating system for UK primary schools. Replaces fragmented MIS, safeguarding, SEND, curriculum, and communication tools with a single, designed-with-care platform.",
+    category: "School Management Platform",
+    status: "Define & Build",
+    why: "16,000 UK primary schools run on fragmented systems built elsewhere. OneSchool is the permanent, designed-with-care alternative to VC-backed incumbents that will be sold within five years.",
+    bg: "#F0F7FC",
+    surface: "#D6EAF8",
+    text: "#0A1A24",
+    accent: "#1A5276",
+    accentBg: "#D6EAF8",
+    muted: "#3D7A9C",
+    fonts: { display: "DM Serif Display", body: "DM Sans" },
+    palette: [
+      { name: "Ice", hex: "#F0F7FC" },
+      { name: "Sky", hex: "#D6EAF8" },
+      { name: "Deep", hex: "#0A1A24" },
+      { name: "Teal", hex: "#1A5276" },
+      { name: "Mist", hex: "#3D7A9C" },
+    ],
+    features: [
+      "One login for MIS, safeguarding, SEND tracking, curriculum planning, and parent communication. No more switching between four systems that don't talk to each other.",
+      "Built for UK primary schools specifically — DfE requirements, Ofsted readiness, and safeguarding workflows designed in from day one, not bolted on.",
+      "Safeguarding files live in EazyAccess Vault. School reports formatted by PagePerfect. Teachers and parents log in through EazyAccess ID. Every product makes every other product stronger.",
+    ],
+    type: "Institutional B2B",
+    featured: true,
+  },
   {
     slug: "hushrealm",
     name: "HushRealm",
@@ -31,20 +65,21 @@ export const products: Product[] = [
     tagline: "Everything important. Safe. Silent. Yours.",
     oneliner:
       "UK's private document vault. Store your will, passport, insurance, medical records — encrypted, accessible only to you and who you choose.",
-    category: "Privacy & Document Safety",
+    category: "Private Document Vault",
     status: "Define & Build",
-    why: "PagePerfect creates docs. HushRealm keeps them safe. When life gets complicated — illness, death, emergency — everything is in one place. That's the product.",
-    bg: "#05050D",
-    surface: "#0D0D1A",
-    text: "#E8E4F0",
-    accent: "#6C5CE7",
-    muted: "#3D3B5C",
+    why: "When someone dies and the family cannot find the will, that is a failure of infrastructure. HushRealm is that infrastructure — built once, trusted forever.",
+    bg: "#F7F5FD",
+    surface: "#ECEBFC",
+    text: "#1A1830",
+    accent: "#5B4FD4",
+    accentBg: "#ECEBFC",
+    muted: "#7874A8",
     fonts: { display: "DM Serif Display", body: "DM Sans" },
     palette: [
       { name: "Abyss", hex: "#05050D" },
       { name: "Midnight", hex: "#0D0D1A" },
       { name: "Ghost", hex: "#E8E4F0" },
-      { name: "Iris", hex: "#6C5CE7" },
+      { name: "Iris", hex: "#5B4FD4" },
       { name: "Dusk", hex: "#3D3B5C" },
     ],
     features: [
@@ -52,6 +87,7 @@ export const products: Product[] = [
       "Trusted nominees see only what you release. When life gets complicated, your family finds everything in one place instead of hunting through drawers and inboxes.",
       "UK-focused, GDPR-aware, and built for the long term. Less than a coffee a month. No ads, no data sale, no compromise.",
     ],
+    type: "Consumer",
   },
   {
     slug: "pageperfect",
@@ -63,17 +99,18 @@ export const products: Product[] = [
     category: "Document Publishing",
     status: "Build",
     why: "Every professional has documents that look amateur. Word formatting is a nightmare. PagePerfect is the gap between Google Docs and hiring a designer.",
-    bg: "#F5F0E8",
-    surface: "#EDE6D8",
-    text: "#1A1510",
-    accent: "#1C3D5A",
-    muted: "#9C9488",
+    bg: "#F3F7FB",
+    surface: "#E4EDF6",
+    text: "#0E1A24",
+    accent: "#1B3D5C",
+    accentBg: "#E4EDF6",
+    muted: "#4E7090",
     fonts: { display: "DM Serif Display", body: "DM Sans" },
     palette: [
       { name: "Parchment", hex: "#F5F0E8" },
       { name: "Cream", hex: "#EDE6D8" },
       { name: "Ink", hex: "#1A1510" },
-      { name: "Prussian", hex: "#1C3D5A" },
+      { name: "Prussian", hex: "#1B3D5C" },
       { name: "Dust", hex: "#9C9488" },
     ],
     features: [
@@ -81,6 +118,7 @@ export const products: Product[] = [
       "Every word, every line, exactly where it should be. No more wrestling with Word or fighting Google Docs. Just clean, considered output.",
       "Publish in minutes. Share a link or export for print. The gap between rough draft and client-ready has never been smaller.",
     ],
+    type: "Consumer & B2B",
   },
   {
     slug: "farmcompanion",
@@ -89,20 +127,21 @@ export const products: Product[] = [
     tagline: "Britain's farms, found.",
     oneliner:
       "The definitive directory of UK farms. Find, explore, and connect with British agriculture — from smallholders to estates.",
-    category: "UK Agriculture Directory",
+    category: "UK Farm Directory",
     status: "Build",
     why: "There is no trusted, well-designed central directory of UK farms. Farm tourism is growing. Direct sourcing is growing. FarmCompanion is the infrastructure layer this market is missing.",
-    bg: "#F2EDE3",
-    surface: "#E8E0D0",
-    text: "#1A1F12",
-    accent: "#4A7C2F",
-    muted: "#8A8A78",
+    bg: "#F3F8F0",
+    surface: "#E3EFE0",
+    text: "#0E1C09",
+    accent: "#3A6824",
+    accentBg: "#E3EFE0",
+    muted: "#537A43",
     fonts: { display: "DM Serif Display", body: "DM Sans" },
     palette: [
       { name: "Oat", hex: "#F2EDE3" },
       { name: "Wheat", hex: "#E8E0D0" },
       { name: "Soil", hex: "#1A1F12" },
-      { name: "Leaf", hex: "#4A7C2F" },
+      { name: "Leaf", hex: "#3A6824" },
       { name: "Sage", hex: "#8A8A78" },
     ],
     features: [
@@ -110,6 +149,7 @@ export const products: Product[] = [
       "Designed for discovery. No clutter, no noise. Farmers get a clear, honest listing; visitors get a map and a path to the gate.",
       "The infrastructure layer the market has been missing. Farm tourism and direct sourcing keep growing — FarmCompanion is the directory that makes both work.",
     ],
+    type: "Community",
   },
   {
     slug: "allowanceguard",
@@ -121,17 +161,18 @@ export const products: Product[] = [
     category: "Family FinTech",
     status: "Define",
     why: "Parents have no proper tool to manage children's money with intention. Banks are too complex. Cash is invisible. AllowanceGuard is the missing middle.",
-    bg: "#F7F2E8",
-    surface: "#EEE6D5",
-    text: "#1C1E14",
-    accent: "#B8860B",
-    muted: "#8C8472",
+    bg: "#FBF8EF",
+    surface: "#F4EDCC",
+    text: "#1A1500",
+    accent: "#9C7200",
+    accentBg: "#F4EDCC",
+    muted: "#856A00",
     fonts: { display: "DM Serif Display", body: "DM Sans" },
     palette: [
       { name: "Linen", hex: "#F7F2E8" },
       { name: "Warm White", hex: "#EEE6D5" },
       { name: "Forest", hex: "#1C1E14" },
-      { name: "Sovereign Gold", hex: "#B8860B" },
+      { name: "Sovereign Gold", hex: "#9C7200" },
       { name: "Flax", hex: "#8C8472" },
     ],
     features: [
@@ -139,6 +180,7 @@ export const products: Product[] = [
       "Not a bank — a layer on top of how your family already handles money. Visibility without complexity. Control without bureaucracy.",
       "Built for intention. Teach saving, spending, and giving with a tool that doesn't talk down to kids or overwhelm parents.",
     ],
+    type: "Consumer",
   },
 ];
 
