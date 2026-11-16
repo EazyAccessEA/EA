@@ -1,0 +1,117 @@
+{
+ "pageperfect": {
+  "bodyBg": "rgb(253, 252, 248)",
+  "bodyFont": "ui-sans-serif",
+  "bodySize": "16px",
+  "h1Font": "\"Inter Tight\"",
+  "h1Size": "50.4px",
+  "h1Weight": "800",
+  "h1Track": "-2.016px",
+  "upperLabels": 57,
+  "monoUpper": 57,
+  "btnBgs": {
+   "rgb(255, 51, 51)": 1,
+   "rgba(17, 17, 17, 0.04)": 1,
+   "rgb(17, 17, 17)": 1
+  },
+  "wideHairlines": 25,
+  "radius": []
+ },
+ "flintmere": {
+  "bodyBg": "rgb(247, 247, 244)",
+  "bodyFont": "GeistSans",
+  "bodySize": "16px",
+  "h1Font": "GeistSans",
+  "h1Size": "100.8px",
+  "h1Weight": "700",
+  "h1Track": "-4.032px",
+  "upperLabels": 19,
+  "monoUpper": 19,
+  "btnBgs": {
+   "rgb(248, 191, 36)": 5,
+   "rgb(10, 10, 11)": 1
+  },
+  "wideHairlines": 2,
+  "radius": []
+ },
+ "callandconsequence": {
+  "bodyBg": "rgb(239, 232, 218)",
+  "bodyFont": "Inter",
+  "bodySize": "17px",
+  "h1Font": "\"Inter Display\"",
+  "h1Size": "43.2px",
+  "h1Weight": "900",
+  "h1Track": "-0.864px",
+  "upperLabels": 1,
+  "monoUpper": 0,
+  "btnBgs": {
+   "rgb(239, 232, 218)": 1
+  },
+  "wideHairlines": 1,
+  "radius": []
+ },
+ "deeper": {
+  "bodyBg": "rgb(255, 255, 255)",
+  "bodyFont": "Bricolage",
+  "bodySize": "17px",
+  "h1Font": "Bricolage",
+  "h1Size": "128px",
+  "h1Weight": "800",
+  "h1Track": "-2.56px",
+  "upperLabels": 0,
+  "monoUpper": 0,
+  "btnBgs": {
+   "rgb(239, 239, 239)": 1,
+   "rgb(20, 20, 20)": 3
+  },
+  "wideHairlines": 11,
+  "radius": [
+   "3px",
+   "4px",
+   "4px"
+  ]
+ },
+ "farmcompanion": {
+  "bodyBg": "rgb(242, 235, 218)",
+  "bodyFont": "Manrope",
+  "bodySize": "16px",
+  "h1Font": "\"Clash Display\"",
+  "h1Size": "40px",
+  "h1Weight": "600",
+  "h1Track": "-0.8px",
+  "upperLabels": 28,
+  "monoUpper": 2,
+  "btnBgs": {
+   "rgb(211, 58, 44)": 8,
+   "rgb(15, 14, 12)": 1,
+   "rgb(231, 229, 228)": 10,
+   "oklch(0.715 0.143 215.221)": 1,
+   "oklch(0.967 0.001 286.375)": 1
+  },
+  "wideHairlines": 13,
+  "radius": [
+   "8px",
+   "3.35544e+07px",
+   "3.35544e+07px"
+  ]
+ },
+ "sagheerah": {
+  "bodyBg": "rgb(255, 255, 255)",
+  "bodyFont": "\"Source Sans 3\"",
+  "bodySize": "16px",
+  "h1Font": "\"Source Sans 3\"",
+  "h1Size": "16px",
+  "h1Weight": "400",
+  "h1Track": "-0.176px",
+  "upperLabels": 38,
+  "monoUpper": 0,
+  "btnBgs": {
+   "rgb(20, 20, 26)": 2
+  },
+  "wideHairlines": 3,
+  "radius": [
+   "9999px",
+   "9999px"
+  ]
+ }
+}

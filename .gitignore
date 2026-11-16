@@ -28,3 +28,16 @@ site/next-env.d.ts
 
 # Testing
 site/coverage/
+
+# v4 site
+.dev.vars
+.wrangler/
+node_modules/
+qa/*.png
+qa/*.json
+inventory/research-shots/
+inventory/shots/
+inventory/21st/
+inventory/halden-template/
+inventory/font-tests/*.png
+inventory/*.png
