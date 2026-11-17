@@ -417,11 +417,12 @@ a.chip:hover{text-decoration:underline}
   .menu-btn{display:flex}
   .site-header{padding:12px 12px 12px 20px}
   .wordmark img{width:117px}
-  .hero{grid-template-columns:1fr;grid-template-rows:auto auto auto;align-content:start;min-height:calc(100svh - 68px);padding:20px 20px 0}
+  .hero{grid-template-columns:1fr;grid-template-rows:auto auto 1fr;min-height:calc(100svh - 68px);padding:20px 20px 94px} /* 94px = the Let's talk bar (58 + 14) plus 22px of air: the wordmark sits just above it, toolbars or not (svh) */
   .tag{display:none}
   .hero h1{grid-row:1;margin-top:20px;font-size:46px}
   .intro{grid-row:2;margin-top:14px;font-size:17px}
-  .giant{grid-row:3;height:auto;margin:42px 0 0}
+  .giant{grid-row:3;align-self:end;height:auto;margin:32px 0 0}
+  .hero-grid{-webkit-mask-image:linear-gradient(#000 88%,transparent);mask-image:linear-gradient(#000 88%,transparent)}
   .statement{padding:72px 20px}
   .section-head{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:28px}
   .band{padding:0 var(--gut) 8px}

@@ -101,7 +101,8 @@ if (hero && giant) {
     c = innerWidth < 821 ? 28 : 44;
     cx = g.left - h.left + g.width * 1995 / 4886; // slash centre, from the wordmark's viewBox
     cy = g.top - h.top + g.height * 455 / 920;
-    avoid = $$("h1, .intro, .tag, .giant", hero).map((el) => { const r = el.getBoundingClientRect(); return [r.left - h.left - 6, r.top - h.top - 6, r.right - h.left + 6, r.bottom - h.top + 6]; });
+    // nothing lights behind text, the wordmark or the phone's Let's talk bar
+    avoid = [...$$("h1, .intro, .tag, .giant", hero), $(".sticky-talk")].filter((el) => el && getComputedStyle(el).display !== "none").map((el) => { const r = el.getBoundingClientRect(); return [r.left - h.left - 6, r.top - h.top - 6, r.right - h.left + 6, r.bottom - h.top + 6]; });
     let d = "";
     for (let k = Math.floor((-cy * T - cx) / c) - 1; ; k++) {
       const x = cx - c / 2 + k * c; if (x - (H - cy) * T > W) break;
