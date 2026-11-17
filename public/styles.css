@@ -194,11 +194,9 @@ h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.015em;line-
 .hero h1 .ln{display:block}
 html:not(.drawn) .hero h1 .ln{animation:cut .6s var(--ease) both}
 html:not(.drawn) .hero h1 .ln+.ln{animation-delay:.09s}
-html:not(.drawn) .intro{animation:lift .5s var(--ease) .25s both}
 html:not(.drawn) .giant .wm-slash{animation:slash-in .6s var(--ease) .3s both}
 html:not(.drawn) .giant{animation:wipe .65s cubic-bezier(.22,1,.36,1) .8s both}
 @keyframes cut{from{transform:translateY(100%);clip-path:inset(0 -10% 100% -10%)}to{transform:none;clip-path:inset(-20% -10% -20% -10%)}}
-@keyframes lift{from{opacity:0;transform:translateY(8px)}}
 @keyframes slash-in{from{opacity:0;transform:translate(150px,-371px)}} /* 400 viewBox units back up its own 22.1° line */
 @keyframes wipe{from{clip-path:polygon(47.7% -60%,50.7% -60%,33.9% 160%,30.9% 160%)}to{clip-path:polygon(-4% -60%,120.8% -60%,104% 160%,-20.8% 160%)}}
 /* Header wordmark steps aside while the big one is on screen (main.js toggles html.mark-on) */
