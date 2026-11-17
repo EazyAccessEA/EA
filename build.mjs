@@ -97,7 +97,7 @@ function page(m, body, path) {
 </script>
 <noscript><link rel="stylesheet" href="https://use.typekit.net/arw2hlv.css"></noscript>
 <link rel="stylesheet" href="/styles.css">
-${m.draw ? `<script>try{sessionStorage.getItem("drawn")?document.documentElement.classList.add("drawn"):sessionStorage.setItem("drawn","1")}catch(e){}</script>\n` : ""}${m.turnstile ? `<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>\n` : ""}<script src="/main.js" defer></script>
+${m.draw ? `<script>document.documentElement.classList.add("mark-on");try{sessionStorage.getItem("drawn")?document.documentElement.classList.add("drawn"):sessionStorage.setItem("drawn","1")}catch(e){}</script>\n` : ""}${m.turnstile ? `<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>\n` : ""}<script src="/main.js" defer></script>
 </head>
 <body${m.main === "legal" ? ' class="legal-page"' : ""}>
 <a class="skip" href="#main">Skip to content</a>

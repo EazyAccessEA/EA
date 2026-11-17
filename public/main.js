@@ -83,6 +83,72 @@ if (pill) {
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => moveTo(current));
 }
 
+// Home hero: the big wordmark stands in for the header one while it's on screen (html.mark-on, set early in <head>)
+const giant = $(".giant");
+if (giant) new IntersectionObserver(([e]) => document.documentElement.classList.toggle("mark-on", e.isIntersecting)).observe(giant);
+
+// Home hero: the slash grid, after 21st.dev Grid Pulse by carolina (MIT), redrawn in our style.
+// Columns lean at the slash's 22.1° and one sits on the wordmark's slash. Once per visit a pulse runs along
+// that column; cells light where a mouse passes (a tap on phones). Opacity only, nothing lights behind text.
+const hero = $(".hero");
+if (hero && giant) {
+  const T = Math.tan(22.1 * Math.PI / 180), grid = document.createElement("div");
+  const lines = document.createElement("b"); // the hairlines; redrawn on resize without touching lit cells
+  grid.className = "hero-grid"; grid.setAttribute("aria-hidden", "true"); grid.append(lines); hero.prepend(grid);
+  let c, cx, cy, avoid = [], last = "";
+  const layout = () => {
+    const h = hero.getBoundingClientRect(), g = giant.getBoundingClientRect(), W = h.width, H = h.height;
+    c = innerWidth < 821 ? 28 : 44;
+    cx = g.left - h.left + g.width * 1995 / 4886; // slash centre, from the wordmark's viewBox
+    cy = g.top - h.top + g.height * 455 / 920;
+    avoid = $$("h1, .intro, .tag, .giant", hero).map((el) => { const r = el.getBoundingClientRect(); return [r.left - h.left - 6, r.top - h.top - 6, r.right - h.left + 6, r.bottom - h.top + 6]; });
+    let d = "";
+    for (let k = Math.floor((-cy * T - cx) / c) - 1; ; k++) {
+      const x = cx - c / 2 + k * c; if (x - (H - cy) * T > W) break;
+      d += `M${(x + cy * T).toFixed(1)} 0L${(x - (H - cy) * T).toFixed(1)} ${H}`;
+    }
+    for (let y = cy - c / 2 - Math.floor((cy - c / 2) / c) * c; y < H; y += c) d += `M0 ${y.toFixed(1)}H${W}`;
+    lines.innerHTML = `<svg width="${W}" height="${H}"><path d="${d}" fill="none" stroke="#0B0B0C" stroke-opacity=".07"/></svg>`;
+  };
+  const light = (i, j, peak, delay = 0, duration = 600) => {
+    const y = cy + j * c - c / 2, x = cx + i * c - c / 2 - (y - cy) * T - c * T, w = c + c * T;
+    if (y + c < 0 || y > hero.clientHeight || avoid.some(([a, b, r, z]) => x < r && x + w > a && y < z && y + c > b)) return false;
+    const el = document.createElement("i");
+    el.style.cssText = `width:${w}px;height:${c}px;transform:translate(${x}px,${y}px);clip-path:polygon(${c * T}px 0,100% 0,${c}px 100%,0 100%)`;
+    grid.append(el);
+    el.animate([{ opacity: peak }, { opacity: 0 }], { duration, delay, easing: "ease-out" }).finished.finally(() => el.remove());
+    return true;
+  };
+  layout();
+  new ResizeObserver(layout).observe(hero);
+  if (!still) {
+    if (!document.documentElement.classList.contains("drawn")) {
+      // The pulse, once the wordmark has settled: 1.45 s to 2.55 s, then still. It runs out from the slash into
+      // open grid and stops at the first cell behind text, so no stray cells appear on the far side of the copy.
+      const pulse = () => {
+        const rows = Math.ceil(Math.max(cy, hero.clientHeight - cy) / c), step = Math.min(50, 600 / rows);
+        const lag = wipe && wipe.startTime != null ? document.timeline.currentTime - wipe.startTime : 0;
+        const skip = Math.ceil(giant.getBoundingClientRect().height * 0.6 / c); // cells still under the wordmark
+        for (const dir of [1, -1]) for (let k = 1; k <= rows; k++) {
+          const j = k * dir, t = Math.max(0, 1450 - lag + k * step);
+          if (light(0, j, 0.85, t, 500)) { if (k % 3 === 0) light(-dir, j, 0.3, t + 40, 500); }
+          else if (k > skip) break;
+        }
+      };
+      // Time the pulse from the CSS sequence's own start (known once the wipe is ready), not from this script
+      const wipe = giant.getAnimations().find((a) => a.animationName === "wipe");
+      wipe ? wipe.ready.then(pulse) : pulse();
+    }
+    const at = (e) => {
+      const h = hero.getBoundingClientRect(), x = e.clientX - h.left, y = e.clientY - h.top;
+      const j = Math.round((y - cy) / c), i = Math.round((x - cx + (y - cy) * T) / c), key = i + "," + j;
+      if (key !== last || e.type === "pointerdown") { last = key; light(i, j, 0.85); }
+    };
+    hero.addEventListener("pointermove", (e) => e.pointerType === "mouse" && at(e));
+    hero.addEventListener("pointerdown", (e) => e.pointerType !== "mouse" && at(e));
+  }
+}
+
 // Sticky contact bar (phones) hides when the "Let's talk" band is on screen: never two primary actions
 // It also steps aside while the phone tools deck is on screen, so it never covers the deck's counter.
 const sticky = $(".sticky-talk");

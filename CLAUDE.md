@@ -30,7 +30,7 @@ Company details (for the legal pages only, never the home page): EAZY ACCESS LTD
 - **Wordmark:** `public/brand/wordmark-*.svg`, outlined from Degular Display Semibold.
   - The slash is drawn at 22.1° from vertical with a 0.108em stroke, matching the "y" diagonal.
   - Never retype it as text.
-- **Hero:** flowing hairlines along the slash angle (`paths.svg`), drifting slowly. They stop under prefers-reduced-motion.
+- **Hero (v6.2, Paper "v5 — pages"):** one 2.6 s sequence per visit, ending still. The headline lines rise out of their masks, the slash slides in along its own axis, and the wordmark opens outward from the slash. A hairline grid leans at the slash angle (after 21st.dev Grid Pulse, MIT). An orange pulse runs once along the slash's column; on desktop, cells light where the mouse passes. Phones: the wordmark sits above the sticky bar, and the header wordmark hides while the big one is on screen. Reduced motion shows the final frame.
 - **Work:** each site on a tilted phone, set on a panel in that site's own brand colour.
 
 ## Stack

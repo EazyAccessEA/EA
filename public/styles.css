@@ -78,14 +78,13 @@ h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.015em;line-
 .intro strong{font-weight:500}
 .tag{grid-column:3;grid-row:1;font-size:18px}
 .hero h1{grid-column:1;grid-row:1;align-self:start;margin-top:40px;font-size:clamp(44px,4.6vw,66px);line-height:.98;position:relative;z-index:2}
-.hero-lines{position:absolute;left:23%;right:12%;top:0;bottom:22%;pointer-events:none}
-.hero-lines svg{display:block;width:100%;height:100%;overflow:visible;animation:drift 4.5s var(--ease) 1 both} /* one settling movement under 5 s (WCAG 2.2.2): no pause control needed */
-/* Each line sways out of phase with its neighbour, so a slow wave travels across the bundle */
-.hero-lines path{animation:sway 4.5s ease-in-out 1 both;animation-delay:calc(var(--i) * -.12s)}
-@keyframes sway{from{transform:translateX(-9px)}to{transform:translateX(9px)}}
-.hero-lines .lines-mob{display:none}
-@keyframes drift{from{transform:translate3d(-10px,6px,0)}to{transform:translate3d(14px,-10px,0)}}
-.giant{grid-column:1/-1;grid-row:3;width:100%;margin:0 0 -0.6vw;position:relative;z-index:1}
+.giant{grid-column:1/-1;grid-row:3;width:100%;margin:0 0 -0.6vw;position:relative;z-index:1;overflow:visible}
+.hero>:not(.hero-grid){position:relative;z-index:1}
+/* Slash grid (main.js, after 21st.dev Grid Pulse): columns lean at the slash's 22.1°; lit cells fade by opacity only */
+.hero-grid{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;-webkit-mask-image:linear-gradient(#000 75%,transparent);mask-image:linear-gradient(#000 75%,transparent)}
+.hero-grid>b{display:block;animation:fade .4s ease both}.hero-grid svg{position:absolute;left:0;top:0}
+@keyframes fade{from{opacity:0}}
+.hero-grid i{position:absolute;left:0;top:0;background:var(--orange);opacity:0}
 
 /* Statement */
 .statement{display:flex;flex-direction:column;align-items:flex-start;gap:32px;padding:clamp(96px,12vw,160px) var(--gut) clamp(96px,10vw,140px);margin-left:auto;max-width:calc(900px + var(--gut))}
@@ -188,13 +187,23 @@ h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.015em;line-
 .ch{display:inline-block;white-space:pre;text-shadow:0 1.25em currentColor;transition:transform .42s var(--ease);transition-delay:calc(var(--i) * 30ms)}
 .roll-host:hover .ch,.roll-host:focus-visible .ch{transform:translateY(-1.25em)}
 
-/* Wordmark draw (home, once per visit): outline, fill, then the slash */
+/* Hero, one cut (home, once per visit, 2.6 s, ends still). Transform, opacity and clip-path only.
+   Headline lines rise out of their own masks (21st.dev Vertical Cut Reveal); the slash slides down its own axis;
+   the wordmark opens outward from the slash with edges at its angle (21st.dev Dual Wipe Reveal). */
 .giant .wm-ink{fill:var(--ink)}.giant .wm-slash{fill:var(--orange)}
-html:not(.drawn) .giant .wm-ink{fill:transparent;stroke:var(--ink);stroke-width:9;stroke-dasharray:1;stroke-dashoffset:1;animation:wm-draw 1.2s var(--ease) .2s forwards,wm-ink .3s ease 1.4s forwards}
-html:not(.drawn) .giant .wm-slash{fill:transparent;stroke:var(--orange);stroke-width:12;stroke-dasharray:1;stroke-dashoffset:1;animation:wm-draw .4s var(--ease) 1.6s forwards,wm-slash .25s ease 2s forwards}
-@keyframes wm-draw{to{stroke-dashoffset:0}}
-@keyframes wm-ink{to{fill:#0B0B0C;stroke-width:0}}
-@keyframes wm-slash{to{fill:#E8663A;stroke-width:0}}
+.hero h1 .ln{display:block}
+html:not(.drawn) .hero h1 .ln{animation:cut .6s var(--ease) both}
+html:not(.drawn) .hero h1 .ln+.ln{animation-delay:.09s}
+html:not(.drawn) .intro{animation:lift .5s var(--ease) .25s both}
+html:not(.drawn) .giant .wm-slash{animation:slash-in .6s var(--ease) .3s both}
+html:not(.drawn) .giant{animation:wipe .65s cubic-bezier(.22,1,.36,1) .8s both}
+@keyframes cut{from{transform:translateY(100%);clip-path:inset(0 -10% 100% -10%)}to{transform:none;clip-path:inset(-20% -10% -20% -10%)}}
+@keyframes lift{from{opacity:0;transform:translateY(8px)}}
+@keyframes slash-in{from{opacity:0;transform:translate(150px,-371px)}} /* 400 viewBox units back up its own 22.1° line */
+@keyframes wipe{from{clip-path:polygon(47.7% -60%,50.7% -60%,33.9% 160%,30.9% 160%)}to{clip-path:polygon(-4% -60%,120.8% -60%,104% 160%,-20.8% 160%)}}
+/* Header wordmark steps aside while the big one is on screen (main.js toggles html.mark-on) */
+.site-header .wordmark{transition:opacity .2s var(--ease),transform .2s var(--ease),visibility 0s}
+html.mark-on .site-header .wordmark{opacity:0;transform:translateY(-6px);visibility:hidden;transition:opacity .2s var(--ease),transform .2s var(--ease),visibility 0s .2s}
 
 /* Home: sheet fan. The sheet you point at (or tab to) opens wide; at rest the last one is open. CSS only. */
 .fan-section{padding:0 var(--gut) clamp(96px,10vw,140px)}
@@ -402,7 +411,6 @@ a.chip:hover{text-decoration:underline}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-  .giant .wm-ink{fill:var(--ink)!important;stroke:none!important}.giant .wm-slash{fill:var(--orange)!important;stroke:none!important}
 }
 
 /* Phone */
@@ -413,14 +421,11 @@ a.chip:hover{text-decoration:underline}
   .menu-btn{display:flex}
   .site-header{padding:12px 12px 12px 20px}
   .wordmark img{width:117px}
-  .hero{grid-template-columns:1fr;grid-template-rows:auto auto auto auto;min-height:0;padding:20px 20px 0}
+  .hero{grid-template-columns:1fr;grid-template-rows:auto auto auto;align-content:start;min-height:calc(100svh - 68px);padding:20px 20px 0}
   .tag{display:none}
   .hero h1{grid-row:1;margin-top:20px;font-size:46px}
   .intro{grid-row:2;margin-top:14px;font-size:17px}
-  .hero-lines{position:relative;grid-row:3;inset:auto;margin:4px -20px 0;height:auto;max-height:360px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 60%,transparent);mask-image:linear-gradient(#000 60%,transparent)}
-  .hero-lines .lines-desk{display:none}
-  .hero-lines .lines-mob{display:block;width:100%;height:auto;aspect-ratio:375/340}
-  .giant{grid-row:4;height:auto;margin:-72px 0 96px;position:relative;z-index:2}
+  .giant{grid-row:3;height:auto;margin:42px 0 0}
   .statement{padding:72px 20px}
   .section-head{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:28px}
   .band{padding:0 var(--gut) 8px}
