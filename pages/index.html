@@ -21,7 +21,7 @@
     <a class="arrow-link" href="/work/">Open all six</a>
   </div>
   <div class="fan">
-    <a class="fan-sheet" href="/work/#farmcompanion" style="--i:0;--bg:#1F4A45;--fg:#F4EDDC;--sub:#BFD8D2;--tilt:-7deg"><span class="num">01</span><span class="name">Farm<br>Companion</span><span class="line">A map of UK farm shops and what's in season.</span><img src="/work/farmcompanion-phone.webp" alt="" loading="lazy" width="230" height="468"></a>
+    <a class="fan-sheet" href="/work/#farmcompanion" style="--i:0;--bg:#F2D9A4;--fg:#1E1A12;--sub:#6B5426;--tilt:-7deg"><span class="num">01</span><span class="name">Farm<br>Companion</span><span class="line">A map of UK farm shops and what's in season.</span><img src="/work/farmcompanion-phone.webp" alt="" loading="lazy" width="230" height="468"></a>
     <a class="fan-sheet" href="/work/#sagheerah" style="--i:1;--bg:#0E3B33;--fg:#F4EDE4;--sub:#A9C9BF;--tilt:7deg"><span class="num">02</span><span class="name">Sagheerah</span><span class="line">A shop for one jilbab, with its own checkout.</span><img src="/work/sagheerah-phone.webp" alt="" loading="lazy" width="230" height="498"></a>
     <a class="fan-sheet" href="/work/#flintmere" style="--i:2;--bg:#F2C230;--fg:#141416;--sub:#5A4708;--tilt:-7deg"><span class="num">03</span><span class="name">Flintmere</span><span class="line">Checks a Shopify food shop's barcodes.</span><img src="/work/flintmere-phone.webp" alt="" loading="lazy" width="230" height="498"></a>
     <a class="fan-sheet" href="/work/#deeper" style="--i:3;--bg:#D52B1E;--fg:#FFFFFF;--sub:#FFD9D4;--tilt:7deg"><span class="num">04</span><span class="name">deeper.tools</span><span class="line">A free add-on for AI coding tools.</span><img src="/work/deeper-phone.webp" alt="" loading="lazy" width="230" height="498"></a>
@@ -32,34 +32,68 @@
 
 <section class="daily" aria-labelledby="note-title">
   <div class="daily-intro">
-    <h2 id="note-title">A <em>note</em> after every working day</h2>
-    <p>What changed, what was tested, what hasn't been, and why. You'll never have to ask where things are. This one is real, from one of our own projects, shortened.</p>
+    <h2 id="note-title">What we keep <em>coming back</em> to</h2>
+    <p>A line from someone who built things before us, and what it means for a site we'd build for you. A new one each working day.</p>
     <a class="arrow-link" href="/how-we-work">How we work</a>
   </div>
-  <article class="note-card" aria-label="Example end-of-day note">
-    <header><p class="note-title">Note <span aria-hidden="true">/</span> FarmCompanion</p><p class="note-date"><time datetime="2026-11-01">1 November 2026</time></p></header>
-    <dl>
-      <div><dt>What changed</dt><dd>Rebuilt the farm page for people on a phone, so the first button sits on the first screen and every control is big enough to tap. Fixed a map search that crashed when a shop had no county.</dd></div>
-      <div class="more"><dt>What was tested</dt><dd>Type checks and the full test suite pass. The home page, a shop page and a map search all load on the development server.</dd></div>
-      <div><dt>Not tested yet</dt><dd>None of it is live. The changes haven't been pushed, and no production build has been run.</dd></div>
-      <div class="more"><dt>Why this way</dt><dd>We kept the strict check before a shop can be claimed, but let pages be listed by search engines separately, because shop pages bring in nearly all search visits.</dd></div>
-    </dl>
-    <button class="note-toggle" type="button" aria-expanded="false">Show the full note</button>
+  <div class="notes">
+  <article class="note-card" data-note aria-label="Note 1 of 8">
+    <p class="note-num">Note <span aria-hidden="true">/</span> 01</p>
+    <blockquote><p>“The design of the door should indicate how to work it without any need for signs, certainly without any need for trial and error.”</p></blockquote>
+    <p class="note-src"><strong>Don Norman</strong> · The Design of Everyday Things, 2013</p>
+    <div class="note-take"><p class="label">What we take from it</p><p>If a page needs a line telling people where to click, we change the page, not the line. It's the same rule for a form, a basket or a menu on a small phone.</p></div>
   </article>
+  <article class="note-card" hidden data-note aria-label="Note 2 of 8">
+    <p class="note-num">Note <span aria-hidden="true">/</span> 02</p>
+    <blockquote><p>“Type well used is invisible as type.”</p></blockquote>
+    <p class="note-src"><strong>Beatrice Warde</strong> · The Crystal Goblet, a lecture in London, 1930</p>
+    <div class="note-take"><p class="label">What we take from it</p><p>We pick type for the person reading on a bus, not for our portfolio. If they notice the font before the words, we've overdone it.</p></div>
+  </article>
+  <article class="note-card" hidden data-note aria-label="Note 3 of 8">
+    <p class="note-num">Note <span aria-hidden="true">/</span> 03</p>
+    <p class="story">In 1943 pilots kept raising the wheels instead of the flaps after landing. The two levers sat side by side and looked the same. Alphonse Chapanis fixed a small rubber wheel to one and a wedge to the other, and the mistakes stopped.</p>
+    <p class="note-src"><strong>Alphonse Chapanis</strong> · as told in Stanley Roscoe, The Adolescence of Engineering Psychology, 1997</p>
+    <div class="note-take"><p class="label">What we take from it</p><p>When people keep making the same mistake on a site, the site is wrong. We look for the two buttons that look alike.</p></div>
+  </article>
+  <article class="note-card" hidden data-note aria-label="Note 4 of 8">
+    <p class="note-num">Note <span aria-hidden="true">/</span> 04</p>
+    <blockquote><p>“Any artifact should stand by itself in all its clarity.”</p></blockquote>
+    <p class="note-src"><strong>Massimo Vignelli</strong> · The Vignelli Canon, 2010</p>
+    <div class="note-take"><p class="label">What we take from it</p><p>Someone who lands on one page from a search should understand it without the home page to explain it. That's why every project here has its own page.</p></div>
+  </article>
+  <article class="note-card" hidden data-note aria-label="Note 5 of 8">
+    <p class="note-num">Note <span aria-hidden="true">/</span> 05</p>
+    <blockquote><p>“Testing one user is 100 percent better than testing none.”</p></blockquote>
+    <p class="note-src"><strong>Steve Krug</strong> · Don't Make Me Think, Revisited, 2014</p>
+    <div class="note-take"><p class="label">What we take from it</p><p>Watching one person use a page tells us more than an afternoon of arguing about it.</p></div>
+  </article>
+  <article class="note-card" hidden data-note aria-label="Note 6 of 8">
+    <p class="note-num">Note <span aria-hidden="true">/</span> 06</p>
+    <p class="story">In 1999 NASA lost the Mars Climate Orbiter. One file gave thruster figures in imperial units where the rest of the system expected metric, and the reviews didn't catch it.</p>
+    <p class="note-src"><strong>NASA Mishap Investigation Board</strong> · Phase I report, 1999</p>
+    <div class="note-take"><p class="label">What we take from it</p><p>Things break where two parts meet: a form and the server, a price and the checkout. We put a check at each join.</p></div>
+  </article>
+  <article class="note-card" hidden data-note aria-label="Note 7 of 8">
+    <p class="note-num">Note <span aria-hidden="true">/</span> 07</p>
+    <blockquote><p>“Vulgar ostentation is twice as easy as discipline.”</p></blockquote>
+    <p class="note-src"><strong>Beatrice Warde</strong> · The Crystal Goblet, a lecture in London, 1930</p>
+    <div class="note-take"><p class="label">What we take from it</p><p>Adding things is quick. Most of our design time goes on deciding what to take out.</p></div>
+  </article>
+  <article class="note-card" hidden data-note aria-label="Note 8 of 8">
+    <p class="note-num">Note <span aria-hidden="true">/</span> 08</p>
+    <blockquote><p>“Design depends largely on constraints.”</p></blockquote>
+    <p class="note-src"><strong>Charles Eames</strong> · Design Q&A, Eames Office, 1972</p>
+    <div class="note-take"><p class="label">What we take from it</p><p>A small budget or a fixed launch date isn't in the way of the design. It's most of the brief.</p></div>
+  </article>
+  </div>
 </section>
 
 <section class="tools" aria-labelledby="tools-title">
   <div class="section-head">
     <h2 id="tools-title">Tools we <em>stand</em> by</h2>
-    <p>What our own sites run on, and the one reason we keep choosing each.</p>
+    <p>Twenty-six tools across our own sites, from the first sketch to the server. Pick one to see why it's there and where we used it.</p>
   </div>
-  <ul class="tool-row">
-    <li><h3>Cloudflare</h3><p>Pages load from close to whoever's visiting, and forms get a spam check without puzzles.</p></li>
-    <li><h3>Stripe</h3><p>Card details go straight to Stripe and never touch our server.</p></li>
-    <li><h3>Resend</h3><p>Order and enquiry emails sent from your own domain, without touching your inbox setup.</p></li>
-    <li><h3>Postgres</h3><p>A plain, well-understood database for anything with real records in it.</p></li>
-    <li><h3>Typst</h3><p>Print-ready books built from the same text as the website.</p></li>
-  </ul>
+  <!--#tools-->
 </section>
 
 <!--#band-->

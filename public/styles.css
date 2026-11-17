@@ -204,28 +204,47 @@ html:not(.drawn) .giant .wm-slash{fill:transparent;stroke:var(--orange);stroke-w
 .fan-sheet:hover .line,.fan-sheet:focus-visible .line{opacity:1}
 .fan-sheet:hover img,.fan-sheet:focus-visible img{opacity:1;transform:translateY(-30px) rotate(var(--tilt))}
 
-/* Home: a real end-of-day note */
+/* Home: a reflection, one per working day */
+.note-card[hidden],.tool-card[hidden]{display:none}
 .daily{display:grid;grid-template-columns:minmax(0,440px) 1fr;gap:80px;align-items:start;padding:0 var(--gut) clamp(96px,10vw,140px)}
 .daily-intro{display:flex;flex-direction:column;gap:20px;align-items:flex-start;padding-top:24px}
 .daily h2{font-size:clamp(40px,3.9vw,56px)}
 .daily-intro p{font-size:19px;line-height:1.52;color:var(--text-2)}
-.note-card{background:var(--white);border-radius:20px;padding:36px 40px;box-shadow:0 24px 60px rgba(20,20,22,.08);transform:rotate(-1deg)}
-.note-card header{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-bottom:18px}
-.note-title{font:600 22px var(--display)}
-.note-title span{color:var(--orange)}
-.note-date{font-weight:500;font-size:15px;color:var(--text-3)}
-.note-card dl div{display:grid;grid-template-columns:150px 1fr;gap:24px;padding:18px 0;border-top:1px solid var(--rule)}
-.note-card dt{font-weight:500;font-size:15px;color:var(--text-3);line-height:1.6}
-.note-card dd{font-size:17px;line-height:1.55}
-.note-toggle{display:none}
+.note-card{background:var(--white);border-radius:28px;padding:56px 64px;display:flex;flex-direction:column;gap:32px}
+.note-num{font-weight:500;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3)}
+.note-num span{color:var(--orange)}
+.note-card blockquote p{font:500 clamp(30px,2.8vw,40px)/1.15 var(--display);letter-spacing:-.02em;color:var(--ink)}
+.note-card .story{font:500 clamp(22px,1.9vw,27px)/1.35 var(--display);letter-spacing:-.01em;color:var(--ink)}
+.note-src{font-size:17px;color:var(--text-2)}
+.note-src strong{font-weight:600;color:var(--ink)}
+.note-take{display:grid;grid-template-columns:150px 1fr;gap:40px;padding-top:28px;border-top:1px solid var(--rule)}
+.note-take .label{font-size:16px;line-height:1.6;color:var(--text-3)}
+.note-take p:last-child{font-size:19px;line-height:1.58}
 
 /* Home: tools we stand by */
 .tools{padding:0 var(--gut) clamp(96px,10vw,140px)}
-.tools .section-head p{max-width:360px}
-.tool-row{list-style:none;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}
-.tool-row li{padding-top:20px;border-top:2px solid var(--ink);display:flex;flex-direction:column;gap:10px}
-.tool-row h3{font-size:28px}
-.tool-row p{font-size:16px;line-height:1.5;color:var(--text-2)}
+.tools .section-head p{max-width:440px}
+.stack{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:48px;align-items:start}
+.stack-groups{border-top:2px solid var(--ink)}
+.stack-group{display:grid;grid-template-columns:140px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--rule)}
+.stack-group:last-child{border-bottom:0}
+.stack-label{padding-top:11px;font-weight:500;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3)}
+.stack-tiles{display:flex;flex-wrap:wrap;gap:10px}
+.tile{min-height:44px;padding:0 18px;border:0;border-radius:12px;background:var(--white);font:500 17px var(--body);color:var(--ink);cursor:pointer;transition:background .2s,color .2s,transform .2s var(--ease)}
+.tile:hover{transform:translateY(-2px)}
+.tile[aria-pressed="true"]{background:var(--pill);color:var(--ground)}
+.tile[aria-pressed="true"]::after{content:" /";color:var(--orange)}
+.tool-cards{position:sticky;top:120px}
+.tool-card{background:var(--pill);color:var(--ground);border-radius:28px;padding:40px;display:flex;flex-direction:column;gap:22px}
+.tool-kicker{font-weight:500;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#9A9AA0}
+.tool-kicker span{color:var(--orange)}
+.tool-card h3{font-size:clamp(36px,3.3vw,48px);line-height:1;letter-spacing:-.025em}
+.tool-why{font-size:19px;line-height:1.58;color:#C9C9CE}
+.tool-used{padding-top:22px;border-top:1px solid #2A2A2E;font-size:15px;color:#9A9AA0}
+.chips{list-style:none;padding:0;margin-top:-10px;display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border-radius:99px;background:var(--bg);color:var(--fg);font-weight:500;font-size:15px;text-decoration:none}
+a.chip:hover{text-decoration:underline}
+.chip-site{border:1px solid #3F3F44;color:var(--ground)}
 
 /* /work: sliding sheets. JS sets each sheet's left; without JS the list is in front and the edges are links */
 .sheets{--edge:96px;--n:7;position:relative;height:max(620px,calc(100svh - 104px));overflow:hidden;margin-bottom:16px}
@@ -306,10 +325,16 @@ html:not(.drawn) .giant .wm-slash{fill:transparent;stroke:var(--orange);stroke-w
 .facts dt{font-weight:500;font-size:15px;color:var(--text-3)}
 .facts dd{font-size:16px}
 .facts .arrow-link{min-height:24px;text-decoration:underline}
-.showcase{position:relative;margin:0 var(--gut);height:clamp(420px,44vw,640px);border-radius:28px;background:var(--bg);overflow:hidden}
-.shot-desk{position:absolute;left:7%;top:11%;width:60%;border-radius:14px;transform:rotate(-3deg);box-shadow:20px 26px 50px rgba(0,0,0,.3)}
+.showcase{position:relative;margin:0 var(--gut);height:clamp(480px,52vw,760px);border-radius:28px;background:var(--bg);overflow:hidden}
+/* When a site's hero is the panel's own colour, the panel steps darker so the window stands off it */
+.showcase.deep{background:color-mix(in oklab,var(--bg) 78%,#000)}
+.browser{position:absolute;left:50%;top:9.5%;width:72%;transform:translateX(-50%);margin:0;border-radius:14px 14px 0 0;overflow:hidden;background:var(--white);box-shadow:0 40px 80px rgba(0,0,0,.4)}
+.browser .bar{position:relative;display:flex;align-items:center;gap:8px;height:38px;padding:0 16px;background:var(--ground);border-bottom:1px solid var(--rule)}
+.browser .bar i{width:10px;height:10px;border-radius:50%;background:#D7D7D3}
+.browser .url{position:absolute;left:50%;transform:translateX(-50%);padding:3px 14px;border-radius:99px;background:var(--white);border:1px solid var(--rule);font:500 13px/1.4 var(--body);color:var(--text-2);white-space:nowrap}
+.shot-desk{display:block;width:100%;height:auto}
 .shot-phone{position:absolute;left:50%;top:12%;width:250px;margin-left:-125px;border-radius:38px;border:9px solid var(--pill);transform:rotate(6deg);box-shadow:20px 26px 50px rgba(0,0,0,.3)}
-.has-desk .shot-phone{left:auto;margin:0;right:13%;top:15%}
+.has-desk .shot-phone{left:auto;margin:0;right:6%;top:24%;width:clamp(190px,17vw,250px)}
 .story{display:grid;grid-template-columns:minmax(0,420px) minmax(0,720px);gap:64px;padding:clamp(80px,9vw,120px) var(--gut) 0}
 .story h2{font-size:clamp(36px,3.4vw,48px);line-height:1.04}
 .story .big{font:500 clamp(21px,1.8vw,26px)/1.38 var(--body);color:var(--ink);margin-bottom:20px}
@@ -340,7 +365,7 @@ html:not(.drawn) .giant .wm-slash{fill:transparent;stroke:var(--orange);stroke-w
 
 /* One authored motion: reveal on scroll (native, with fallback = visible) */
 @supports (animation-timeline:view()){
-  .principles>div,.in-writing,.call,.story-body,.note-card,.tool-row li{animation:rise both var(--ease);animation-timeline:view();animation-range:entry 0% entry 40%}
+  .principles>div,.in-writing,.call,.story-body,.note-card,.tool-card{animation:rise both var(--ease);animation-timeline:view();animation-range:entry 0% entry 40%}
   @keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
 }
 @media (prefers-reduced-motion:reduce){
@@ -379,14 +404,20 @@ html:not(.drawn) .giant .wm-slash{fill:transparent;stroke:var(--orange);stroke-w
   .daily h2{font-size:38px}
   .daily-intro{padding-top:0}
   .daily-intro p{font-size:17px}
-  .note-card{transform:none;padding:20px;border-radius:18px}
-  .note-card dl div{grid-template-columns:1fr;gap:4px;padding:12px 0}
-  .note-card dd{font-size:15px}
-  .note-card:not(.open) .more{display:none}
-  .note-toggle{display:inline-flex;min-height:44px;align-items:center;border:0;background:none;padding:0;font:500 15px var(--body);text-decoration:underline;text-underline-offset:4px;color:var(--ink);cursor:pointer}
-  .tool-row{grid-template-columns:1fr;gap:4px}
-  .tool-row li{padding:12px 0;gap:4px}
-  .tool-row h3{font-size:20px}.tool-row p{font-size:15px}
+  .note-card{padding:28px 22px;border-radius:20px;gap:22px}
+  .note-card blockquote p{font-size:26px}
+  .note-card .story{font-size:20px}
+  .note-src{font-size:15px}
+  .note-take{grid-template-columns:1fr;gap:6px;padding-top:18px}
+  .note-take p:last-child{font-size:16px}
+  .stack{grid-template-columns:1fr;gap:0}
+  .stack-group{grid-template-columns:1fr;gap:10px;padding:16px 0}
+  .stack-label{padding-top:0}
+  .tile{font-size:16px;padding:0 14px}
+  .tool-cards{position:static;margin:4px 0 12px}
+  .tool-card{padding:24px 22px;border-radius:20px;gap:16px}
+  .tool-card h3{font-size:30px}
+  .tool-why{font-size:16px}
   .sheets{height:auto;display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 8px;scrollbar-width:none;margin-bottom:0}
   .sheet,.sheet-list{position:relative;left:auto!important;flex:0 0 calc(100% - 36px);width:auto;height:640px;border-radius:22px;scroll-snap-align:start;box-shadow:none;transition:none}
   .sheet-list{background:#EAEAE7}
@@ -411,7 +442,8 @@ html:not(.drawn) .giant .wm-slash{fill:transparent;stroke:var(--orange);stroke-w
   .page-head{flex-direction:column;align-items:stretch;gap:28px;padding:24px 20px 28px}
   .facts{width:auto}
   .showcase{height:440px;margin:0 8px;border-radius:24px}
-  .shot-desk{display:none}
+  .browser{display:none}
+  .showcase.deep{background:var(--bg)}
   .shot-phone,.has-desk .shot-phone{width:210px;left:50%;right:auto;margin-left:-105px;top:9%}
   .story{grid-template-columns:minmax(0,1fr);gap:20px;padding:64px 20px 0}
   .chart{flex-wrap:wrap;gap:20px}

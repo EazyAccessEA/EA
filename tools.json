@@ -1,0 +1,246 @@
+{
+ "_": "Tools section on the home page. build.mjs renders it into <!--#tools-->. 'used' lists project slugs from the research notes in inventory/work/ ('site' = this site). Check a new entry against the project's repo before adding it.",
+ "groups": [
+  [
+   "Design",
+   [
+    [
+     "Paper",
+     "Every page here is designed first, so it can be seen and changed before anything is built.",
+     [
+      "site"
+     ]
+    ],
+    [
+     "Adobe Fonts",
+     "Licensed type, served the way the licence allows.",
+     [
+      "site"
+     ]
+    ]
+   ]
+  ],
+  [
+   "Build",
+   [
+    [
+     "Next.js",
+     "Fast pages that still work for someone arriving from a search link.",
+     [
+      "farmcompanion",
+      "sagheerah",
+      "flintmere",
+      "pageperfect"
+     ]
+    ],
+    [
+     "React",
+     "For the parts of a page that respond as you use them.",
+     [
+      "farmcompanion",
+      "sagheerah",
+      "flintmere",
+      "pageperfect",
+      "callandconsequence"
+     ]
+    ],
+    [
+     "Astro",
+     "Mostly-text sites that send almost no JavaScript to the phone.",
+     [
+      "deeper"
+     ]
+    ],
+    [
+     "Remix",
+     "Forms and data handled on the server, so they work on a slow connection.",
+     [
+      "flintmere"
+     ]
+    ],
+    [
+     "Vite",
+     "A quick build for small moving pieces on an otherwise plain page.",
+     [
+      "flintmere",
+      "callandconsequence"
+     ]
+    ],
+    [
+     "Tailwind",
+     "Styles kept next to the markup, so changing one page doesn't break another.",
+     [
+      "farmcompanion",
+      "sagheerah",
+      "flintmere",
+      "pageperfect"
+     ]
+    ],
+    [
+     "Typst",
+     "Print-ready books built from the same text as the website.",
+     [
+      "pageperfect"
+     ]
+    ]
+   ]
+  ],
+  [
+   "Run",
+   [
+    [
+     "Cloudflare Workers",
+     "Pages load from close to whoever's visiting, and one small server handles forms, payments and email.",
+     [
+      "sagheerah",
+      "deeper",
+      "pageperfect",
+      "callandconsequence",
+      "site"
+     ]
+    ],
+    [
+     "Hetzner",
+     "Plain servers in Europe for sites with a real database behind them.",
+     [
+      "farmcompanion",
+      "flintmere"
+     ]
+    ],
+    [
+     "Coolify",
+     "Runs the database and search on servers we control.",
+     [
+      "farmcompanion",
+      "flintmere"
+     ]
+    ],
+    [
+     "Vercel",
+     "Hosting for a Next.js front end that has to be quick everywhere.",
+     [
+      "farmcompanion"
+     ]
+    ]
+   ]
+  ],
+  [
+   "Data and maps",
+   [
+    [
+     "Postgres",
+     "A plain, well-understood database for anything with real records in it.",
+     [
+      "farmcompanion",
+      "flintmere"
+     ]
+    ],
+    [
+     "Prisma",
+     "Database changes written down as files, so each one can be reviewed.",
+     [
+      "farmcompanion",
+      "flintmere"
+     ]
+    ],
+    [
+     "Redis",
+     "Keeps busy pages quick by remembering answers for a short while.",
+     [
+      "farmcompanion",
+      "flintmere"
+     ]
+    ],
+    [
+     "Meilisearch",
+     "Search that copes with typos and half-remembered names.",
+     [
+      "farmcompanion"
+     ]
+    ],
+    [
+     "Cloudflare D1",
+     "A small database for sign-ups, close to the site that uses it.",
+     [
+      "deeper"
+     ]
+    ],
+    [
+     "Cloudflare KV",
+     "Remembers which payment messages have been handled, so an order is never processed twice.",
+     [
+      "sagheerah"
+     ]
+    ],
+    [
+     "MapLibre",
+     "Open-source maps, so a map page doesn't depend on someone else's pricing.",
+     [
+      "farmcompanion"
+     ]
+    ]
+   ]
+  ],
+  [
+   "Money and mail",
+   [
+    [
+     "Stripe",
+     "Card details go straight to Stripe and never touch our server.",
+     [
+      "sagheerah",
+      "flintmere"
+     ]
+    ],
+    [
+     "Resend",
+     "Order and enquiry emails sent from your own domain, without touching your inbox setup.",
+     [
+      "farmcompanion",
+      "sagheerah",
+      "flintmere",
+      "site"
+     ]
+    ],
+    [
+     "Turnstile",
+     "A spam check on forms that doesn't make people solve puzzles.",
+     [
+      "site"
+     ]
+    ]
+   ]
+  ],
+  [
+   "Checks",
+   [
+    [
+     "Vitest",
+     "Tests that fail loudly when a price or a rule changes by mistake.",
+     [
+      "farmcompanion",
+      "sagheerah",
+      "flintmere",
+      "pageperfect"
+     ]
+    ],
+    [
+     "Playwright",
+     "A real browser that opens every page at phone size and checks it.",
+     [
+      "farmcompanion",
+      "flintmere",
+      "site"
+     ]
+    ],
+    [
+     "Sentry",
+     "Tells us when something breaks for a visitor, so they don't have to.",
+     [
+      "flintmere"
+     ]
+    ]
+   ]
+  ]
+ ]
+}

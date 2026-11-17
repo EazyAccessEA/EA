@@ -17,8 +17,34 @@ const BAND = `<section class="band" aria-labelledby="band-title">
   </div>
 </section>`;
 
+// Tools section: tiles grouped by job, and one card per tool (the first open; main.js switches them).
+const SITES = {
+  farmcompanion: ["FarmCompanion", "#F2D9A4", "#1E1A12"], sagheerah: ["Sagheerah", "#0E3B33", "#F4EDE4"],
+  flintmere: ["Flintmere", "#F2C230", "#141416"], deeper: ["deeper.tools", "#D52B1E", "#FFFFFF"],
+  pageperfect: ["PagePerfect", "#F3F3F1", "#141416"], callandconsequence: ["Call and Consequence", "#E9DFCB", "#1C1A16"],
+};
+function tools() {
+  const { groups } = JSON.parse(readFileSync("tools.json", "utf8"));
+  const open = "Cloudflare Workers";
+  let tiles = "", cards = "";
+  for (const [group, list] of groups) {
+    tiles += `<div class="stack-group"><p class="stack-label">${group}</p><div class="stack-tiles">`;
+    list.forEach(([name, why, used], i) => {
+      const id = "tool-" + name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      const on = name === open;
+      tiles += `<button type="button" class="tile" aria-pressed="${on}" aria-controls="${id}">${name}</button>`;
+      const chips = used.map((s) => s === "site"
+        ? `<li><span class="chip chip-site">This site</span></li>`
+        : `<li><a class="chip" href="/work/${s}" style="--bg:${SITES[s][1]};--fg:${SITES[s][2]}">${SITES[s][0]}</a></li>`).join("");
+      cards += `<article class="tool-card" id="${id}"${on ? "" : " hidden"}><p class="tool-kicker">${group} <span aria-hidden="true">/</span> ${i + 1} of ${list.length}</p><h3>${name}</h3><p class="tool-why">${why}</p><p class="tool-used">Used on</p><ul class="chips">${chips}</ul></article>`;
+    });
+    tiles += `</div></div>`;
+  }
+  return `<div class="stack"><div class="stack-groups">${tiles}</div><div class="tool-cards" aria-live="polite">${cards}</div></div>`;
+}
+
 function page(m, body, path) {
-  body = body.replace("<!--#band-->", BAND);
+  body = body.replace("<!--#band-->", BAND).replace("<!--#tools-->", () => tools());
   return `<!doctype html>
 <html lang="en-GB">
 <head>

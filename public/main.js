@@ -123,13 +123,27 @@ if (deck) {
   open(location.hash.slice(1) || "list", false);
 }
 
-// Home: on phones the note shows two rows until it's opened
-const noteBtn = $(".note-toggle");
-if (noteBtn) noteBtn.addEventListener("click", () => {
-  const on = noteBtn.closest(".note-card").classList.toggle("open");
-  noteBtn.setAttribute("aria-expanded", String(on));
-  noteBtn.textContent = on ? "Show less" : "Show the full note";
-});
+// Home: one reflection per working day. Without JS the first one shows.
+const notes = $$("[data-note]");
+if (notes.length) {
+  const days = Math.floor(Date.now() / 864e5) + 3; // days since Mon 29 Dec 1969 (1 Jan 1970 was a Thursday)
+  const workdays = Math.floor(days / 7) * 5 + Math.min(days % 7, 4); // Mon–Fri step on; weekends keep Friday's note
+  notes.forEach((n, i) => { n.hidden = i !== workdays % notes.length; });
+}
+
+// Home: tools. A tile opens its card; on phones the card moves under the tile's group.
+const stack = $(".stack");
+if (stack) {
+  const cards = $(".tool-cards", stack), phone = matchMedia("(max-width:820px)");
+  const show = (tile) => {
+    $$(".tile", stack).forEach((t) => t.setAttribute("aria-pressed", String(t === tile)));
+    $$(".tool-card", stack).forEach((c) => { c.hidden = c.id !== tile.getAttribute("aria-controls"); });
+    if (phone.matches) tile.closest(".stack-group").after(cards); else stack.append(cards);
+  };
+  stack.addEventListener("click", (e) => { const t = e.target.closest(".tile"); if (t) show(t); });
+  phone.addEventListener("change", () => show($(".tile[aria-pressed=true]", stack)));
+  if (phone.matches) show($(".tile[aria-pressed=true]", stack));
+}
 
 // Contact form: works without JS (the Worker redirects back); with JS it stays on the page
 const form = $(".form-card");

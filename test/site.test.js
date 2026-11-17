@@ -52,6 +52,16 @@ test("G1: every page with a Turnstile widget runs the Worker first (local key sw
   for (const p of pages.filter((p) => p.html.includes('class="cf-turnstile"'))) assert.ok(first.includes(routeOf(p.rel)), routeOf(p.rel));
 });
 
+test("tools: the count in the home copy matches tools.json", () => {
+  const { groups } = JSON.parse(readFileSync(new URL("../tools.json", import.meta.url), "utf8"));
+  const n = groups.reduce((a, [, list]) => a + list.length, 0);
+  const words = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"];
+  const say = (k) => (k <= 20 ? words[k] : ["", "", "twenty", "thirty", "forty"][Math.floor(k / 10)] + (k % 10 ? "-" + words[k % 10] : ""));
+  const home = pages.find((p) => p.rel === "index.html").html;
+  assert.match(home, new RegExp(`>${say(n)} tools`, "i"));
+  assert.equal((home.match(/class="tile"/g) || []).length, n);
+});
+
 test("contact details never appear in page source or scripts (anti-harvesting)", () => {
   const js = readFileSync(join(OUT, "main.js"), "utf8");
   for (const { rel, html } of [...pages, { rel: "main.js", html: js }]) {
