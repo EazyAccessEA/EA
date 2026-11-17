@@ -38,9 +38,11 @@ const fill = (stops) => (stops.length > 1 ? `linear-gradient(120deg,${stops.join
 function tools() {
   const { groups } = JSON.parse(readFileSync("tools.json", "utf8"));
   const open = "Cloudflare Workers";
-  let tiles = "", cards = "";
+  let tiles = "", cards = "", rail = "", total = 0;
   for (const [group, list] of groups) {
     tiles += `<div class="stack-group"><p class="stack-label">${group}</p><div class="stack-tiles">`;
+    rail += `<button type="button" class="rail-btn" data-first="${total}">${group}</button>`; // phones: jump to the group's first card
+    total += list.length;
     list.forEach(([name, why, used, colour], i) => {
       const id = "tool-" + name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
       const on = name === open;
@@ -55,7 +57,8 @@ function tools() {
     });
     tiles += `</div></div>`;
   }
-  return `<div class="stack"><div class="stack-groups">${tiles}</div><div class="tool-cards" aria-live="polite">${cards}</div></div>`;
+  return `<div class="stack"><div class="stack-rail" aria-label="Jump to a group">${rail}</div><div class="stack-groups">${tiles}</div><div class="tool-cards" aria-live="polite">${cards}</div>`
+    + `<p class="stack-count"><span class="n">1</span> of ${total} <span class="hint">· swipe for the next tool</span><span class="bar" aria-hidden="true"><i></i></span></p></div>`;
 }
 
 function page(m, body, path) {

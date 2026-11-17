@@ -131,24 +131,22 @@ if (notes.length) {
   notes.forEach((n, i) => { n.hidden = i !== workdays % notes.length; });
 }
 
-// Home: tools. A tile opens its card; on phones the card moves under the tile's group.
+// Home: tools. Desktop: a tile opens its card. Phones: every card sits in a swipe deck (CSS shows them all),
+// with a rail that jumps to a group and a counter that follows the swipe.
 const stack = $(".stack");
 if (stack) {
-  const cards = $(".tool-cards", stack), phone = matchMedia("(max-width:820px)");
+  const cards = $(".tool-cards", stack);
   let layer = 1, settle;
   const show = (tile, animate = false) => {
     const next = $("#" + tile.getAttribute("aria-controls"));
     const prev = $(".tool-card:not([hidden])", cards);
     $$(".tile", stack).forEach((t) => t.setAttribute("aria-pressed", String(t === tile)));
-    if (phone.matches) tile.closest(".stack-group").after(cards); else stack.append(cards);
     if (next === prev) return;
     next.hidden = false;
     if (!animate || still || !prev) { if (prev) prev.hidden = true; return; }
-    // The colour spreads from the side nearest the tile: the left edge on desktop, the top on phones
+    // The colour spreads from the left edge, the side nearest the tiles, level with the tile picked
     const t = tile.getBoundingClientRect(), c = cards.getBoundingClientRect();
-    next.style.setProperty("--from", phone.matches
-      ? `${Math.round(((t.left + t.width / 2 - c.left) / c.width) * 100)}% 0%`
-      : `0% ${Math.round(Math.min(Math.max((t.top + t.height / 2 - c.top) / c.height, 0), 1) * 100)}%`);
+    next.style.setProperty("--from", `0% ${Math.round(Math.min(Math.max((t.top + t.height / 2 - c.top) / c.height, 0), 1) * 100)}%`);
     next.style.zIndex = ++layer; // the newest card always sits on top, however fast the clicks
     next.classList.remove("opening"); void next.offsetWidth; next.classList.add("opening");
     clearTimeout(settle);
@@ -158,8 +156,22 @@ if (stack) {
     setTimeout(() => next.classList.remove("opening"), 900);
   };
   stack.addEventListener("click", (e) => { const t = e.target.closest(".tile"); if (t) show(t, true); });
-  phone.addEventListener("change", () => show($(".tile[aria-pressed=true]", stack)));
-  if (phone.matches) show($(".tile[aria-pressed=true]", stack));
+
+  const deck = $$(".tool-card", cards), rail = $$(".rail-btn", stack), railEl = $(".stack-rail", stack);
+  const count = $(".stack-count", stack), n = $(".n", count);
+  const at = () => Math.min(deck.length - 1, Math.round(cards.scrollLeft / (deck[0].offsetWidth + 12)));
+  const mark = () => {
+    const k = at();
+    n.textContent = k + 1;
+    count.style.setProperty("--p", (k + 1) / deck.length);
+    const g = rail.filter((b) => +b.dataset.first <= k).pop();
+    rail.forEach((b) => b.setAttribute("aria-current", String(b === g)));
+    railEl.scrollTo({ left: g.offsetLeft - rail[0].offsetLeft, behavior: still ? "instant" : "smooth" });
+  };
+  cards.addEventListener("scroll", () => { clearTimeout(cards.t); cards.t = setTimeout(mark, 80); }, { passive: true });
+  rail.forEach((b) => b.addEventListener("click", () =>
+    cards.scrollTo({ left: deck[+b.dataset.first].offsetLeft - deck[0].offsetLeft, behavior: still ? "instant" : "smooth" })));
+  mark();
 }
 
 // Contact form: works without JS (the Worker redirects back); with JS it stays on the page
