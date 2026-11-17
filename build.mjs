@@ -3,6 +3,7 @@
 // turnstile (bool), sticky (default true), draw (bool, home wordmark).
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, statSync } from "node:fs";
 import { join, dirname, relative } from "node:path";
+import { createHash } from "node:crypto";
 
 const SRC = "pages", OUT = "public", ORIGIN = "https://eazyaccess.org";
 const files = (d) => readdirSync(d).flatMap((f) => (statSync(join(d, f)).isDirectory() ? files(join(d, f)) : f.endsWith(".html") ? [join(d, f)] : []));
@@ -75,6 +76,13 @@ function page(m, body, path) {
 <link rel="canonical" href="${ORIGIN}${path}">
 <meta property="og:title" content="${m.title === "home" ? "eazy/access · Web design and build, UK" : `${m.title} · eazy/access`}">
 <meta property="og:description" content="${m.description}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="${ORIGIN}${path}">
+<meta property="og:image" content="${ORIGIN}/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="eazy/access: Websites people actually use.">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <!-- Adobe Fonts web project (Degular, Degular Display, IvyPresto Display). Must use Adobe's embed; never self-host. -->
@@ -151,4 +159,38 @@ for (const file of files(SRC)) {
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, guard(page(m, src.replace(/^<!--.*?-->/s, ""), route(rel))));
 }
-console.log(`built ${files(SRC).length} pages`);
+
+// Security headers (public/_headers). The CSP allows only this site, Adobe Fonts and Cloudflare Turnstile,
+// and pins each inline script by its hash, so no other inline script can run.
+const built = files(OUT).map((f) => readFileSync(f, "utf8"));
+const hashes = new Set();
+for (const html of built)
+  for (const [, js] of html.matchAll(/<script>([\s\S]*?)<\/script>/g))
+    hashes.add(`'sha256-${createHash("sha256").update(js).digest("base64")}'`);
+const csp = [
+  "default-src 'self'",
+  `script-src 'self' ${[...hashes].join(" ")} https://use.typekit.net https://challenges.cloudflare.com`,
+  "style-src 'self' 'unsafe-inline' https://use.typekit.net https://p.typekit.net", // inline style attributes carry each project's colours
+  "font-src 'self' https://use.typekit.net",
+  "img-src 'self' data: https://p.typekit.net",
+  "connect-src 'self' https://use.typekit.net https://p.typekit.net https://challenges.cloudflare.com",
+  "frame-src https://challenges.cloudflare.com",
+  "frame-ancestors 'none'", "base-uri 'self'", "form-action 'self'", "object-src 'none'",
+].join("; ");
+writeFileSync(join(OUT, "_headers"), `/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: ${csp}
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+`);
+// Sitemap of every real page (not the 404), and a robots.txt that points to it.
+const urls = files(SRC).map((f) => route(relative(SRC, f))).filter((r) => r !== "/404").sort();
+writeFileSync(join(OUT, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((u) => `  <url><loc>${ORIGIN}${u}</loc></url>`).join("\n")}
+</urlset>
+`);
+writeFileSync(join(OUT, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${ORIGIN}/sitemap.xml\n`);
+console.log(`built ${files(SRC).length} pages; ${hashes.size} inline scripts pinned in the CSP; sitemap of ${urls.length}`);

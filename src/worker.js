@@ -2,9 +2,9 @@
 import { handleContact } from "./contact.js";
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    if (url.pathname === "/api/contact") return handleContact(request, env);
+    if (url.pathname === "/api/contact") return handleContact(request, env, fetch, ctx);
     const res = await env.ASSETS.fetch(request);
     // Local dev swaps in Cloudflare's test site key (TURNSTILE_SITEKEY in .dev.vars); production keeps the real key in the HTML.
     if (env.TURNSTILE_SITEKEY && (res.headers.get("content-type") || "").includes("text/html")) {

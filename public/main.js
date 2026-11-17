@@ -199,7 +199,7 @@ if (stack) {
   mark();
 }
 
-// Contact form: works without JS (the Worker redirects back); with JS it stays on the page
+// Contact form: with JS it stays on the page. Without JS the spam check cannot run, so a noscript note offers the email address.
 const form = $(".form-card");
 if (form) {
   const statusEl = $(".form-status", form), sendBtn = $(".send", form);
@@ -229,7 +229,8 @@ if (form) {
       if (res.ok && data.ok) {
         form.reset();
         statusEl.classList.add("ok");
-        statusEl.textContent = "Sent. A person will reply within two working days. We've also emailed you to confirm it arrived.";
+        // Only claim the confirmation email when the server says it went (gate C)
+        statusEl.textContent = "Sent. A person will reply within two working days." + (data.confirmed ? " We've also emailed you to confirm it arrived." : "");
         reveal(statusEl);
       } else {
         showErrors(data.errors);

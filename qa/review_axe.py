@@ -12,7 +12,7 @@ async def main():
         b = await p.chromium.launch()
         for w, h in [(375, 812), (1440, 900)]:
             for path in PAGES:
-                pg = await b.new_page(viewport={"width": w, "height": h}, reduced_motion="reduce")
+                pg = await b.new_page(viewport={"width": w, "height": h}, reduced_motion="reduce", bypass_csp=True)  # the site's CSP rightly blocks injecting axe
                 await pg.goto(BASE + path, wait_until="load", timeout=120000); await pg.wait_for_timeout(1200)
                 await pg.add_script_tag(url=AXE)
                 r = await pg.evaluate("axe.run(document,{runOnly:['wcag2a','wcag2aa','wcag21aa','wcag22aa','best-practice']})")

@@ -47,3 +47,6 @@ public/*.html
 public/work/*.html
 qa/pages/
 qa/review/shots/
+public/_headers
+public/sitemap.xml
+public/robots.txt

@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { handleContact, INBOX, RESEND_URL } from "../src/contact.js";
+import { handleContact, INBOX, RESEND_URL, recipientKey, SITE } from "../src/contact.js";
 
 let current; // the env of the running test (tests run one at a time)
 function env({ limitOk = true, sendFails = false, autoReplyFails = false, recipientOk = true, key = "re_test" } = {}) {
@@ -24,7 +24,7 @@ function env({ limitOk = true, sendFails = false, autoReplyFails = false, recipi
 }
 // Fake network: Turnstile siteverify answers `ok`; Resend records the email it was asked to send.
 const turnstile = (ok) => async (url, init) =>
-  url === RESEND_URL ? current._send(JSON.parse(init.body)) : Response.json({ success: ok });
+  url === RESEND_URL ? current._send(JSON.parse(init.body)) : Response.json({ success: ok, hostname: "eazyaccess.org" });
 function post(fields, { json = true, headers = {} } = {}) {
   const f = new FormData();
   const base = { name: "Amina", email: "amina@example.co.uk", message: "We need a new site for our bakery.", need: "new-site", budget: "3-8k", timeline: "1-3-months", "cf-turnstile-response": "tok" };
@@ -154,7 +154,7 @@ test("no Resend key configured -> 502 and the email address shown, never a fake 
 test("Resend request carries the key and our fixed From address", async () => {
   let seen;
   const e = env();
-  const net = async (url, init) => { if (url === RESEND_URL) { seen = init; return current._send(JSON.parse(init.body)); } return Response.json({ success: true }); };
+  const net = async (url, init) => { if (url === RESEND_URL) { seen = init; return current._send(JSON.parse(init.body)); } return Response.json({ success: true, hostname: "eazyaccess.org" }); };
   await handleContact(post({}), e, net);
   assert.equal(seen.headers.authorization, "Bearer re_test");
   assert.equal(JSON.parse(seen.body).from, "eazy/access <enquiries@eazyaccess.org>");
@@ -185,4 +185,53 @@ test("enquiry email escapes visitor markup", async () => {
   await handleContact(post({ name: "<b>Eve</b>", message: "Hello <script>alert(1)</script> there, a site please" }), e, turnstile(true));
   assert.ok(!/<script>|<b>Eve/.test(e.sent[0].html));
   assert.match(e.sent[0].html, /&lt;script&gt;/);
+});
+
+// Launch check, 17 Nov: honest confirmation, site-bound tokens, alerts, abuse caps, fixed email origin.
+test("gate C: 'confirmed' is true only when the auto-reply was actually sent", async () => {
+  let r = await (await handleContact(post({}), env(), turnstile(true))).json();
+  assert.equal(r.confirmed, true);
+  r = await (await handleContact(post({}), env({ autoReplyFails: true }), turnstile(true))).json();
+  assert.deepEqual([r.ok, r.confirmed], [true, false]);
+  r = await (await handleContact(post({}), env({ recipientOk: false }), turnstile(true))).json();
+  assert.deepEqual([r.ok, r.confirmed], [true, false]);
+});
+
+test("gate A: a token from another hostname is rejected, nothing sent", async () => {
+  const e = env();
+  const other = async (url, init) => (url === RESEND_URL ? current._send(JSON.parse(init.body)) : Response.json({ success: true, hostname: "evil.example" }));
+  const r = await handleContact(post({}), e, other);
+  assert.equal(r.status, 403);
+  assert.equal(e.sent.length, 0);
+});
+
+test("a broken spam check or failed send pings ALERT_URL with a code, never the message", async () => {
+  const pings = [];
+  const net = async (url, init) => {
+    if (url === "https://alert.example/x") { pings.push(String(init.body)); return new Response("ok"); }
+    return url === RESEND_URL ? current._send(JSON.parse(init.body)) : Response.json({ success: true, hostname: "eazyaccess.org" });
+  };
+  const e = env({ sendFails: true }); e.ALERT_URL = "https://alert.example/x";
+  await handleContact(post({ message: "secret project details here please" }), e, net);
+  const e2 = env(); e2.ALERT_URL = "https://alert.example/x"; delete e2.TURNSTILE_SECRET;
+  await handleContact(post({}), e2, net);
+  assert.equal(pings.length, 2);
+  assert.ok(pings.every((p) => !p.includes("secret project")));
+  assert.match(pings[1], /no-secret/);
+});
+
+test("auto-reply cap: tags and Gmail dots share one bucket; the site-wide cap stops the auto-reply", async () => {
+  assert.equal(recipientKey("A.Mina+promo@GMail.com"), recipientKey("amina@googlemail.com"));
+  assert.equal(recipientKey("amina+x@example.co.uk"), "to:amina@example.co.uk");
+  const e = env(); e.GLOBAL_RL = { limit: async () => ({ success: false }) };
+  const r = await (await handleContact(post({}), e, turnstile(true))).json();
+  assert.deepEqual([r.ok, r.confirmed, e.sent.length], [true, false, 1]);
+});
+
+test("emails always link to the real site, whichever host served the form", async () => {
+  const e = env();
+  const req = new Request("https://eazyaccess-org.example.workers.dev/api/contact", post({}));
+  const net = async (url, init) => (url === RESEND_URL ? current._send(JSON.parse(init.body)) : Response.json({ success: true, hostname: "eazyaccess-org.example.workers.dev" }));
+  await handleContact(req, e, net);
+  assert.ok(e.sent.every((m) => m.html.includes(SITE) && !m.html.includes("workers.dev")));
 });

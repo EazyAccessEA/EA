@@ -363,6 +363,7 @@ a.chip:hover{text-decoration:underline}
 .browser .bar{position:relative;display:flex;align-items:center;gap:8px;height:38px;padding:0 16px;background:var(--ground);border-bottom:1px solid var(--rule)}
 .browser .bar i{width:10px;height:10px;border-radius:50%;background:#D7D7D3}
 .browser .url{position:absolute;left:50%;transform:translateX(-50%);padding:3px 14px;border-radius:99px;background:var(--white);border:1px solid var(--rule);font:500 13px/1.4 var(--body);color:var(--text-2);white-space:nowrap}
+.browser picture{display:block}
 .shot-desk{display:block;width:100%;height:auto}
 .shot-phone{position:absolute;left:50%;top:12%;width:250px;margin-left:-125px;border-radius:38px;border:9px solid var(--pill);transform:rotate(6deg);box-shadow:20px 26px 50px rgba(0,0,0,.3)}
 .has-desk .shot-phone{left:auto;margin:0;right:6%;top:24%;width:clamp(190px,17vw,250px)}
