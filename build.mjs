@@ -19,7 +19,7 @@ const BAND = `<section class="band" aria-labelledby="band-title">
 
 // Tools section: tiles grouped by job, and one card per tool (the first open; main.js switches them).
 const SITES = {
-  farmcompanion: ["FarmCompanion", "#F2D9A4", "#1E1A12"], sagheerah: ["Sagheerah", "#0E3B33", "#F4EDE4"],
+  farmcompanion: ["Farm Companion", "#F2D9A4", "#1E1A12"], sagheerah: ["Sagheerah", "#0E3B33", "#F4EDE4"],
   flintmere: ["Flintmere", "#F2C230", "#141416"], deeper: ["deeper.tools", "#D52B1E", "#FFFFFF"],
   pageperfect: ["PagePerfect", "#F3F3F1", "#141416"], callandconsequence: ["Call and Consequence", "#E9DFCB", "#1C1A16"],
 };
@@ -48,17 +48,19 @@ function tools() {
       const on = name === open;
       const stops = colour.split(" ");
       const brand = `--tb:${fill(stops)};--tf:${textOn(stops)}`;
-      tiles += `<button type="button" class="tile" aria-pressed="${on}" aria-controls="${id}" style="${brand}">${name}</button>`;
+      tiles += `<button type="button" class="tile" aria-pressed="${on}" aria-controls="${id}" tabindex="${on ? 0 : -1}" style="${brand}">${name}</button>`; // one tab stop; arrows move between tiles
       const chips = used.map((s) => s === "site"
         ? `<li><span class="chip chip-site">This site</span></li>`
-        : `<li><a class="chip" href="/work/${s}" style="--dot:${SITES[s][1]}">${SITES[s][0]}</a></li>`).join("");
+        : `<li><a class="chip" href="/work/${s}" style="--dot:${SITES[s][1]}">${SITES[s][0]}</a></li>`).join("")
+        + (used.length > 3 ? `<li class="more" aria-hidden="true"><span class="chip chip-site">+${used.length - 3} more</span></li>` : ""); // phones show three
       const letters = [...name].map((ch, k) => `<span style="--k:${k}">${ch === " " ? "&nbsp;" : ch}</span>`).join("");
       cards += `<article class="tool-card" id="${id}" style="${brand}"${on ? "" : " hidden"}><p class="tool-kicker">${group} <span aria-hidden="true">/</span> ${i + 1} of ${list.length}</p><h3 aria-label="${name}"><span class="tool-name" aria-hidden="true">${letters}</span></h3><p class="tool-why">${why}</p><p class="tool-used">Used on</p><ul class="used-list">${chips}</ul><p class="tool-giant" aria-hidden="true" data-giant="${name.split(" ")[0]}"></p></article>`;
     });
     tiles += `</div></div>`;
   }
   return `<div class="stack"><div class="stack-rail" aria-label="Jump to a group">${rail}</div><div class="stack-groups">${tiles}</div><div class="tool-cards" aria-live="polite">${cards}</div>`
-    + `<p class="stack-count"><span class="n">1</span> of ${total} <span class="hint">· swipe for the next tool</span><span class="bar" aria-hidden="true"><i></i></span></p></div>`;
+    + `<div class="stack-count"><p><span class="n">1</span> of ${total}</p><span class="bar" aria-hidden="true"><i></i></span>`
+    + `<button type="button" class="deck-btn" data-step="-1" aria-label="Previous tool">←</button><button type="button" class="deck-btn" data-step="1" aria-label="Next tool">→</button></div></div>`;
 }
 
 function page(m, body, path) {
@@ -94,7 +96,7 @@ ${m.draw ? `<script>try{sessionStorage.getItem("drawn")?document.documentElement
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu<span class="burger" aria-hidden="true"><i></i><i></i></span></button>
 </header>
 
-<div class="menu" id="menu" hidden>
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
   <div class="menu-top">
     <img src="/brand/wordmark-white.svg" alt="eazy/access" width="117" height="22">
     <button class="close-btn" type="button">Close<span class="x" aria-hidden="true">×</span></button>
@@ -113,7 +115,7 @@ ${m.draw ? `<script>try{sessionStorage.getItem("drawn")?document.documentElement
 
 <main id="main"${m.main ? ` class="${m.main}"` : ""}>
 ${body.trim()}
-</main>
+${m.sticky === false ? "" : `<a class="sticky-talk" href="/contact">Let's talk · replies in 2 working days${dot(9, 18)}</a>\n`}</main>
 
 <footer class="footer">
   <div class="foot-top">
@@ -123,7 +125,7 @@ ${body.trim()}
   </div>
   <p class="muted small">${m.main === "legal" ? "EAZY ACCESS LTD · Registered in England and Wales, company number 13205428 · ICO registration ZC137268" : "eazy/access · Web design and build, UK · No tracking cookies"}</p>
 </footer>
-${m.sticky === false ? "" : `\n<a class="sticky-talk" href="/contact">Let's talk · replies in 2 working days${dot(9, 18)}</a>\n`}</body>
+</body>
 </html>
 `;
 }

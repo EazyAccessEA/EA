@@ -13,7 +13,7 @@ async def main():
         for w, h in [(375, 812), (1440, 900)]:
             for path in PAGES:
                 pg = await b.new_page(viewport={"width": w, "height": h}, reduced_motion="reduce")
-                await pg.goto(BASE + path, wait_until="load"); await pg.wait_for_timeout(1200)
+                await pg.goto(BASE + path, wait_until="load", timeout=120000); await pg.wait_for_timeout(1200)
                 await pg.add_script_tag(url=AXE)
                 r = await pg.evaluate("axe.run(document,{runOnly:['wcag2a','wcag2aa','wcag21aa','wcag22aa','best-practice']})")
                 v = [(x["impact"], x["id"], len(x["nodes"]), x["nodes"][0]["target"][0] if x["nodes"] else "") for x in r["violations"]]

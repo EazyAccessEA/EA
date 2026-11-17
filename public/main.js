@@ -19,7 +19,10 @@ ukStatus(); setInterval(ukStatus, 30_000);
 
 // Contact details are rebuilt here, so harvesters reading the HTML never see them
 const MAIL = ["info", "eazyaccess.org"].join("@");
-for (const a of $$("[data-u][data-d]")) a.href = `mailto:${a.dataset.u}@${a.dataset.d}`;
+for (const a of $$("[data-u][data-d]")) {
+  a.href = `mailto:${a.dataset.u}@${a.dataset.d}`;
+  const at = $("[data-at]", a); if (at) at.textContent = "@"; // a real @, so copying the address works
+}
 for (const el of $$("[data-phone]")) {
   const d = [...el.dataset.phone].reverse().join(""); // stored reversed in the HTML
   const a = $("a", el);
@@ -46,7 +49,7 @@ function setMenu(open) {
   menu.hidden = !open;
   openBtn.setAttribute("aria-expanded", String(open));
   document.body.style.overflow = open ? "hidden" : "";
-  $("main").inert = open;
+  for (const el of $$("main, .site-header, .footer, .sticky-talk")) el.inert = open; // only the menu is reachable while open
   (open ? closeBtn : openBtn).focus();
 }
 if (menu) {
@@ -107,16 +110,18 @@ if (deck) {
     });
     dots.forEach((d, i) => d.classList.toggle("on", i === k));
   };
+  const say = $(".sheets-live");
   const open = (id, push = true) => {
     const k = Math.max(0, ids.indexOf(id));
     deck.classList.add("started");
     place(k);
+    if (push && say) say.textContent = `Sheet ${k + 1} of ${ids.length}: ${sheets[k].getAttribute("aria-label") || "All work"}`;
     if (phone.matches) requestAnimationFrame(() => deck.scrollTo({ left: sheets[k].offsetLeft - 8, behavior: still || !push ? "instant" : "smooth" }));
     if (push) history.replaceState(null, "", k ? `#${ids[k]}` : location.pathname);
   };
   for (const a of $$("[data-open]", deck)) a.addEventListener("click", (e) => { e.preventDefault(); open(a.dataset.open); });
-  document.addEventListener("keydown", (e) => {
-    if (phone.matches || !["ArrowLeft", "ArrowRight"].includes(e.key) || e.target.closest("input,textarea,select,.menu")) return;
+  deck.addEventListener("keydown", (e) => { // only while focus is inside the sheets, so page scrolling and screen readers keep their arrows
+    if (phone.matches || !["ArrowLeft", "ArrowRight"].includes(e.key)) return;
     const k = ids.indexOf($(".sheet.on", deck).dataset.sheet) + (e.key === "ArrowRight" ? 1 : -1);
     if (k < 0 || k >= ids.length) return;
     e.preventDefault(); open(ids[k]);
@@ -148,7 +153,7 @@ if (stack) {
   const show = (tile, animate = false) => {
     const next = $("#" + tile.getAttribute("aria-controls"));
     const prev = $(".tool-card:not([hidden])", cards);
-    $$(".tile", stack).forEach((t) => t.setAttribute("aria-pressed", String(t === tile)));
+    $$(".tile", stack).forEach((t) => { t.setAttribute("aria-pressed", String(t === tile)); t.tabIndex = t === tile ? 0 : -1; });
     if (next === prev) return;
     next.hidden = false;
     if (!animate || still || !prev) { if (prev) prev.hidden = true; return; }
@@ -164,6 +169,17 @@ if (stack) {
     setTimeout(() => next.classList.remove("opening"), 900);
   };
   stack.addEventListener("click", (e) => { const t = e.target.closest(".tile"); if (t) show(t, true); });
+  // The 26 tiles are one tab stop: arrow keys move focus between them, Home/End jump, Enter or Space opens
+  const tiles = $$(".tile", stack);
+  $(".stack-groups", stack).addEventListener("keydown", (e) => {
+    const i = tiles.indexOf(document.activeElement);
+    const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+    const to = e.key === "Home" ? 0 : e.key === "End" ? tiles.length - 1 : step ? (i + step + tiles.length) % tiles.length : -1;
+    if (i < 0 || to < 0) return;
+    e.preventDefault();
+    tiles.forEach((t, k) => { t.tabIndex = k === to ? 0 : -1; });
+    tiles[to].focus();
+  });
 
   const deck = $$(".tool-card", cards), rail = $$(".rail-btn", stack), railEl = $(".stack-rail", stack);
   const count = $(".stack-count", stack), n = $(".n", count);
@@ -177,8 +193,9 @@ if (stack) {
     railEl.scrollTo({ left: g.offsetLeft - rail[0].offsetLeft, behavior: still ? "instant" : "smooth" });
   };
   cards.addEventListener("scroll", () => { clearTimeout(cards.t); cards.t = setTimeout(mark, 80); }, { passive: true });
-  rail.forEach((b) => b.addEventListener("click", () =>
-    cards.scrollTo({ left: deck[+b.dataset.first].offsetLeft - deck[0].offsetLeft, behavior: still ? "instant" : "smooth" })));
+  const go = (k) => cards.scrollTo({ left: deck[k].offsetLeft - deck[0].offsetLeft, behavior: still ? "instant" : "smooth" });
+  rail.forEach((b) => b.addEventListener("click", () => go(+b.dataset.first)));
+  $$(".deck-btn", stack).forEach((b) => b.addEventListener("click", () => go(Math.min(deck.length - 1, Math.max(0, at() + +b.dataset.step)))));
   mark();
 }
 
