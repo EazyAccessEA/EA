@@ -62,6 +62,22 @@ test("tools: the count in the home copy matches tools.json", () => {
   assert.equal((home.match(/class="tile"/g) || []).length, n);
 });
 
+test("tools: every card's text passes WCAG AA (4.5:1) on its brand colour", () => {
+  const lum = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255)
+    .map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
+    .reduce((a, v, i) => a + v * [0.2126, 0.7152, 0.0722][i], 0);
+  const home = pages.find((p) => p.rel === "index.html").html;
+  const bad = [];
+  for (const [, id, tb, tf] of home.matchAll(/<article class="tool-card" id="([^"]+)" style="--tb:([^;]+);--tf:(#[0-9A-F]{6})"/gi))
+    for (const stop of tb.match(/#[0-9A-F]{6}/gi)) {
+      const [a, b] = [lum(stop), lum(tf)];
+      const r = (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+      if (r < 4.5) bad.push(`${id} ${tf} on ${stop}: ${r.toFixed(2)}`);
+    }
+  assert.ok(home.includes('class="tool-card"'));
+  assert.deepEqual(bad, []);
+});
+
 test("contact details never appear in page source or scripts (anti-harvesting)", () => {
   const js = readFileSync(join(OUT, "main.js"), "utf8");
   for (const { rel, html } of [...pages, { rel: "main.js", html: js }]) {

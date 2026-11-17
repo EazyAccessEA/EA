@@ -1,5 +1,5 @@
 {
- "_": "Tools section on the home page. build.mjs renders it into <!--#tools-->. 'used' lists project slugs from the research notes in inventory/work/ ('site' = this site). Check a new entry against the project's repo before adding it.",
+ "_": "Tools section on the home page. build.mjs renders it into <!--#tools-->. 'used' lists project slugs from the research notes in inventory/work/ ('site' = this site). Check a new entry against the project's repo before adding it. The fourth field is the brand colour (space-separated stops for a gradient), taken from each company's own logo file or brand page on 17 Nov 2026; Paper publishes none, so #EDEBE1 is a placeholder. Astro uses its dark mark, because no text colour passes 4.5:1 on its red-to-pink gradient.",
  "groups": [
   [
    "Design",
@@ -9,14 +9,16 @@
      "Every page here is designed first, so it can be seen and changed before anything is built.",
      [
       "site"
-     ]
+     ],
+     "#EDEBE1"
     ],
     [
      "Adobe Fonts",
      "Licensed type, served the way the licence allows.",
      [
       "site"
-     ]
+     ],
+     "#EB1000"
     ]
    ]
   ],
@@ -31,7 +33,8 @@
       "sagheerah",
       "flintmere",
       "pageperfect"
-     ]
+     ],
+     "#000000"
     ],
     [
      "React",
@@ -42,21 +45,24 @@
       "flintmere",
       "pageperfect",
       "callandconsequence"
-     ]
+     ],
+     "#58C4DC"
     ],
     [
      "Astro",
      "Mostly-text sites that send almost no JavaScript to the phone.",
      [
       "deeper"
-     ]
+     ],
+     "#17191E"
     ],
     [
      "Remix",
      "Forms and data handled on the server, so they work on a slow connection.",
      [
       "flintmere"
-     ]
+     ],
+     "#313539"
     ],
     [
      "Vite",
@@ -64,7 +70,8 @@
      [
       "flintmere",
       "callandconsequence"
-     ]
+     ],
+     "#7E14FF"
     ],
     [
      "Tailwind",
@@ -74,14 +81,16 @@
       "sagheerah",
       "flintmere",
       "pageperfect"
-     ]
+     ],
+     "#38BDF8"
     ],
     [
      "Typst",
      "Print-ready books built from the same text as the website.",
      [
       "pageperfect"
-     ]
+     ],
+     "#239DAD"
     ]
    ]
   ],
@@ -97,7 +106,8 @@
       "pageperfect",
       "callandconsequence",
       "site"
-     ]
+     ],
+     "#F48120"
     ],
     [
      "Hetzner",
@@ -105,7 +115,8 @@
      [
       "farmcompanion",
       "flintmere"
-     ]
+     ],
+     "#D50C2D"
     ],
     [
      "Coolify",
@@ -113,14 +124,16 @@
      [
       "farmcompanion",
       "flintmere"
-     ]
+     ],
+     "#FFC40D"
     ],
     [
      "Vercel",
      "Hosting for a Next.js front end that has to be quick everywhere.",
      [
       "farmcompanion"
-     ]
+     ],
+     "#000000"
     ]
    ]
   ],
@@ -133,7 +146,8 @@
      [
       "farmcompanion",
       "flintmere"
-     ]
+     ],
+     "#336791"
     ],
     [
      "Prisma",
@@ -141,7 +155,8 @@
      [
       "farmcompanion",
       "flintmere"
-     ]
+     ],
+     "#04D5E7 #FEBE29 #FE4352"
     ],
     [
      "Redis",
@@ -149,35 +164,40 @@
      [
       "farmcompanion",
       "flintmere"
-     ]
+     ],
+     "#FF4438"
     ],
     [
      "Meilisearch",
      "Search that copes with typos and half-remembered names.",
      [
       "farmcompanion"
-     ]
+     ],
+     "#FF5CAA #FF4E62"
     ],
     [
      "Cloudflare D1",
      "A small database for sign-ups, close to the site that uses it.",
      [
       "deeper"
-     ]
+     ],
+     "#F48120"
     ],
     [
      "Cloudflare KV",
      "Remembers which payment messages have been handled, so an order is never processed twice.",
      [
       "sagheerah"
-     ]
+     ],
+     "#F48120"
     ],
     [
      "MapLibre",
      "Open-source maps, so a map page doesn't depend on someone else's pricing.",
      [
       "farmcompanion"
-     ]
+     ],
+     "#295DAA"
     ]
    ]
   ],
@@ -190,7 +210,8 @@
      [
       "sagheerah",
       "flintmere"
-     ]
+     ],
+     "#533AFD"
     ],
     [
      "Resend",
@@ -200,14 +221,16 @@
       "sagheerah",
       "flintmere",
       "site"
-     ]
+     ],
+     "#000000"
     ],
     [
      "Turnstile",
      "A spam check on forms that doesn't make people solve puzzles.",
      [
       "site"
-     ]
+     ],
+     "#F48120"
     ]
    ]
   ],
@@ -222,7 +245,8 @@
       "sagheerah",
       "flintmere",
       "pageperfect"
-     ]
+     ],
+     "#77FF00"
     ],
     [
      "Playwright",
@@ -231,14 +255,16 @@
       "farmcompanion",
       "flintmere",
       "site"
-     ]
+     ],
+     "#2EAD33"
     ],
     [
      "Sentry",
      "Tells us when something breaks for a visitor, so they don't have to.",
      [
       "flintmere"
-     ]
+     ],
+     "#362D59"
     ]
    ]
   ]

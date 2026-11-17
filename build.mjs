@@ -23,20 +23,35 @@ const SITES = {
   flintmere: ["Flintmere", "#F2C230", "#141416"], deeper: ["deeper.tools", "#D52B1E", "#FFFFFF"],
   pageperfect: ["PagePerfect", "#F3F3F1", "#141416"], callandconsequence: ["Call and Consequence", "#E9DFCB", "#1C1A16"],
 };
+// WCAG contrast: pick ink or white text, whichever reads better on every stop of the brand colour.
+const lum = (hex) => {
+  const c = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+  return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+};
+const ratio = (a, b) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+function textOn(stops) {
+  const worst = (fg) => Math.min(...stops.map((s) => ratio(lum(s), lum(fg))));
+  return worst("#141416") >= worst("#FFFFFF") ? "#141416" : "#FFFFFF";
+}
+const fill = (stops) => (stops.length > 1 ? `linear-gradient(120deg,${stops.join(",")})` : stops[0]);
+
 function tools() {
   const { groups } = JSON.parse(readFileSync("tools.json", "utf8"));
   const open = "Cloudflare Workers";
   let tiles = "", cards = "";
   for (const [group, list] of groups) {
     tiles += `<div class="stack-group"><p class="stack-label">${group}</p><div class="stack-tiles">`;
-    list.forEach(([name, why, used], i) => {
+    list.forEach(([name, why, used, colour], i) => {
       const id = "tool-" + name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
       const on = name === open;
-      tiles += `<button type="button" class="tile" aria-pressed="${on}" aria-controls="${id}">${name}</button>`;
+      const stops = colour.split(" ");
+      const brand = `--tb:${fill(stops)};--tf:${textOn(stops)}`;
+      tiles += `<button type="button" class="tile" aria-pressed="${on}" aria-controls="${id}" style="${brand}">${name}</button>`;
       const chips = used.map((s) => s === "site"
         ? `<li><span class="chip chip-site">This site</span></li>`
-        : `<li><a class="chip" href="/work/${s}" style="--bg:${SITES[s][1]};--fg:${SITES[s][2]}">${SITES[s][0]}</a></li>`).join("");
-      cards += `<article class="tool-card" id="${id}"${on ? "" : " hidden"}><p class="tool-kicker">${group} <span aria-hidden="true">/</span> ${i + 1} of ${list.length}</p><h3>${name}</h3><p class="tool-why">${why}</p><p class="tool-used">Used on</p><ul class="chips">${chips}</ul></article>`;
+        : `<li><a class="chip" href="/work/${s}" style="--dot:${SITES[s][1]}">${SITES[s][0]}</a></li>`).join("");
+      const letters = [...name].map((ch, k) => `<span style="--k:${k}">${ch === " " ? "&nbsp;" : ch}</span>`).join("");
+      cards += `<article class="tool-card" id="${id}" style="${brand}"${on ? "" : " hidden"}><p class="tool-kicker">${group} <span aria-hidden="true">/</span> ${i + 1} of ${list.length}</p><h3 aria-label="${name}"><span class="tool-name" aria-hidden="true">${letters}</span></h3><p class="tool-why">${why}</p><p class="tool-used">Used on</p><ul class="used-list">${chips}</ul><p class="tool-giant" aria-hidden="true">${name.split(" ")[0]}</p></article>`;
     });
     tiles += `</div></div>`;
   }

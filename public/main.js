@@ -135,12 +135,29 @@ if (notes.length) {
 const stack = $(".stack");
 if (stack) {
   const cards = $(".tool-cards", stack), phone = matchMedia("(max-width:820px)");
-  const show = (tile) => {
+  let layer = 1, settle;
+  const show = (tile, animate = false) => {
+    const next = $("#" + tile.getAttribute("aria-controls"));
+    const prev = $(".tool-card:not([hidden])", cards);
     $$(".tile", stack).forEach((t) => t.setAttribute("aria-pressed", String(t === tile)));
-    $$(".tool-card", stack).forEach((c) => { c.hidden = c.id !== tile.getAttribute("aria-controls"); });
     if (phone.matches) tile.closest(".stack-group").after(cards); else stack.append(cards);
+    if (next === prev) return;
+    next.hidden = false;
+    if (!animate || still || !prev) { if (prev) prev.hidden = true; return; }
+    // The colour spreads from the side nearest the tile: the left edge on desktop, the top on phones
+    const t = tile.getBoundingClientRect(), c = cards.getBoundingClientRect();
+    next.style.setProperty("--from", phone.matches
+      ? `${Math.round(((t.left + t.width / 2 - c.left) / c.width) * 100)}% 0%`
+      : `0% ${Math.round(Math.min(Math.max((t.top + t.height / 2 - c.top) / c.height, 0), 1) * 100)}%`);
+    next.style.zIndex = ++layer; // the newest card always sits on top, however fast the clicks
+    next.classList.remove("opening"); void next.offsetWidth; next.classList.add("opening");
+    clearTimeout(settle);
+    settle = setTimeout(() => { // once the colour has spread (450ms), drop the cards underneath
+      $$(".tool-card", cards).forEach((c) => { c.hidden = c !== next; });
+    }, 480);
+    setTimeout(() => next.classList.remove("opening"), 900);
   };
-  stack.addEventListener("click", (e) => { const t = e.target.closest(".tile"); if (t) show(t); });
+  stack.addEventListener("click", (e) => { const t = e.target.closest(".tile"); if (t) show(t, true); });
   phone.addEventListener("change", () => show($(".tile[aria-pressed=true]", stack)));
   if (phone.matches) show($(".tile[aria-pressed=true]", stack));
 }
