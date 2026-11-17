@@ -51,3 +51,11 @@ test("G1: every page with a Turnstile widget runs the Worker first (local key sw
   const first = JSON.parse(cfg.match(/"run_worker_first":\s*(\[[^\]]*\])/)[1]);
   for (const p of pages.filter((p) => p.html.includes('class="cf-turnstile"'))) assert.ok(first.includes(routeOf(p.rel)), routeOf(p.rel));
 });
+
+test("contact details never appear in page source or scripts (anti-harvesting)", () => {
+  const js = readFileSync(join(OUT, "main.js"), "utf8");
+  for (const { rel, html } of [...pages, { rel: "main.js", html: js }]) {
+    assert.ok(!/info@eazyaccess\.org/i.test(html), `${rel}: raw email`);
+    assert.ok(!/0?7349\s?897\s?644|447349897644/.test(html.replace(/[\s-]/g, "")), `${rel}: raw phone`);
+  }
+});

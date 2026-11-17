@@ -73,7 +73,7 @@ ${body.trim()}
 
 <footer class="footer">
   <div class="foot-top">
-    <div><p class="muted">Start a project</p><a class="big-email light" href="mailto:info@eazyaccess.org">info@eazyaccess.org</a></div>
+    <div><p class="muted">Start a project</p><a class="big-email light" href="mailto:info@eazyaccess.org">info@eazyaccess.org</a><p class="foot-phone" data-phone="44679894370" hidden><a></a></p></div>
     <nav aria-label="Footer"><a href="/work/">Work</a><a href="/how-we-work">How we work</a><a href="/contact">Contact</a></nav>
     <nav aria-label="Legal"><a href="/privacy">Privacy</a><a href="/cookies">Cookies</a><a href="/terms">Terms</a></nav>
   </div>
@@ -84,12 +84,18 @@ ${m.sticky === false ? "" : `\n<a class="sticky-talk" href="/contact">Let's talk
 `;
 }
 
+// Anti-harvesting: the email never appears in the HTML. The "@" is drawn by CSS ([data-at]) and
+// main.js rebuilds the mailto link from data-u/data-d. Without JS the link goes to the contact form.
+const guard = (html) => html.replace(
+  /<a([^>]*?) href="mailto:info@eazyaccess\.org"([^>]*)>info@eazyaccess\.org<\/a>/g,
+  '<a$1 href="/contact" data-u="info" data-d="eazyaccess.org"$2>info<span data-at></span>eazyaccess.org</a>');
+
 for (const file of files(SRC)) {
   const rel = relative(SRC, file);
   const src = readFileSync(file, "utf8");
   const m = JSON.parse(src.match(/^<!--(\{.*?\})-->/s)[1]);
   const out = join(OUT, rel);
   mkdirSync(dirname(out), { recursive: true });
-  writeFileSync(out, page(m, src.replace(/^<!--.*?-->/s, ""), route(rel)));
+  writeFileSync(out, guard(page(m, src.replace(/^<!--.*?-->/s, ""), route(rel))));
 }
 console.log(`built ${files(SRC).length} pages`);

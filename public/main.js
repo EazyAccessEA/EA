@@ -17,6 +17,17 @@ function ukStatus() {
 }
 ukStatus(); setInterval(ukStatus, 30_000);
 
+// Contact details are rebuilt here, so harvesters reading the HTML never see them
+const MAIL = ["info", "eazyaccess.org"].join("@");
+for (const a of $$("[data-u][data-d]")) a.href = `mailto:${a.dataset.u}@${a.dataset.d}`;
+for (const el of $$("[data-phone]")) {
+  const d = [...el.dataset.phone].reverse().join(""); // stored reversed in the HTML
+  const a = $("a", el);
+  a.href = `tel:+44${d.slice(1)}`;
+  a.textContent = `${d.slice(0, 5)} ${d.slice(5)}`;
+  el.hidden = false;
+}
+
 // Letter roll: split each .roll into letters; the readable text stays in aria-label
 for (const el of $$(".roll")) {
   const text = el.textContent;
@@ -73,54 +84,52 @@ if (pill) {
 const sticky = $(".sticky-talk"), band = $(".band");
 if (sticky && band) new IntersectionObserver(([e]) => sticky.classList.toggle("hide", e.isIntersecting), { threshold: 0.15 }).observe(band);
 
-// /work: the hovered project's phone follows the pointer (fine pointers only; keyboard focus too)
-const list = $(".work-list"), preview = $(".preview");
-if (list && preview && matchMedia("(hover:hover) and (pointer:fine)").matches) {
-  const img = $("img", preview);
-  let tx = 0, ty = 0, x = 0, y = 0, raf = 0;
-  const loop = () => {
-    const k = still ? 1 : 0.18;
-    x += (tx - x) * k; y += (ty - y) * k;
-    preview.style.setProperty("--px", `${x}px`); preview.style.setProperty("--py", `${y}px`);
-    raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.5 ? requestAnimationFrame(loop) : 0;
-  };
-  const aim = (px, py) => { tx = px + 24; ty = py - 240; if (!raf) raf = requestAnimationFrame(loop); };
-  const show = (a) => {
-    $$("a", list).forEach((l) => l.classList.toggle("on", l === a));
-    list.classList.add("hovering");
-    img.src = a.dataset.preview;
-    preview.style.setProperty("--pbg", a.style.getPropertyValue("--bg"));
-    preview.classList.add("on");
-  };
-  const hide = () => { list.classList.remove("hovering"); $$("a", list).forEach((l) => l.classList.remove("on")); preview.classList.remove("on"); };
-  $$("a", list).forEach((a) => {
-    a.addEventListener("pointerenter", (e) => {
-      if (!preview.classList.contains("on")) { x = e.clientX + 24; y = e.clientY - 240; }
-      show(a); aim(e.clientX, e.clientY);
+// /work: sliding sheets. Desktop: the open sheet sits in front, the others fold into edges either side.
+// Phone: a swipe deck. Every edge and list row is a real link, so all of this is progressive enhancement.
+const deck = $(".sheets");
+if (deck) {
+  const sheets = $$(".sheet", deck), ids = sheets.map((s) => s.dataset.sheet);
+  const dots = $$(".dots i");
+  const phone = matchMedia("(max-width:820px)");
+  const place = (k) => {
+    sheets.forEach((s, i) => {
+      s.style.left = i <= k ? `calc(${i} * var(--edge))` : `calc(100% - ${sheets.length - i} * var(--edge))`;
+      s.classList.toggle("on", i === k);
+      $(".sheet-body", s).inert = !phone.matches && i !== k;
     });
-    a.addEventListener("focus", () => { const r = a.getBoundingClientRect(); x = tx = r.left + r.width * 0.55; y = ty = r.top - 180; loop(); show(a); });
+    dots.forEach((d, i) => d.classList.toggle("on", i === k));
+  };
+  const open = (id, push = true) => {
+    const k = Math.max(0, ids.indexOf(id));
+    deck.classList.add("started");
+    place(k);
+    if (phone.matches) requestAnimationFrame(() => deck.scrollTo({ left: sheets[k].offsetLeft - 8, behavior: still || !push ? "instant" : "smooth" }));
+    if (push) history.replaceState(null, "", k ? `#${ids[k]}` : location.pathname);
+  };
+  for (const a of $$("[data-open]", deck)) a.addEventListener("click", (e) => { e.preventDefault(); open(a.dataset.open); });
+  document.addEventListener("keydown", (e) => {
+    if (phone.matches || !["ArrowLeft", "ArrowRight"].includes(e.key) || e.target.closest("input,textarea,select,.menu")) return;
+    const k = ids.indexOf($(".sheet.on", deck).dataset.sheet) + (e.key === "ArrowRight" ? 1 : -1);
+    if (k < 0 || k >= ids.length) return;
+    e.preventDefault(); open(ids[k]);
+    $(".sheet.on .sheet-body a", deck)?.focus();
   });
-  list.addEventListener("pointermove", (e) => aim(e.clientX, e.clientY));
-  list.addEventListener("pointerleave", hide);
-  list.addEventListener("focusout", (e) => { if (!list.contains(e.relatedTarget)) hide(); });
+  deck.addEventListener("scroll", () => {
+    if (!phone.matches) return;
+    const k = Math.round(deck.scrollLeft / (sheets[0].offsetWidth + 8));
+    dots.forEach((d, i) => d.classList.toggle("on", i === k));
+  }, { passive: true });
+  phone.addEventListener("change", () => open(location.hash.slice(1) || "list", false));
+  open(location.hash.slice(1) || "list", false);
 }
 
-// /work: the ticker drifts, speeds up with scrolling, then eases back
-const track = $(".ticker-track");
-if (track && !still) {
-  const anim = track.getAnimations()[0];
-  let lastY = scrollY, rate = 1, raf = 0;
-  const settle = () => {
-    rate += (1 - rate) * 0.06;
-    if (anim) anim.playbackRate = rate;
-    raf = Math.abs(rate - 1) > 0.01 ? requestAnimationFrame(settle) : 0;
-  };
-  addEventListener("scroll", () => {
-    const v = Math.abs(scrollY - lastY); lastY = scrollY;
-    rate = Math.min(6, Math.max(rate, 1 + v / 12));
-    if (!raf) raf = requestAnimationFrame(settle);
-  }, { passive: true });
-}
+// Home: on phones the note shows two rows until it's opened
+const noteBtn = $(".note-toggle");
+if (noteBtn) noteBtn.addEventListener("click", () => {
+  const on = noteBtn.closest(".note-card").classList.toggle("open");
+  noteBtn.setAttribute("aria-expanded", String(on));
+  noteBtn.textContent = on ? "Show less" : "Show the full note";
+});
 
 // Contact form: works without JS (the Worker redirects back); with JS it stays on the page
 const form = $(".form-card");
@@ -153,10 +162,10 @@ if (form) {
       window.turnstile?.reset();
     } catch {
       statusEl.classList.add("bad");
-      statusEl.textContent = "It didn't send. Please email info@eazyaccess.org directly.";
+      statusEl.textContent = `It didn't send. Please email ${MAIL} directly.`;
     } finally { sendBtn.disabled = false; }
   });
   const flag = new URLSearchParams(location.search).get("contact");
-  const msg = { sent: ["ok", "Sent. A person will reply within two working days."], invalid: ["bad", "Please check the form and try again."], slow: ["bad", "Too many messages. Please wait a minute or email us."], failed: ["bad", "It didn't send. Please email info@eazyaccess.org directly."] }[flag];
+  const msg = { sent: ["ok", "Sent. A person will reply within two working days."], invalid: ["bad", "Please check the form and try again."], slow: ["bad", "Too many messages. Please wait a minute or email us."], failed: ["bad", `It didn't send. Please email ${MAIL} directly.`] }[flag];
   if (msg) { statusEl.classList.add(msg[0]); statusEl.textContent = msg[1]; }
 }
