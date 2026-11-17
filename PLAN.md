@@ -39,3 +39,25 @@
 
 ## 3. Handover
 Each task records the files it changed, the check command and its output, and the gates it closed. A fresh-context reviewer checks that before the next task starts.
+
+## Split into pages (17 Nov 2026)
+
+Ponytail pass: no framework or templating dependency. One ~40-line `build.mjs` (node stdlib) wraps page fragments in `pages/` with the shared head, header, menu and footer, and writes `public/`. Without it, ten pages would each carry their own copy of the header and footer. Wrangler runs it on dev and deploy.
+
+| Gate | Boundary | Wrong value that could cross silently | Check that fails loudly | Owner |
+|---|---|---|---|---|
+| G1 | page → Worker | Turnstile key not swapped on /contact in local dev (HTMLRewriter only runs on run_worker_first paths) | test: every built page with `.cf-turnstile` is in `run_worker_first` | T2 |
+| G2 | Worker → browser (no-JS) | 303 still sends visitors to `/?contact=…` on the old one-page home | existing redirect test tightened to `/contact?contact=sent` | T2 |
+| G3 | page → page | an internal link to a page that doesn't exist (404) | test: every `href="/…"` in `public/` resolves to a built file | T2 |
+| G4 | rule | a page that's only a jump link, or two pages sharing a title | test: every page has a unique `<title>`, a description and a canonical, and main nav links are paths, not `#` | T2 |
+| G5 | browser | main.js throwing on pages without the form or menu pieces | load every page at 375 and 1440, zero console errors | T5 |
+| G6 | copy → reader | a feature or number on a work page with no source | each work-page claim traced to a file or live URL in the research notes; slopmonster 5/5 | T4 |
+| G7 | existing gates A–E | contact gates regress after the move | the existing 20 Worker tests | T2 |
+
+| Task | One job | Files it owns | Needs | Runs alongside |
+|---|---|---|---|---|
+| T1 | Research the six products from their repos | none (reports only) | — | T2, T3 |
+| T2 | Build script, layout, gates G1–G4 + G7 | build.mjs, pages/_layout, test/site.test.js, wrangler.jsonc, src/contact.js redirect | — | T1 |
+| T3 | Home, /work/, /how-we-work, /contact, legal pages as fragments | pages/*.html, styles.css, main.js | T2 | T1 |
+| T4 | Six /work/<name> pages | pages/work/*.html | T1, T3 | — |
+| T5 | Measure 375×812, console, slopmonster, deploy, test email | qa/ | T4 | — |

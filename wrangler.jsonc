@@ -2,12 +2,15 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "eazyaccess-org",
   "main": "src/worker.js",
+  "build": { "command": "node build.mjs" },
   "compatibility_date": "2026-11-01",
-  "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": ["/api/*"] },
-  "send_email": [{ "name": "EMAIL" }],
-  "ratelimits": [{ "name": "CONTACT_RL", "namespace_id": "1001", "simple": { "limit": 5, "period": 60 } }],
+  "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": ["/", "/index.html", "/contact", "/api/*"] },
+  "ratelimits": [
+    { "name": "CONTACT_RL", "namespace_id": "1001", "simple": { "limit": 5, "period": 60 } },
+    { "name": "AUTOREPLY_RL", "namespace_id": "1002", "simple": { "limit": 1, "period": 60 } }
+  ],
   "observability": { "enabled": true },
-  // TURNSTILE_SECRET is a secret: `wrangler secret put TURNSTILE_SECRET`
+  // Secrets: TURNSTILE_SECRET and RESEND_API_KEY via `wrangler secret put`
   // Custom domain is added only after Abu Aaliyah approves the DNS change (gate F).
   "workers_dev": true
 }

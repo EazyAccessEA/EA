@@ -6,7 +6,7 @@ eazy/access is a small UK studio that designs and builds websites, shops and too
 The old "permanent capital vehicle" positioning, the founder letter, `eazyaccess-*.jsx` and `site/` (Next.js) are **obsolete**. Don't build from them, and leave `site/` alone until the owner decides to delete it.
 
 ## What the site is
-One marketing page at eazyaccess.org. Contact is the single goal.
+A multi-page marketing site at eazyaccess.org, following the global "No long-scroll sites" rule: a short home page, one page per project under `/work/<name>`, How we work, and Contact. Contact is the single goal on every page. The v4 build in `public/` is still one long page; it must be split before it counts as done.
 
 Promises the copy may make (confirmed by the owner, 16 Nov 2026):
 - A person replies within two working days.
@@ -16,6 +16,8 @@ Promises the copy may make (confirmed by the owner, 16 Nov 2026):
 - The launch date is agreed before work starts.
 
 Don't promise that clients can edit their own site. The owner hasn't confirmed it.
+
+Company details (for the legal pages only, never the home page): EAZY ACCESS LTD, registered in England and Wales, company number 13205428, registered office 71–75 Shelton Street, Covent Garden, London WC2H 9JQ, ICO registration ZC137268. Enquiry emails are kept for two years after last contact. Working hours (shown in the site's status line): Monday to Friday, 09:00–17:30 UK time.
 
 ## Design (source: Paper file "Eazy Access — brand and site", page "v4 — our own")
 - **Ground** `#F3F3F1`, **ink** `#0B0B0C`, **secondary text** `#3F3F44` / `#5E5E62`, **rule** `#E2E2DF`, **dark pill** `#141416`.
@@ -33,7 +35,8 @@ Don't promise that clients can edit their own site. The owner hasn't confirmed i
 
 ## Stack
 - Static `public/` (HTML, CSS, a little JS), served by a Cloudflare Worker (`src/worker.js`) as static assets.
-- `/api/contact` posts to the Worker. It checks Turnstile, validates, sends through Cloudflare Email Service to info@eazyaccess.org, then sends the auto-reply.
+- `/api/contact` posts to the Worker. It checks Turnstile, validates, sends through the Resend API (free tier) to info@eazyaccess.org, then sends a fixed-text auto-reply. Mail itself stays on Google Workspace; never move MX records.
+- **Every email we send uses our style**: the branded layout in `src/email.js` (wordmark PNG from the site's origin, ground `#F3F3F1`, white card, ink text, one orange IvyPresto-style accent word per heading via a Georgia fallback, company details in the footer), plus a plain-text part. Email clients can't load Adobe Fonts, so type falls back to system sans. Inline styles and tables only.
 - `npm test` runs the Worker's gate tests (node:test). Every gate has a test that has been shown to fail.
 - Hosting: Cloudflare. DNS for eazyaccess.org is changed only after the owner approves.
 

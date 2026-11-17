@@ -41,3 +41,8 @@ inventory/21st/
 inventory/halden-template/
 inventory/font-tests/*.png
 inventory/*.png
+
+# Built by build.mjs from pages/
+public/*.html
+public/work/*.html
+qa/pages/
