@@ -150,7 +150,7 @@ if (hero && giant) {
 }
 
 // Sticky contact bar (phones) hides when the "Let's talk" band is on screen: never two primary actions
-// It also steps aside while the phone tools deck is on screen, so it never covers the deck's counter.
+// It also steps aside while the phone tools deck or the footer is on screen, so it never covers the deck's counter or the company details.
 const sticky = $(".sticky-talk");
 if (sticky) {
   const seen = new Set();
@@ -158,7 +158,7 @@ if (sticky) {
     entries.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
     sticky.classList.toggle("hide", seen.size > 0);
   }, { threshold: 0.15 });
-  [$(".band"), $(".tool-cards")].forEach((el) => el && io.observe(el));
+  [$(".band"), $(".tool-cards"), $(".footer")].forEach((el) => el && io.observe(el)); // the footer: it never covers the company details on the legal pages
 }
 
 // /work: sliding sheets. Desktop: the open sheet sits in front, the others fold into edges either side.

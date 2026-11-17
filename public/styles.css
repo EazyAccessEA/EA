@@ -177,7 +177,7 @@ h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.015em;line-
 .legal h2{font-size:28px;margin:48px 0 14px}
 .legal p,.legal li{color:var(--text-2);font-size:18px;margin-bottom:12px}
 .legal ul{padding-left:22px}
-.legal a{text-decoration:underline}
+.legal a:not(.sticky-talk){text-decoration:underline}
 .legal .lede{font-size:21px;color:var(--ink)}
 
 
@@ -342,7 +342,6 @@ a.chip:hover{text-decoration:underline}
 .page-intro h1,.page-head h1{font-size:clamp(64px,8.4vw,120px);line-height:.9;letter-spacing:-.025em}
 .page-intro p{font-size:19px;color:var(--text-2);max-width:360px}
 [data-at]:empty::before{content:"@"} /* no-JS fallback; main.js puts a real @ in so copying works */
-.legal-page .sticky-talk{display:none} /* it would cover the company details at the foot; the header's Let's talk stays */
 [data-phone][hidden]{display:none}
 .foot-phone{margin-top:12px}
 .foot-phone a{color:#F3F3F1;font-weight:500;font-size:18px;display:inline-flex;min-height:32px;align-items:center}
@@ -414,7 +413,6 @@ a.chip:hover{text-decoration:underline}
 /* Phone */
 @media (max-width:820px){
   .nav-pill,.talk-pill{display:none}
-  .legal-page .talk-pill{display:inline-flex}
   .legal-page .footer{margin-bottom:16px}
   .menu-btn{display:flex}
   .site-header{padding:12px 12px 12px 20px}
