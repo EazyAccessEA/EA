@@ -73,12 +73,12 @@ h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.015em;line-
 .status.open::before{background:#2FA36B}
 
 /* Hero */
-.hero{position:relative;overflow:clip;min-height:calc(100svh - 84px);padding:24px var(--gut) 0;display:grid;grid-template-columns:minmax(0,470px) 1fr auto;grid-template-rows:auto 1fr auto;column-gap:24px}
+.hero{position:relative;overflow:clip;min-height:calc(100svh - 91px);padding:24px var(--gut) 16px;display:grid;grid-template-columns:minmax(0,470px) 1fr auto;grid-template-rows:auto 1fr auto;column-gap:24px}
 .intro{grid-column:1;grid-row:2;align-self:start;margin-top:22px;max-width:380px;font-size:18px;line-height:1.45;position:relative;z-index:2}
 .intro strong{font-weight:500}
 .tag{grid-column:3;grid-row:1;font-size:18px}
 .hero h1{grid-column:1;grid-row:1;align-self:start;margin-top:40px;font-size:clamp(44px,4.6vw,66px);line-height:.98;position:relative;z-index:2}
-.giant{grid-column:1/-1;grid-row:3;width:100%;margin:0 0 -0.6vw;position:relative;z-index:1;overflow:visible}
+.giant{grid-column:1/-1;grid-row:3;width:100%;position:relative;z-index:1;overflow:visible} /* hero = first screen under the 91px header; 16px keeps the y's descender above the fold */
 .hero>:not(.hero-grid){position:relative;z-index:1}
 /* Slash grid (main.js, after 21st.dev Grid Pulse): columns lean at the slash's 22.1°; lit cells fade by opacity only */
 .hero-grid{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;-webkit-mask-image:linear-gradient(#000 75%,transparent);mask-image:linear-gradient(#000 75%,transparent)}
@@ -258,7 +258,7 @@ html.mark-on .site-header .wordmark{opacity:0;transform:translateY(-6px);visibil
 .tool-card{grid-area:1/1;position:relative;overflow:hidden;background:var(--tb);color:var(--tf);border-radius:28px;padding:40px 40px 150px;display:flex;flex-direction:column;gap:22px;--soft:var(--tf)}
 .tool-kicker{font-weight:500;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
 .tool-card h3{font-size:clamp(36px,3.3vw,48px);line-height:1;letter-spacing:-.025em}
-.tool-name span{display:inline-block}
+.tool-name span{display:inline-block}.tool-name .w{white-space:nowrap}
 .tool-why{font-size:19px;line-height:1.58}
 .tool-used{padding-top:22px;border-top:1px solid color-mix(in srgb,var(--tf) 22%,transparent);font-size:15px;color:var(--soft)}
 .used-list{list-style:none;padding:0;margin-top:-10px;display:flex;flex-wrap:wrap;gap:8px;position:relative;z-index:1}
@@ -273,7 +273,7 @@ a.chip:hover{text-decoration:underline}
 /* Opening, three beats (see Paper, "Motion — tool card opens"); only when picked, never on load */
 @media (prefers-reduced-motion:no-preference){
   .tool-card.opening{z-index:1;animation:flood .45s var(--ease) both}
-  .tool-card.opening .tool-name span{animation:letter .4s var(--ease) both;animation-delay:calc(150ms + var(--k) * 18ms)}
+  .tool-card.opening .tool-name span:not(.w){animation:letter .4s var(--ease) both;animation-delay:calc(150ms + var(--k) * 18ms)}
   .tool-card.opening :is(.tool-kicker,.tool-why,.tool-used,.used-list){animation:fadeup .35s var(--ease) both .3s}
   .tool-card.opening .tool-giant{animation:giant .5s var(--ease) both .3s}
 }

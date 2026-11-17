@@ -54,7 +54,8 @@ function tools() {
         ? `<li><span class="chip chip-site">This site</span></li>`
         : `<li><a class="chip" href="/work/${s}" style="--dot:${SITES[s][1]}">${SITES[s][0]}</a></li>`).join("")
         + (used.length > 3 ? `<li class="more" aria-hidden="true"><span class="chip chip-site">+${used.length - 3} more</span></li>` : ""); // phones show three
-      const letters = [...name].map((ch, k) => `<span style="--k:${k}">${ch === " " ? "&nbsp;" : ch}</span>`).join("");
+      let k = 0; // letters roll in one by one; each word stays whole so a phone never breaks "Workers" mid-word
+      const letters = name.split(" ").map((word) => `<span class="w">${[...word].map((ch) => `<span style="--k:${k++}">${ch}</span>`).join("")}</span>`).join(" ");
       cards += `<article class="tool-card" id="${id}" style="${brand}"${on ? "" : " hidden"}><p class="tool-kicker">${group} <span aria-hidden="true">/</span> ${i + 1} of ${list.length}</p><h3 aria-label="${name}"><span class="tool-name" aria-hidden="true">${letters}</span></h3><p class="tool-why">${why}</p><p class="tool-used">Used on</p><ul class="used-list">${chips}</ul><p class="tool-giant" aria-hidden="true" data-giant="${name.split(" ")[0]}"></p></article>`;
     });
     tiles += `</div></div>`;
