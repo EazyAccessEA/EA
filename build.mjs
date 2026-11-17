@@ -80,7 +80,14 @@ function page(m, body, path) {
 <!-- Adobe Fonts web project (Degular, Degular Display, IvyPresto Display). Must use Adobe's embed; never self-host. -->
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
 <link rel="preconnect" href="https://p.typekit.net" crossorigin>
-<link rel="stylesheet" href="https://use.typekit.net/arw2hlv.css">
+<script>
+  // Adobe Fonts' own async (JavaScript) embed: fonts load without holding up the first paint.
+  (function(d) {
+    var config = { kitId: 'arw2hlv', scriptTimeout: 3000, async: true },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\\bwf-loading\\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+<noscript><link rel="stylesheet" href="https://use.typekit.net/arw2hlv.css"></noscript>
 <link rel="stylesheet" href="/styles.css">
 ${m.draw ? `<script>try{sessionStorage.getItem("drawn")?document.documentElement.classList.add("drawn"):sessionStorage.setItem("drawn","1")}catch(e){}</script>\n` : ""}${m.turnstile ? `<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>\n` : ""}<script src="/main.js" defer></script>
 </head>
