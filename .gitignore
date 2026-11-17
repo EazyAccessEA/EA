@@ -46,3 +46,4 @@ inventory/*.png
 public/*.html
 public/work/*.html
 qa/pages/
+qa/review/shots/

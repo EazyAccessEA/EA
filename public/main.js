@@ -81,8 +81,16 @@ if (pill) {
 }
 
 // Sticky contact bar (phones) hides when the "Let's talk" band is on screen: never two primary actions
-const sticky = $(".sticky-talk"), band = $(".band");
-if (sticky && band) new IntersectionObserver(([e]) => sticky.classList.toggle("hide", e.isIntersecting), { threshold: 0.15 }).observe(band);
+// It also steps aside while the phone tools deck is on screen, so it never covers the deck's counter.
+const sticky = $(".sticky-talk");
+if (sticky) {
+  const seen = new Set();
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
+    sticky.classList.toggle("hide", seen.size > 0);
+  }, { threshold: 0.15 });
+  [$(".band"), $(".tool-cards")].forEach((el) => el && io.observe(el));
+}
 
 // /work: sliding sheets. Desktop: the open sheet sits in front, the others fold into edges either side.
 // Phone: a swipe deck. Every edge and list row is a real link, so all of this is progressive enhancement.
@@ -185,11 +193,19 @@ if (form) {
       else { err.hidden = true; input.removeAttribute("aria-invalid"); }
     }
   };
+  // Show a result where the visitor can see it, and give it focus so keyboard and screen-reader users land on it
+  const reveal = (el) => {
+    if (!el.matches("input,textarea,select,button,a")) el.setAttribute("tabindex", "-1"); // only the status needs it; fields stay in the tab order
+    el.scrollIntoView({ block: "center", behavior: still ? "instant" : "smooth" });
+    el.focus({ preventScroll: true });
+  };
+  let sending = false;
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (sending) return;
     showErrors();
     statusEl.className = "form-status";
-    sendBtn.disabled = true; statusEl.textContent = "Sending…";
+    sending = true; sendBtn.setAttribute("aria-disabled", "true"); statusEl.textContent = "Sending…"; // aria-disabled keeps focus on the button
     try {
       const res = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { accept: "application/json" } });
       const data = await res.json().catch(() => ({}));
@@ -197,18 +213,21 @@ if (form) {
         form.reset();
         statusEl.classList.add("ok");
         statusEl.textContent = "Sent. A person will reply within two working days. We've also emailed you to confirm it arrived.";
+        reveal(statusEl);
       } else {
         showErrors(data.errors);
         statusEl.classList.add("bad");
         statusEl.textContent = data.errors?.form || "Please check the highlighted fields.";
+        reveal($("[aria-invalid=true]", form) || statusEl);
       }
       window.turnstile?.reset();
     } catch {
       statusEl.classList.add("bad");
       statusEl.textContent = `It didn't send. Please email ${MAIL} directly.`;
-    } finally { sendBtn.disabled = false; }
+      reveal(statusEl);
+    } finally { sending = false; sendBtn.removeAttribute("aria-disabled"); }
   });
   const flag = new URLSearchParams(location.search).get("contact");
   const msg = { sent: ["ok", "Sent. A person will reply within two working days."], invalid: ["bad", "Please check the form and try again."], slow: ["bad", "Too many messages. Please wait a minute or email us."], failed: ["bad", `It didn't send. Please email ${MAIL} directly.`] }[flag];
-  if (msg) { statusEl.classList.add(msg[0]); statusEl.textContent = msg[1]; }
+  if (msg) { statusEl.classList.add(msg[0]); statusEl.textContent = msg[1]; reveal(statusEl); }
 }
