@@ -209,6 +209,16 @@ if (notes.length) {
   const days = Math.floor(Date.now() / 864e5) + 3; // days since Mon 29 Dec 1969 (1 Jan 1970 was a Thursday)
   const workdays = Math.floor(days / 7) * 5 + Math.min(days % 7, 4); // Mon–Fri step on; weekends keep Friday's note
   notes.forEach((n, i) => { n.hidden = i !== workdays % notes.length; });
+  // The figure draws itself once, when the card is half in view: structure first, then the fix in orange.
+  // Without IntersectionObserver, or with reduced motion, it stays on its last frame (no class added).
+  const fig = $(".note-card:not([hidden]) .note-fig");
+  if (fig && "IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    fig.classList.add("armed");
+    new IntersectionObserver(([e], io) => {
+      if (!e.isIntersecting) return;
+      fig.classList.add("play"); io.disconnect();
+    }, { threshold: 0.5 }).observe(fig);
+  }
 }
 
 // Home: tools. Desktop: a tile opens its card. Phones: every card sits in a swipe deck (CSS shows them all),
@@ -297,7 +307,7 @@ if (form) {
         form.reset();
         statusEl.classList.add("ok");
         // Only claim the confirmation email when the server says it went (gate C)
-        statusEl.textContent = "Sent. A person will reply within two working days." + (data.confirmed ? " We've also emailed you to confirm it arrived." : "");
+        statusEl.textContent = "Sent. Someone will reply within two working days." + (data.confirmed ? " We've also emailed you to confirm it arrived." : "");
         reveal(statusEl);
       } else {
         showErrors(data.errors);
@@ -313,6 +323,6 @@ if (form) {
     } finally { sending = false; sendBtn.removeAttribute("aria-disabled"); }
   });
   const flag = new URLSearchParams(location.search).get("contact");
-  const msg = { sent: ["ok", "Sent. A person will reply within two working days."], invalid: ["bad", "Please check the form and try again."], slow: ["bad", "Too many messages. Please wait a minute or email us."], failed: ["bad", `It didn't send. Please email ${MAIL} directly.`] }[flag];
+  const msg = { sent: ["ok", "Sent. Someone will reply within two working days."], invalid: ["bad", "Please check the form and try again."], slow: ["bad", "Too many messages. Please wait a minute or email us."], failed: ["bad", `It didn't send. Please email ${MAIL} directly.`] }[flag];
   if (msg) { statusEl.classList.add(msg[0]); statusEl.textContent = msg[1]; reveal(statusEl); }
 }

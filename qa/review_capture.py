@@ -7,7 +7,8 @@ BASE = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8788"
 OUT = "qa/review/shots"
 PAGES = ["/", "/work/", "/work/farmcompanion", "/work/sagheerah", "/work/flintmere", "/work/deeper",
          "/work/pageperfect", "/work/callandconsequence", "/how-we-work", "/contact", "/privacy", "/cookies", "/terms"]
-WIDTHS = [(375, 812), (390, 844), (768, 1024), (1024, 768), (1440, 900), (1920, 1080)]
+# 1309 and 1600 are a 1440 window at Chrome zoom 110% and 90%; 2240 and 2560 are the 24" and 27" iMac
+WIDTHS = [(375, 812), (390, 844), (768, 1024), (1024, 768), (1280, 800), (1309, 818), (1440, 900), (1600, 1000), (1680, 1050), (1920, 1080), (2240, 1260), (2560, 1440)]
 name = lambda p: (p.strip("/") or "home").replace("/", "-")
 
 async def shot(b, path, w, h, tag, prep=None, **kw):
