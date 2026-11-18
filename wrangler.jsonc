@@ -12,6 +12,12 @@
   ],
   "observability": { "enabled": true },
   // Secrets: TURNSTILE_SECRET and RESEND_API_KEY via `wrangler secret put`
-  // Custom domain is added only after Abu Aaliyah approves the DNS change (gate F).
-  "workers_dev": true
+  // Custom domains (gate F): approved by Abu Aaliyah for the cutover, 17 Nov 2026. Cloudflare manages their
+  // DNS records; the old apex/www A/AAAA records must be deleted first. MX, SPF, DKIM and send.* are not touched.
+  "routes": [
+    { "pattern": "eazyaccess.org", "custom_domain": true },
+    { "pattern": "www.eazyaccess.org", "custom_domain": true }
+  ],
+  "workers_dev": false, // the site lives on eazyaccess.org only (cutover step 7, 17 Nov 2026)
+  "preview_urls": false
 }
