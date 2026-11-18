@@ -90,11 +90,9 @@ function page(m, body, path) {
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
 <link rel="preconnect" href="https://p.typekit.net" crossorigin>
 <script>
-  // Adobe Fonts' own async (JavaScript) embed: fonts load without holding up the first paint.
-  (function(d) {
-    var config = { kitId: 'arw2hlv', scriptTimeout: 3000, async: true },
-    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\\bwf-loading\\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
-  })(document);
+  // Adobe Fonts' CSS embed, inserted by script so it never holds up the first paint. Unlike the JS kit
+  // (which downloads all 42 faces in the project), the browser fetches only the faces a page uses.
+  var l=document.createElement("link");l.rel="stylesheet";l.href="https://use.typekit.net/arw2hlv.css";document.head.appendChild(l);
 </script>
 <noscript><link rel="stylesheet" href="https://use.typekit.net/arw2hlv.css"></noscript>
 <link rel="stylesheet" href="/styles.css">
@@ -170,7 +168,7 @@ for (const html of built)
     hashes.add(`'sha256-${createHash("sha256").update(js).digest("base64")}'`);
 const csp = [
   "default-src 'self'",
-  `script-src 'self' ${[...hashes].join(" ")} https://use.typekit.net https://challenges.cloudflare.com`,
+  `script-src 'self' ${[...hashes].join(" ")} https://challenges.cloudflare.com`,
   "style-src 'self' 'unsafe-inline' https://use.typekit.net https://p.typekit.net", // inline style attributes carry each project's colours
   "font-src 'self' https://use.typekit.net",
   "img-src 'self' data: https://p.typekit.net",
