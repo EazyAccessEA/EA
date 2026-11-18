@@ -4,6 +4,7 @@
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, statSync } from "node:fs";
 import { join, dirname, relative } from "node:path";
 import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
 
 const SRC = "pages", OUT = "public", ORIGIN = "https://eazyaccess.org";
 const files = (d) => readdirSync(d).flatMap((f) => (statSync(join(d, f)).isDirectory() ? files(join(d, f)) : f.endsWith(".html") ? [join(d, f)] : []));
@@ -65,6 +66,34 @@ function tools() {
     + `<button type="button" class="deck-btn" data-step="-1" aria-label="Previous tool">←</button><button type="button" class="deck-btn" data-step="1" aria-label="Next tool">→</button></div></div>`;
 }
 
+// Structured data: one JSON-LD graph per page. Facts only from CLAUDE.md; the registered details go on
+// legal pages only (Companies Act disclosure rule), and no email or phone (anti-harvesting).
+const decode = (s) => s.replace(/&#x27;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
+const ORG_ID = `${ORIGIN}/#org`;
+function schema(m, body, path) {
+  const org = {
+    "@type": "Organization", "@id": ORG_ID, name: "eazy/access", url: `${ORIGIN}/`, logo: `${ORIGIN}/apple-touch-icon.png`,
+    description: "A small UK studio that designs and builds websites, shops and tools.", areaServed: "GB",
+    knowsAbout: ["Web design", "Web development", "Online shops", "Web apps"],
+  };
+  if (m.main === "legal") Object.assign(org, {
+    legalName: "EAZY ACCESS LTD",
+    identifier: { "@type": "PropertyValue", propertyID: "Companies House company number", value: "13205428" },
+    address: { "@type": "PostalAddress", streetAddress: "71–75 Shelton Street, Covent Garden", addressLocality: "London", postalCode: "WC2H 9JQ", addressCountry: "GB" },
+  });
+  const type = { "/": "WebPage", "/work/": "CollectionPage", "/how-we-work": "AboutPage", "/contact": "ContactPage" }[path] || "WebPage";
+  const name = m.title === "home" ? "eazy/access · Web design and build, UK" : decode(m.title);
+  const graph = [org, { "@type": type, "@id": `${ORIGIN}${path}#page`, url: `${ORIGIN}${path}`, name, description: decode(m.description), inLanguage: "en-GB", isPartOf: { "@id": `${ORIGIN}/#site` }, about: { "@id": ORG_ID } }];
+  if (path === "/") graph.push({ "@type": "WebSite", "@id": `${ORIGIN}/#site`, url: `${ORIGIN}/`, name: "eazy/access", publisher: { "@id": ORG_ID }, inLanguage: "en-GB" });
+  const live = body.match(/<dt>Live at<\/dt><dd><a[^>]*href="([^"]+)"/);
+  if (path.startsWith("/work/") && live) {
+    const slug = path.slice(6);
+    graph.push({ "@type": "CreativeWork", "@id": `${ORIGIN}${path}#work`, name: decode(m.title), url: live[1], description: decode(m.description), creator: { "@id": ORG_ID }, image: `${ORIGIN}/work/${slug}-desktop.webp`, mainEntityOfPage: { "@id": `${ORIGIN}${path}#page` } });
+    graph.push({ "@type": "BreadcrumbList", itemListElement: [["Home", "/"], ["Work", "/work/"], [decode(m.title), path]].map(([n, u], i) => ({ "@type": "ListItem", position: i + 1, name: n, item: ORIGIN + u })) });
+  }
+  return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replace(/</g, "\\u003c")}</script>`;
+}
+
 function page(m, body, path) {
   body = body.replace("<!--#band-->", BAND).replace("<!--#tools-->", () => tools());
   return `<!doctype html>
@@ -96,7 +125,7 @@ function page(m, body, path) {
 </script>
 <noscript><link rel="stylesheet" href="https://use.typekit.net/arw2hlv.css"></noscript>
 <link rel="stylesheet" href="/styles.css">
-${m.draw ? `<script>document.documentElement.classList.add("mark-on");try{sessionStorage.getItem("drawn")?document.documentElement.classList.add("drawn"):sessionStorage.setItem("drawn","1")}catch(e){}</script>\n` : ""}${m.turnstile ? `<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>\n` : ""}<script src="/main.js" defer></script>
+${path === "/404" ? "" : schema(m, body, path) + "\n"}${m.draw ? `<script>document.documentElement.classList.add("mark-on");try{sessionStorage.getItem("drawn")?document.documentElement.classList.add("drawn"):sessionStorage.setItem("drawn","1")}catch(e){}</script>\n` : ""}${m.turnstile ? `<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>\n` : ""}<script src="/main.js" defer></script>
 </head>
 <body${m.main === "legal" ? ' class="legal-page"' : ""}>
 <a class="skip" href="#main">Skip to content</a>
@@ -185,10 +214,18 @@ writeFileSync(join(OUT, "_headers"), `/*
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
 `);
 // Sitemap of every real page (not the 404), and a robots.txt that points to it.
-const urls = files(SRC).map((f) => route(relative(SRC, f))).filter((r) => r !== "/404").sort();
+// lastmod = the source file's last commit date; today if it has uncommitted edits or git isn't there.
+const today = new Date().toISOString().slice(0, 10);
+const lastmod = (f) => {
+  try {
+    if (execFileSync("git", ["status", "--porcelain", "--", f], { encoding: "utf8" }).trim()) return today;
+    return execFileSync("git", ["log", "-1", "--format=%cs", "--", f], { encoding: "utf8" }).trim() || today;
+  } catch { return today; }
+};
+const urls = files(SRC).map((f) => [route(relative(SRC, f)), lastmod(f)]).filter(([r]) => r !== "/404").sort();
 writeFileSync(join(OUT, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((u) => `  <url><loc>${ORIGIN}${u}</loc></url>`).join("\n")}
+${urls.map(([u, d]) => `  <url><loc>${ORIGIN}${u}</loc><lastmod>${d}</lastmod></url>`).join("\n")}
 </urlset>
 `);
 writeFileSync(join(OUT, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${ORIGIN}/sitemap.xml\n`);

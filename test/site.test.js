@@ -85,3 +85,60 @@ test("contact details never appear in page source or scripts (anti-harvesting)",
     assert.ok(!/0?7349\s?897\s?644|447349897644/.test(html.replace(/[\s-]/g, "")), `${rel}: raw phone`);
   }
 });
+
+// SEO gates (qa/seo): structured data says only what CLAUDE.md confirms, and registered details stay on legal pages.
+const ORIGIN = "https://eazyaccess.org";
+const ld = (html) => [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
+const real = pages.filter((p) => p.rel !== "404.html");
+
+test("SEO-B: every real page has one JSON-LD graph naming the studio", () => {
+  for (const p of real) {
+    const blocks = ld(p.html);
+    assert.equal(blocks.length, 1, p.rel);
+    const org = blocks[0]["@graph"].find((n) => n["@id"] === `${ORIGIN}/#org`);
+    assert.ok(org, `${p.rel}: no Organization`);
+    assert.equal(org.name, "eazy/access");
+    assert.equal(org.url, `${ORIGIN}/`);
+    const page = blocks[0]["@graph"].find((n) => n["@type"] === "WebPage" || n["@type"] === "AboutPage" || n["@type"] === "ContactPage" || n["@type"] === "CollectionPage");
+    assert.equal(page?.url, ORIGIN + routeOf(p.rel), `${p.rel}: WebPage url`);
+  }
+});
+
+test("SEO-B: legal pages carry the registered facts, exactly as CLAUDE.md states them", () => {
+  for (const p of real.filter((p) => /^(privacy|terms|cookies)\.html$/.test(p.rel))) {
+    const org = ld(p.html)[0]["@graph"].find((n) => n["@id"] === `${ORIGIN}/#org`);
+    assert.equal(org.legalName, "EAZY ACCESS LTD", p.rel);
+    assert.equal(org.identifier?.value, "13205428", p.rel);
+  }
+});
+
+test("SEO-C: company number and registered office appear on legal pages only", () => {
+  for (const p of pages.filter((p) => !/^(privacy|terms|cookies)\.html$/.test(p.rel))) {
+    assert.ok(!/13205428|Shelton Street|EAZY ACCESS LTD/.test(p.html), p.rel);
+  }
+});
+
+test("SEO-B: each work page describes its project and links to the live site it shows", () => {
+  for (const p of real.filter((p) => /^work\/(?!index)/.test(p.rel))) {
+    const g = ld(p.html)[0]["@graph"];
+    const work = g.find((n) => n["@type"] === "CreativeWork");
+    const live = p.html.match(/<dt>Live at<\/dt><dd><a[^>]*href="([^"]+)"/)[1];
+    assert.equal(work?.url, live, p.rel);
+    assert.equal(work.creator?.["@id"], `${ORIGIN}/#org`, p.rel);
+    assert.ok(g.some((n) => n["@type"] === "BreadcrumbList"), `${p.rel}: breadcrumb`);
+  }
+});
+
+test("SEO-B: no contact detail or invented proof leaks through structured data", () => {
+  for (const p of real) {
+    const s = JSON.stringify(ld(p.html));
+    assert.ok(!/@eazyaccess|telephone|aggregateRating|review|award/i.test(s), p.rel);
+  }
+});
+
+test("SEO: every sitemap URL has an ISO lastmod", () => {
+  const xml = readFileSync(join(OUT, "sitemap.xml"), "utf8");
+  const urls = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((m) => m[1]);
+  assert.ok(urls.length >= 13);
+  for (const u of urls) assert.match(u, /<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/, u);
+});
