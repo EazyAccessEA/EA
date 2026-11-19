@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node build.mjs && node --test test/",
+    "build": "node build.mjs"
+  }
+}

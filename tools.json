@@ -1,0 +1,272 @@
+{
+ "_": "Tools section on the home page. build.mjs renders it into <!--#tools-->. 'used' lists project slugs from the research notes in inventory/work/ ('site' = this site). Check a new entry against the project's repo before adding it. The fourth field is the brand colour (space-separated stops for a gradient), taken from each company's own logo file or brand page on 17 Nov 2026; Paper publishes none, so #EDEBE1 is a placeholder. Astro uses its dark mark, because no text colour passes 4.5:1 on its red-to-pink gradient.",
+ "groups": [
+  [
+   "Design",
+   [
+    [
+     "Paper",
+     "Every page here is designed first, so it can be seen and changed before anything is built.",
+     [
+      "site"
+     ],
+     "#EDEBE1"
+    ],
+    [
+     "Adobe Fonts",
+     "Licensed type, served the way the licence allows.",
+     [
+      "site"
+     ],
+     "#EB1000"
+    ]
+   ]
+  ],
+  [
+   "Build",
+   [
+    [
+     "Next.js",
+     "Fast pages that still work for someone arriving from a search link.",
+     [
+      "farmcompanion",
+      "sagheerah",
+      "flintmere",
+      "pageperfect"
+     ],
+     "#000000"
+    ],
+    [
+     "React",
+     "For the parts of a page that respond as you use them.",
+     [
+      "farmcompanion",
+      "sagheerah",
+      "flintmere",
+      "pageperfect",
+      "callandconsequence"
+     ],
+     "#58C4DC"
+    ],
+    [
+     "Astro",
+     "Mostly-text sites that send almost no JavaScript to the phone.",
+     [
+      "deeper"
+     ],
+     "#17191E"
+    ],
+    [
+     "Remix",
+     "Forms and data handled on the server, so they work on a slow connection.",
+     [
+      "flintmere"
+     ],
+     "#313539"
+    ],
+    [
+     "Vite",
+     "A quick build for small moving pieces on an otherwise plain page.",
+     [
+      "flintmere",
+      "callandconsequence"
+     ],
+     "#7E14FF"
+    ],
+    [
+     "Tailwind",
+     "Styles kept next to the markup, so changing one page doesn't break another.",
+     [
+      "farmcompanion",
+      "sagheerah",
+      "flintmere",
+      "pageperfect"
+     ],
+     "#38BDF8"
+    ],
+    [
+     "Typst",
+     "Print-ready books built from the same text as the website.",
+     [
+      "pageperfect"
+     ],
+     "#239DAD"
+    ]
+   ]
+  ],
+  [
+   "Run",
+   [
+    [
+     "Cloudflare Workers",
+     "Pages load from close to whoever's visiting, and one small server handles forms, payments and email.",
+     [
+      "sagheerah",
+      "deeper",
+      "pageperfect",
+      "callandconsequence",
+      "site"
+     ],
+     "#F48120"
+    ],
+    [
+     "Hetzner",
+     "Plain servers in Europe for sites with a real database behind them.",
+     [
+      "farmcompanion",
+      "flintmere"
+     ],
+     "#D50C2D"
+    ],
+    [
+     "Coolify",
+     "Runs the database and search on servers we control.",
+     [
+      "farmcompanion",
+      "flintmere"
+     ],
+     "#864FFC"
+    ],
+    [
+     "Vercel",
+     "Hosting for a Next.js front end that has to be quick everywhere.",
+     [
+      "farmcompanion"
+     ],
+     "#000000"
+    ]
+   ]
+  ],
+  [
+   "Data and maps",
+   [
+    [
+     "Postgres",
+     "A plain, well-understood database for anything with real records in it.",
+     [
+      "farmcompanion",
+      "flintmere"
+     ],
+     "#336791"
+    ],
+    [
+     "Prisma",
+     "Database changes written down as files, so each one can be reviewed.",
+     [
+      "farmcompanion",
+      "flintmere"
+     ],
+     "#04D5E7 #FEBE29 #FE4352"
+    ],
+    [
+     "Redis",
+     "Keeps busy pages quick by remembering answers for a short while.",
+     [
+      "farmcompanion",
+      "flintmere"
+     ],
+     "#FF4438"
+    ],
+    [
+     "Meilisearch",
+     "Search that copes with typos and half-remembered names.",
+     [
+      "farmcompanion"
+     ],
+     "#FF5CAA #FF4E62"
+    ],
+    [
+     "Cloudflare D1",
+     "A small database for sign-ups, close to the site that uses it.",
+     [
+      "deeper"
+     ],
+     "#F48120"
+    ],
+    [
+     "Cloudflare KV",
+     "Remembers which payment messages have been handled, so an order is never processed twice.",
+     [
+      "sagheerah"
+     ],
+     "#F48120"
+    ],
+    [
+     "MapLibre",
+     "Open-source maps, so a map page doesn't depend on someone else's pricing.",
+     [
+      "farmcompanion"
+     ],
+     "#295DAA"
+    ]
+   ]
+  ],
+  [
+   "Money and mail",
+   [
+    [
+     "Stripe",
+     "Card details go straight to Stripe and never touch our server.",
+     [
+      "sagheerah",
+      "flintmere"
+     ],
+     "#533AFD"
+    ],
+    [
+     "Resend",
+     "Order and enquiry emails sent from your own domain, without touching your inbox setup.",
+     [
+      "farmcompanion",
+      "sagheerah",
+      "flintmere",
+      "site"
+     ],
+     "#000000"
+    ],
+    [
+     "Turnstile",
+     "A spam check on forms that doesn't make people solve puzzles.",
+     [
+      "site"
+     ],
+     "#F48120"
+    ]
+   ]
+  ],
+  [
+   "Checks",
+   [
+    [
+     "Vitest",
+     "Tests that fail loudly when a price or a rule changes by mistake.",
+     [
+      "farmcompanion",
+      "sagheerah",
+      "flintmere",
+      "pageperfect"
+     ],
+     "#77FF00"
+    ],
+    [
+     "Playwright",
+     "A real browser that opens every page at phone size and checks it.",
+     [
+      "farmcompanion",
+      "flintmere",
+      "site"
+     ],
+     "#2EAD33"
+    ],
+    [
+     "Sentry",
+     "Tells us when something breaks for a visitor, so they don't have to.",
+     [
+      "flintmere"
+     ],
+     "#362D59"
+    ]
+   ]
+  ]
+ ]
+}

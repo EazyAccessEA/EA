@@ -1,0 +1,30 @@
+<!--{"title":"Sagheerah","description":"Sagheerah, an online shop built by eazy/access: a size-and-cloth picker, a Stripe checkout, and prices and postage that the server checks.","nav":"work"}-->
+<article class="project" style="--bg:#0E3B33;--fg:#F4EDE4;--sub:#A9C9BF;--body:#D4E4DE">
+  <header class="page-head">
+    <div class="page-head-text">
+      <p class="crumb"><a href="/work/">Work</a> / Online shop · fashion</p>
+      <h1>Sagheerah</h1>
+      <p class="lede">A shop for one garment, the Ḥafṣah jilbab, in a full run of sizes and cloths, with its own checkout.</p>
+    </div>
+    <dl class="facts">
+      <div><dt>Who for</dt><dd>Families buying modest wear for girls and women</dd></div>
+      <div><dt>Built with</dt><dd>Next.js, Cloudflare Workers, Stripe, Resend</dd></div>
+      <div><dt>Live at</dt><dd><a class="arrow-link" href="https://shop.sagheerah.com" rel="noopener">shop.sagheerah.com</a></dd></div>
+    </dl>
+  </header>
+  <div class="showcase has-desk"><figure class="browser" aria-hidden="true"><span class="bar"><i></i><i></i><i></i><span class="url">shop.sagheerah.com</span></span><picture><source media="(max-width:820px)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><img class="shot-desk" fetchpriority="high" src="/work/sagheerah-desktop.webp" alt="" width="1200" height="750"></picture></figure><img class="shot-phone" src="/work/sagheerah-phone.webp" srcset="/work/sagheerah-phone-320.webp 320w, /work/sagheerah-phone.webp 460w" sizes="250px" alt="Sagheerah on a phone" width="230" height="498"></div>
+  <section class="story"><div class="story-head"><h2>What it <em>does</em></h2></div><div class="story-body"><p class="big">You pick a size and a cloth, see the price for that exact size, and pay through Stripe.</p><p>Most of the sizes are for girls, so the size picker does most of the work, and the price changes with the size you choose.</p></div></section>
+
+  <section class="story calls">
+    <div class="story-head"><h2>Smaller <em>calls</em></h2></div>
+    <div class="story-body">
+      <div class="call"><h3>Prices are checked on the server</h3><p>Someone once bought an adult jilbab at the children&#x27;s price by sending the cheaper price with an adult length. Each price now lists the exact sizes it covers, and the server refuses any pairing that doesn&#x27;t match.</p></div>
+      <div class="call"><h3>Postage too</h3><p>The basket can&#x27;t set its own delivery charge. The server counts the garments and works out the charge by weight, and free delivery kicks in above a set spend.</p></div>
+      <div class="call"><h3>The confirmation email is the contract</h3><p>UK consumer law says a shop has to confirm an order in a form you can keep. After payment the shop emails an acceptance, with the cancellation terms copied word for word from its returns page.</p></div>
+      <div class="call"><h3>Each payment handled once</h3><p>When Stripe reports a payment, the shop keeps a tiny marker against that event so it is never handled twice. No customer details are kept.</p></div>
+    </div>
+  </section>
+  <a class="next-project" href="/work/flintmere" style="--bg:#F2C230;--fg:#141416;--sub:#5A4708"><span class="next-label">Next project</span><span class="next-name">Flintmere</span><span class="dot" aria-hidden="true"><svg viewBox="0 0 10 20" width="12" height="24"><path d="M8.5 1.5L1.5 18.5"/></svg></span></a>
+</article>
+
+<!--#band-->

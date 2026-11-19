@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "eazyaccess-org",
+  "main": "src/worker.js",
+  "build": { "command": "node build.mjs" },
+  "compatibility_date": "2026-11-01",
+  "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": ["/", "/index.html", "/contact", "/api/*"], "not_found_handling": "404-page" },
+  "ratelimits": [
+    { "name": "CONTACT_RL", "namespace_id": "1001", "simple": { "limit": 5, "period": 60 } },
+    { "name": "AUTOREPLY_RL", "namespace_id": "1002", "simple": { "limit": 1, "period": 60 } },
+    { "name": "GLOBAL_RL", "namespace_id": "1003", "simple": { "limit": 3, "period": 60 } }
+  ],
+  "observability": { "enabled": true },
+  // Secrets: TURNSTILE_SECRET and RESEND_API_KEY via `wrangler secret put`
+  // Custom domains (gate F): approved by Abu Aaliyah for the cutover, 17 Nov 2026. Cloudflare manages their
+  // DNS records; the old apex/www A/AAAA records must be deleted first. MX, SPF, DKIM and send.* are not touched.
+  "routes": [
+    { "pattern": "eazyaccess.org", "custom_domain": true },
+    { "pattern": "www.eazyaccess.org", "custom_domain": true }
+  ],
+  "workers_dev": false, // the site lives on eazyaccess.org only (cutover step 7, 17 Nov 2026)
+  "preview_urls": false
+}

@@ -1,0 +1,44 @@
+<!--{"title":"Contact","description":"Tell eazy/access what you need. The person who would build your site reads every message and replies within two working days.","nav":"contact","turnstile":true,"sticky":false}-->
+<section class="contact" aria-labelledby="contact-title">
+  <h1 id="contact-title">Let's <em>talk.</em></h1>
+
+  <form class="form-card" action="/api/contact" method="post" novalidate>
+    <fieldset class="chips">
+      <legend>What do you need?</legend>
+      <label><input type="radio" name="need" value="new-site" checked><span>A new website</span></label>
+      <label><input type="radio" name="need" value="redesign"><span>A redesign</span></label>
+      <label><input type="radio" name="need" value="shop"><span>An online shop</span></label>
+      <label><input type="radio" name="need" value="fix-or-speed"><span>Fix or speed up a site</span></label>
+      <label><input type="radio" name="need" value="not-sure"><span>Not sure yet</span></label>
+    </fieldset>
+    <div class="two">
+      <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required maxlength="100"><p class="err" id="e-name" hidden></p></div>
+      <div class="field"><label for="f-email">Email address</label><input id="f-email" name="email" type="email" autocomplete="email" required maxlength="254"><p class="err" id="e-email" hidden></p></div>
+    </div>
+    <div class="field"><label for="f-msg">About your project</label><textarea id="f-msg" name="message" rows="5" required minlength="10" maxlength="5000"></textarea><p class="err" id="e-message" hidden></p></div>
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAGEOOxC8t7rgjb-v" data-theme="light"></div>
+    <div class="send-row">
+      <p class="small">Protected by Cloudflare. We don't store your message on this site. <a href="/privacy">Privacy notice</a></p>
+      <button class="send" type="submit"><span class="roll">Send message</span><span class="dot" aria-hidden="true"><svg viewBox="0 0 10 20" width="9" height="18"><path d="M8.5 1.5L1.5 18.5"/></svg></span></button>
+    </div>
+    <p class="form-status" role="status" aria-live="polite"></p>
+    <noscript><p class="form-status bad">The form's spam check needs JavaScript. You can email <a href="mailto:info@eazyaccess.org">info@eazyaccess.org</a> instead.</p></noscript>
+  </form>
+
+  <div class="contact-intro">
+    <p>Tell us what you need. Someone reads every message and replies within two working days.</p>
+    <div class="next">
+      <h2>What happens next</h2>
+      <ol>
+        <li>Your message goes straight to the person who'd build your site.</li>
+        <li>They reply within two working days.</li>
+        <li>Before any work starts, you get a fixed price for each stage and a launch date, in writing.</li>
+      </ol>
+    </div>
+    <div class="contact-direct">
+      <p class="status" data-status>UK time</p>
+      <a class="big-email" href="mailto:info@eazyaccess.org">info@eazyaccess.org</a>
+      <p class="call" data-phone="44679894370" hidden><span>Call or text</span> <a></a></p>
+    </div>
+  </div>
+</section>

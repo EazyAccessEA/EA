@@ -1,0 +1,26 @@
+# DNS baseline before cutover, 2026-11-17T21:07:12Z
+## eazyaccess.org MX
+1 aspmx.l.google.com.
+10 alt3.aspmx.l.google.com.
+10 alt4.aspmx.l.google.com.
+5 alt1.aspmx.l.google.com.
+5 alt2.aspmx.l.google.com.
+## eazyaccess.org TXT
+"v=spf1 include:_spf.google.com ~all"
+## google._domainkey.eazyaccess.org TXT
+"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjxlGgzFWhKmUfujxhF/Ydl0XdGeM9diuuUDBVRSXq+tPekf8524tWnI2/J/62bvUF4lqO1z7YhPo53Tx6Aw0NwpTu1HrmQCjGa6lBOukdQRXRdzZLMQNemh29GFACn03DLFs1pSWxc2" "ayyQWSoQ8ctiKDfUjlHJqLx7PfnwhvaaIZj3DQTSC6Y3xSox93vUAgyyMlw0RoKRdrH1hiaYgKCyiAlnWSAdePBqSFh27DT8QwccJwGA6QArFYTOjNQjdFlF2vt2Y8LzxEvNUNy7HOamPZ+EJqN9vaMcT6MC0JWrreruHssm3yMnQHsV0ZiilMM84MnoJVlBy8KGOyoNs" "0wIDAQAB"
+## resend._domainkey.eazyaccess.org TXT
+"p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDX/sL1PHnTh3QTZVIfAugyzVgAi6nm6e332j/q3qixtka50nqV6Xtx0zxjHxPg+li4B5BXyE9dyxcd49KLegwaML/y68vYX1jCGFhesIrXkAk44CMQkqwSttGECgmfTa9pOdgGrj/cXf+k2os1WPGRlUKIWHgplDiig36x0EmoBQIDAQAB"
+## send.eazyaccess.org CNAME
+send.forge.rmta.net.
+## send.eazyaccess.org MX
+10 feedback.forge.rmta.net.
+send.forge.rmta.net.
+## send.eazyaccess.org TXT
+"v=spf1 ip4:52.3.252.119 ip4:44.222.39.36 ip4:199.249.231.0/24 ~all"
+send.forge.rmta.net.
+## _dmarc.eazyaccess.org TXT
+"v=DMARC1; p=none; rua=mailto:info@eazyaccess.org"
+## eazyaccess.org NS
+henrik.ns.cloudflare.com.
+pearl.ns.cloudflare.com.
