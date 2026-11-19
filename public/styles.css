@@ -370,6 +370,7 @@ a.chip:hover{text-decoration:underline}
 .foot-phone a{color:#F3F3F1;font-weight:500;font-size:18px;display:inline-flex;min-height:32px;align-items:center}
 .call{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .call span{font-weight:500;font-size:15px;color:var(--text-3)}
+p.call>span{min-width:88px} /* contact rows: the links share one left edge */
 .call a{font:600 24px var(--display);display:inline-flex;min-height:44px;align-items:center}
 .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 
@@ -401,8 +402,8 @@ a.chip:hover{text-decoration:underline}
 .story .big{font:500 clamp(21px,1.8vw,26px)/1.38 var(--body);color:var(--ink);margin-bottom:20px}
 .story-body p{color:var(--text-2);font-size:19px;line-height:1.58}
 .note{color:var(--text-2);margin-top:16px}
-.call{padding:28px 0;border-top:1px solid var(--rule)}
-.call:last-child{border-bottom:1px solid var(--rule)}
+div.call{padding:28px 0;border-top:1px solid var(--rule)}
+div.call:last-child{border-bottom:1px solid var(--rule)}
 .call h3{font-size:26px;margin-bottom:10px}
 .call p{font-size:18px}
 .chart{display:flex;gap:48px;align-items:flex-start}
@@ -426,7 +427,7 @@ a.chip:hover{text-decoration:underline}
 
 /* One authored motion: reveal on scroll (native, with fallback = visible) */
 @supports (animation-timeline:view()){
-  .principles>div,.in-writing,.call,.story-body,.note-card{animation:rise both var(--ease);animation-timeline:view();animation-range:entry 0% entry 40%}
+  .principles>div,.in-writing,div.call,.story-body,.note-card{animation:rise both var(--ease);animation-timeline:view();animation-range:entry 0% entry 40%}
   @keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
 }
 @media (prefers-reduced-motion:reduce){

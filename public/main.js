@@ -26,8 +26,12 @@ for (const a of $$("[data-u][data-d]")) {
 for (const el of $$("[data-phone]")) {
   const d = [...el.dataset.phone].reverse().join(""); // stored reversed in the HTML
   const a = $("a", el);
-  a.href = `tel:+44${d.slice(1)}`;
-  a.textContent = `${d.slice(0, 5)} ${d.slice(5)}`;
+  if ("wa" in el.dataset) { // WhatsApp: open a chat with a message already typed
+    a.href = `https://wa.me/44${d.slice(1)}?text=${encodeURIComponent("Hi, I found you on eazyaccess.org. I'd like to talk about a website.")}`;
+  } else {
+    a.href = `tel:+44${d.slice(1)}`;
+    a.textContent = `${d.slice(0, 5)} ${d.slice(5)}`;
+  }
   el.hidden = false;
 }
 
