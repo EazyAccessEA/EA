@@ -26,3 +26,9 @@ Result: pass. R2 free tier is 10 GB; 3.3 GB is used.
 `/srv/hermes/backup-check.sh`, cron 09:00 UTC, log `/var/log/backup-check.log`. Reads today's run in `/var/log/hermes-restic.log` and pushes to ntfy (topic in `/root/.backup-alert.env`) if no run happened, the run didn't finish, the R2 copy didn't succeed, or any line says FAILED, ABORTED, NOT FOUND or not configured. Status lines only, never data. Tested on 20 Nov with a forced failure and a missing run: both alerted. Crontab backup: `/root/crontab.bak-2026-11-20`.
 
 Not covered: if the whole server is down, the check can't run either. An uptime monitor is the fix for that.
+
+## Uptime monitor and the two-way watch
+
+`uptime/` is a Cloudflare cron Worker (`eazyaccess-uptime`, every 5 minutes) that checks ten addresses and alerts the same ntfy channel when one goes down or comes back. At the top of each hour it also posts a heartbeat to `<channel>-heartbeat`, which no phone follows. `backup-check.sh` (09:00 UTC on hetzner) polls that channel and alerts if there's been no heartbeat for 3 hours. So Cloudflare watches Hetzner, and Hetzner watches Cloudflare. Tested 20 Nov: no heartbeat sends an alert, a recent heartbeat stays quiet. Server script backup: `backup-check.sh.bak-2026-11-20`.
+
+Limit: a dead monitor is only noticed at the next 09:00 check, so up to about a day late.

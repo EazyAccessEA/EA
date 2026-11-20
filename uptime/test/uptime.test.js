@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { check, decide, run } from "../src/index.js";
+import { check, decide, run, heartbeat } from "../src/index.js";
 
 const noWait = async () => {};
 const res = (status) => ({ status, ok: status < 400 });
@@ -41,4 +41,14 @@ test("run: a new outage sends one alert and saves state", async () => {
   await run(env, fetchFn, noWait);
   assert.deepEqual(sent, ["DOWN: eazyaccess.org (HTTP 502)"]);
   assert.match(env.STATE.m.get("down"), /eazyaccess\.org/);
+});
+
+test("heartbeat: sent on the run at the top of the hour only, to the separate -heartbeat channel", async () => {
+  const urls = [];
+  const env = { ALERT_URL: "https://ntfy.example/t" };
+  const f = async (url) => { urls.push(url); return res(200); };
+  assert.equal(await heartbeat(env, Date.UTC(2026, 10, 20, 9, 0), f), true);
+  assert.equal(await heartbeat(env, Date.UTC(2026, 10, 20, 9, 5), f), false);
+  assert.equal(await heartbeat(env, Date.UTC(2026, 10, 20, 9, 30), f), false);
+  assert.deepEqual(urls, ["https://ntfy.example/t-heartbeat"]);
 });

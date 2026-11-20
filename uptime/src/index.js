@@ -39,7 +39,16 @@ export function decide(prevDown, results) {
   return { nowDown, msgs, changed: msgs.length > 0 };
 }
 
-export async function run(env, fetchFn = fetch, wait) {
+// Once an hour, a quiet "still running" note to <ALERT_URL>-heartbeat, a channel no phone follows. The Hetzner
+// server's 09:00 backup check reads it and alerts if it has gone silent, so the two watch each other.
+export async function heartbeat(env, now, fetchFn = fetch) {
+  if (!env.ALERT_URL || new Date(now).getUTCMinutes() >= 5) return false;
+  await fetchFn(`${env.ALERT_URL}-heartbeat`, { method: "POST", body: `uptime monitor ran ${new Date(now).toISOString()}` }).catch(() => null);
+  return true;
+}
+
+export async function run(env, fetchFn = fetch, wait, now = Date.now()) {
+  await heartbeat(env, now, fetchFn);
   const results = await Promise.all(SITES.map(async ([name, url]) => [name, await check(url, fetchFn, wait)]));
   const prev = JSON.parse((await env.STATE.get("down")) || "{}");
   const { nowDown, msgs, changed } = decide(prev, results);
@@ -54,4 +63,4 @@ export async function run(env, fetchFn = fetch, wait) {
   return { msgs };
 }
 
-export default { async scheduled(_event, env, ctx) { ctx.waitUntil(run(env)); } };
+export default { async scheduled(event, env, ctx) { ctx.waitUntil(run(env, fetch, undefined, event.scheduledTime)); } };
