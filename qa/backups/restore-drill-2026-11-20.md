@@ -20,3 +20,9 @@ Bucket `eazyaccess-backups`, EU jurisdiction (EEUR). Own restic repo `1aa7615351
 3. Ran `backup.sh` end to end at 18:43 UTC: both dumps, Hetzner backup and R2 copy all ok, in 41 seconds.
 
 Result: pass. R2 free tier is 10 GB; 3.3 GB is used.
+
+## Failure alert
+
+`/srv/hermes/backup-check.sh`, cron 09:00 UTC, log `/var/log/backup-check.log`. Reads today's run in `/var/log/hermes-restic.log` and pushes to ntfy (topic in `/root/.backup-alert.env`) if no run happened, the run didn't finish, the R2 copy didn't succeed, or any line says FAILED, ABORTED, NOT FOUND or not configured. Status lines only, never data. Tested on 20 Nov with a forced failure and a missing run: both alerted. Crontab backup: `/root/crontab.bak-2026-11-20`.
+
+Not covered: if the whole server is down, the check can't run either. An uptime monitor is the fix for that.
