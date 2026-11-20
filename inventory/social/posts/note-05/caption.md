@@ -1,0 +1,26 @@
+# Note 05: Steve Krug (first post)
+
+Files: `1-quote-4x5.png`, `2-figure-4x5.png`, `3-takeaway-4x5.png` (Instagram and Facebook carousel, in that order) and `status-9x16.png` (WhatsApp Status, posted by hand).
+
+Source: Don't Make Me Think, Revisited (2014), ch. 9. Seen in the publisher's excerpt: https://www.peachpit.com/articles/article.aspx?p=2209313
+
+## Caption (Instagram and Facebook)
+
+"Testing one user is 100 percent better than testing none."
+Steve Krug, Don't Make Me Think, Revisited (2014)
+
+Watching one person use a page tells us more than an afternoon of arguing about it.
+
+A new note every working day. Building a site? eazyaccess.org
+
+#webdesign #ux #smallbusinessuk
+
+## Alt text
+
+1. "Testing one user is 100 percent better than testing none." Steve Krug, Don't Make Me Think, Revisited, 2014. Note 05.
+2. Line drawing of one person in front of one screen, orange and white on black.
+3. What we take from it: watching one person use a page tells us more than an afternoon of arguing about it. eazyaccess.org
+
+## WhatsApp Status
+
+Post `status-9x16.png` with no caption. It carries the quote, the figure and the takeaway.

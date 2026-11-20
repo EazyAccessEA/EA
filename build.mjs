@@ -70,11 +70,13 @@ function tools() {
 // legal pages only (Companies Act disclosure rule), and no email or phone (anti-harvesting).
 const decode = (s) => s.replace(/&#x27;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
 const ORG_ID = `${ORIGIN}/#org`;
+// Our social profiles: footer links and the Organization's sameAs. Add LinkedIn here once it exists.
+const SOCIAL = [["Instagram", "https://www.instagram.com/eazyaccessuk/"], ["Facebook", "https://www.facebook.com/profile.php?id=61596628206529"]];
 function schema(m, body, path) {
   const org = {
     "@type": "Organization", "@id": ORG_ID, name: "eazy/access", url: `${ORIGIN}/`, logo: `${ORIGIN}/apple-touch-icon.png`,
     description: "A small UK studio that designs and builds websites, shops and tools.", areaServed: "GB",
-    knowsAbout: ["Web design", "Web development", "Online shops", "Web apps"],
+    knowsAbout: ["Web design", "Web development", "Online shops", "Web apps"], sameAs: SOCIAL.map(([, u]) => u),
   };
   if (m.main === "legal") Object.assign(org, {
     legalName: "EAZY ACCESS LTD",
@@ -164,6 +166,7 @@ ${m.sticky === false ? "" : `<a class="sticky-talk" href="/contact">Let's talk �
   <div class="foot-top">
     <div><p class="muted">Start a project</p><a class="big-email light" href="mailto:info@eazyaccess.org">info@eazyaccess.org</a><p class="foot-phone" data-phone="44679894370" hidden><a></a></p></div>
     <nav aria-label="Footer"><a href="/work/">Work</a><a href="/how-we-work">How we work</a><a href="/contact">Contact</a></nav>
+    <nav aria-label="Social">${SOCIAL.map(([n, u]) => `<a href="${u}" rel="me">${n}</a>`).join("")}</nav>
     <nav aria-label="Legal"><a href="/privacy">Privacy</a><a href="/cookies">Cookies</a><a href="/terms">Terms</a></nav>
   </div>
   <p class="muted small">${m.main === "legal" ? "EAZY ACCESS LTD · Registered in England and Wales, company number 13205428 · ICO registration ZC137268" : "eazy/access · Web design and build, UK · No tracking cookies"}</p>
