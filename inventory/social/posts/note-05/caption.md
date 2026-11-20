@@ -28,3 +28,4 @@ Post `status-9x16.png` with no caption. It carries the quote, the figure and the
 ## Posted
 
 - 20 Nov 2026: Instagram @eazyaccessuk (carousel, 4:5, alt text on all three) and the Facebook Page (three photos, no custom alt text). WhatsApp Status still to post by hand.
+- 20 Nov 2026: LinkedIn company page eazy/access (three images, alt text on all three, same caption).
