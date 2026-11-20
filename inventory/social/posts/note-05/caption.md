@@ -37,4 +37,4 @@ Post `status-9x16.png` with no caption. It carries the quote, the figure and the
   > Watching one person use a page tells us more than an afternoon of arguing about it.
   >
   > A new note every working day. Building a site? Tell us about it at eazyaccess.org.
-- `gbp-4x3-v2.png` is the crop-safe redesign of the Google image, made after this post went out. The live post still uses `gbp-4x3.png`.
+- 20 Nov 2026: Google post image swapped to `gbp-4x3-v2.png`, the crop-safe redesign. Same description and button. Google showed the edit as Pending once it was resubmitted.
