@@ -3,8 +3,8 @@ const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// UK status line. Working hours confirmed by the owner, 17 Nov 2026.
-const HOURS = { days: [1, 2, 3, 4, 5], open: 9 * 60, close: 17 * 60 + 30 }; // Mon–Fri 09:00–17:30 UK
+// UK status line. Working hours confirmed by the owner, 20 Nov 2026.
+const HOURS = { days: [1, 2, 3, 4, 5], open: 9 * 60, close: 17 * 60 }; // Mon–Fri 09:00–17:00 UK
 function ukStatus() {
   const parts = Object.fromEntries(new Intl.DateTimeFormat("en-GB", {
     timeZone: "Europe/London", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false,

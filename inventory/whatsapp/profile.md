@@ -16,7 +16,7 @@ Set up in the WhatsApp Business app on 07349 897644: Settings → Business tools
   Websites, online shops and tools for UK businesses. It's a one-person studio, so whoever answers this chat is the person who'll build your site. Before anything starts, you get a fixed price for each stage and a launch date, in writing. Send a message and say what you're after.
 
 - **About:** Websites people actually use.
-- **Business hours:** Monday to Friday, 09:00–17:30. Closed Saturday and Sunday.
+- **Business hours:** Monday to Friday, 09:00–17:00. Closed Saturday and Sunday.
 - **Email:** info@eazyaccess.org
 - **Website:** https://eazyaccess.org
 - **Second website:** https://eazyaccess.org/privacy (WhatsApp's Business App Terms require a privacy policy)
@@ -32,7 +32,7 @@ Send to: everyone who messages for the first time, or after 14 days without a me
 
 Schedule: outside business hours.
 
-> Hi, we're closed at the moment. Hours are Monday to Friday, 9am to 5:30pm UK time. Leave your message here and you'll get a reply within two working days.
+> Hi, we're closed at the moment. Hours are Monday to Friday, 9am to 5pm UK time. Leave your message here and you'll get a reply within two working days.
 
 ## Message the site pre-fills
 
