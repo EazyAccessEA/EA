@@ -98,7 +98,7 @@ function schema(m, body, path) {
 
 // The /sitemap page: every page, grouped, titled from its own front matter, so it never goes stale.
 function siteList() {
-  const legal = ["/privacy", "/terms", "/cookies"];
+  const legal = ["/privacy", "/terms", "/terms-of-business", "/cookies"];
   const all = files(SRC).map((f) => {
     const r = route(relative(SRC, f));
     const t = JSON.parse(readFileSync(f, "utf8").match(/^<!--(\{.*?\})-->/s)[1]).title;
@@ -191,7 +191,7 @@ ${m.sticky === false ? "" : `<a class="sticky-talk" href="/contact">Let's talk �
   </div>
   <div class="foot-base">
     <p class="foot-copy">${m.main === "legal" ? "EAZY ACCESS LTD · Registered in England and Wales, company number 13205428 · ICO registration ZC137268" : `© ${new Date().getFullYear()} eazy/access · Web design and build, UK`}</p>
-    <nav class="foot-legal" aria-label="Legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/cookies">Cookies</a><a href="/sitemap">Sitemap</a></nav>
+    <nav class="foot-legal" aria-label="Legal"><a href="/privacy">Privacy</a><a href="/terms">Terms of use</a><a href="/terms-of-business">Terms of business</a><a href="/cookies">Cookies</a><a href="/sitemap">Sitemap</a></nav>
     <p class="foot-note">No tracking cookies</p>
   </div>
 ${path === "/" ? "" : `  <div class="foot-mark" aria-hidden="true"><img src="/brand/wordmark-white.svg" alt="" width="4886" height="920" loading="lazy"><span class="foot-glint"></span></div>\n`}</footer>

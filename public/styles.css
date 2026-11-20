@@ -174,8 +174,8 @@ h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.015em;line-
 .foot-top nav a{text-decoration:none;min-height:32px;display:flex;align-items:center;font-size:18px}
 .foot-wa{display:contents}
 .foot-base{display:flex;align-items:center;gap:12px 28px;flex-wrap:wrap;padding:20px 0 32px;border-top:1px solid #2A2A2E;font-size:15px;color:#9A9AA0}
-.foot-legal{display:flex;gap:20px;margin-right:auto}
-.foot-legal a{font-size:14px;color:#C4C4C8;min-height:24px;display:inline-flex;align-items:center;text-decoration:underline;text-decoration-color:#4A4A50;text-underline-offset:4px}
+.foot-legal{display:flex;flex-wrap:wrap;gap:4px 20px;margin-right:auto}
+.foot-legal a{white-space:nowrap;font-size:14px;color:#C4C4C8;min-height:24px;display:inline-flex;align-items:center;text-decoration:underline;text-decoration-color:#4A4A50;text-underline-offset:4px}
 .foot-legal a:hover{color:#F3F3F1;text-decoration-color:currentColor}
 /* Giant wordmark: faint, cropped at the bottom, one slow glint when it comes into view. Not on home, whose hero has its own. */
 .foot-mark{position:relative;margin:-32px 0 0;aspect-ratio:4886/736;overflow:hidden;-webkit-mask:linear-gradient(#000 35%,transparent);mask:linear-gradient(#000 35%,transparent)}
@@ -196,6 +196,8 @@ h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.015em;line-
 .legal p,.legal li{color:var(--text-2);font-size:18px;margin-bottom:12px}
 .legal ul{padding-left:22px}
 .legal a:not(.sticky-talk){text-decoration:underline}
+.legal-form{border:1px solid var(--rule);padding:20px 24px;margin:20px 0}
+.legal-form p:last-child{margin-bottom:0}
 .legal .lede{font-size:21px;color:var(--ink)}
 
 

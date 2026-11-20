@@ -18,7 +18,7 @@ function resolves(href) {
 }
 
 test("there are real pages, not one long page", () => {
-  for (const r of ["/", "/work/", "/how-we-work", "/contact", "/privacy", "/cookies", "/terms"])
+  for (const r of ["/", "/work/", "/how-we-work", "/contact", "/privacy", "/cookies", "/terms", "/terms-of-business"])
     assert.ok(pages.some((p) => routeOf(p.rel) === r), r);
   assert.equal(pages.filter((p) => p.rel.startsWith("work/") && !p.rel.endsWith("index.html")).length, 6);
 });
@@ -105,7 +105,7 @@ test("SEO-B: every real page has one JSON-LD graph naming the studio", () => {
 });
 
 test("SEO-B: legal pages carry the registered facts, exactly as CLAUDE.md states them", () => {
-  for (const p of real.filter((p) => /^(privacy|terms|cookies)\.html$/.test(p.rel))) {
+  for (const p of real.filter((p) => /^(privacy|terms|terms-of-business|cookies)\.html$/.test(p.rel))) {
     const org = ld(p.html)[0]["@graph"].find((n) => n["@id"] === `${ORIGIN}/#org`);
     assert.equal(org.legalName, "EAZY ACCESS LTD", p.rel);
     assert.equal(org.identifier?.value, "13205428", p.rel);
@@ -113,7 +113,7 @@ test("SEO-B: legal pages carry the registered facts, exactly as CLAUDE.md states
 });
 
 test("SEO-C: company number and registered office appear on legal pages only", () => {
-  for (const p of pages.filter((p) => !/^(privacy|terms|cookies)\.html$/.test(p.rel))) {
+  for (const p of pages.filter((p) => !/^(privacy|terms|terms-of-business|cookies)\.html$/.test(p.rel))) {
     assert.ok(!/13205428|Shelton Street|EAZY ACCESS LTD/.test(p.html), p.rel);
   }
 });
