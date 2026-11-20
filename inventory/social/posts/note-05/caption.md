@@ -24,3 +24,7 @@ A new note every working day. Building a site? eazyaccess.org
 ## WhatsApp Status
 
 Post `status-9x16.png` with no caption. It carries the quote, the figure and the takeaway.
+
+## Posted
+
+- 20 Nov 2026: Instagram @eazyaccessuk (carousel, 4:5, alt text on all three) and the Facebook Page (three photos, no custom alt text). WhatsApp Status still to post by hand.
