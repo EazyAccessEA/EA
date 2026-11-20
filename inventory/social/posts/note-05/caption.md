@@ -38,3 +38,4 @@ Post `status-9x16.png` with no caption. It carries the quote, the figure and the
   >
   > A new note every working day. Building a site? Tell us about it at eazyaccess.org.
 - 20 Nov 2026: Google post image swapped to `gbp-4x3-v2.png`, the crop-safe redesign. Same description and button. Google showed the edit as Pending once it was resubmitted.
+- 20 Nov 2026: Threads @eazyaccessuk, https://www.threads.com/@eazyaccessuk/post/Df-dvpoCJSK (three slides, alt text on all three, topic Web Design).

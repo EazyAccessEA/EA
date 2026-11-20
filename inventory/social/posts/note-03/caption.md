@@ -1,6 +1,6 @@
 # Note 03
 
-Scheduled for Wed 25 Nov 2026, 08:30 UK, on Instagram and the Facebook Page (Meta Business Suite), with alt text on every image. Also scheduled at the same time on the LinkedIn company page, same caption, alt text on all three images. WhatsApp Status: post `status-9x16.png` by hand that morning.
+Scheduled for Wed 25 Nov 2026, 08:30 UK, on Instagram and the Facebook Page (Meta Business Suite), with alt text on every image. Also scheduled at the same time on the LinkedIn company page, same caption, alt text on all three images. Also scheduled at the same time on Threads @eazyaccessuk (topic Web Design, alt text on all three; Note 03's source line shortened to fit 500 characters, see `../../threads.md`). WhatsApp Status: post `status-9x16.png` by hand that morning.
 
 Files: `1-story-4x5.png`, `2-figure-4x5.png`, `3-takeaway-4x5.png` (carousel, in that order). Wording checked in `inventory/social/notes.md`.
 

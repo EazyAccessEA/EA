@@ -4,7 +4,9 @@ Profile created by the owner on 20 Nov 2026 from the @eazyaccessuk Instagram acc
 
 Same notes, slides and alt text as Instagram. Threads allows 500 characters and one topic tag per post, so the Instagram hashtags are dropped and the topic is **Web Design**. Images: the three 4:5 slides from each note's folder, in order. Alt text: from each note's `caption.md`.
 
-## Note 05: Fri 20 Nov 2026, now
+## Note 05: Fri 20 Nov 2026, posted
+
+Posted 20 Nov 2026: https://www.threads.com/@eazyaccessuk/post/Df-dvpoCJSK (topic Web Design, alt text on all three).
 
 Images: `posts/note-05/1-quote-4x5.png`, `posts/note-05/2-figure-4x5.png`, `posts/note-05/3-takeaway-4x5.png`. 257 characters.
 
@@ -17,7 +19,9 @@ Watching one person use a page tells us more than an afternoon of arguing about 
 A new note every working day. Building a site? eazyaccess.org
 ```
 
-## Note 01: Mon 23 Nov 2026, 08:30
+## Note 01: Mon 23 Nov 2026, 08:30 (scheduled)
+
+Scheduled 20 Nov 2026 in Threads (topic Web Design, alt text on all three); confirmed in the composer's Drafts list.
 
 Images: `posts/note-01/1-quote-4x5.png`, `posts/note-01/2-figure-4x5.png`, `posts/note-01/3-takeaway-4x5.png`. 400 characters.
 
@@ -30,7 +34,9 @@ If a page needs a line telling people where to click, we change the page, not th
 A new note every working day. Building a site? eazyaccess.org
 ```
 
-## Note 02: Tue 24 Nov 2026, 08:30
+## Note 02: Tue 24 Nov 2026, 08:30 (scheduled)
+
+Scheduled 20 Nov 2026 in Threads (topic Web Design, alt text on all three); confirmed in the composer's Drafts list.
 
 Images: `posts/note-02/1-quote-4x5.png`, `posts/note-02/2-figure-4x5.png`, `posts/note-02/3-takeaway-4x5.png`. 297 characters.
 
@@ -43,7 +49,9 @@ We pick type for the person reading on a bus, not for our portfolio. If they not
 A new note every working day. Building a site? eazyaccess.org
 ```
 
-## Note 03: Wed 25 Nov 2026, 08:30
+## Note 03: Wed 25 Nov 2026, 08:30 (scheduled)
+
+Scheduled 20 Nov 2026 in Threads (topic Web Design, alt text on all three); confirmed in the composer's Drafts list.
 
 Images: `posts/note-03/1-story-4x5.png`, `posts/note-03/2-figure-4x5.png`, `posts/note-03/3-takeaway-4x5.png`. 494 characters.
 
@@ -56,7 +64,9 @@ When people keep making the same mistake on a site, the site is wrong. We look f
 A new note every working day. Building a site? eazyaccess.org
 ```
 
-## Note 04: Thu 26 Nov 2026, 08:30
+## Note 04: Thu 26 Nov 2026, 08:30 (scheduled)
+
+Scheduled 20 Nov 2026 in Threads (topic Web Design, alt text on all three); confirmed in the composer's Drafts list.
 
 Images: `posts/note-04/1-quote-4x5.png`, `posts/note-04/2-figure-4x5.png`, `posts/note-04/3-takeaway-4x5.png`. 315 characters.
 
@@ -69,7 +79,9 @@ Someone who lands on one page from a search should understand it without the hom
 A new note every working day. Building a site? eazyaccess.org
 ```
 
-## Note 06: Fri 27 Nov 2026, 08:30
+## Note 06: Fri 27 Nov 2026, 08:30 (scheduled)
+
+Scheduled 20 Nov 2026 in Threads (topic Web Design, alt text on all three); confirmed in the composer's Drafts list.
 
 Images: `posts/note-06/1-story-4x5.png`, `posts/note-06/2-figure-4x5.png`, `posts/note-06/3-takeaway-4x5.png`. 451 characters.
 
