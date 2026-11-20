@@ -43,8 +43,7 @@
       "farmcompanion",
       "sagheerah",
       "flintmere",
-      "pageperfect",
-      "callandconsequence"
+      "pageperfect"
      ],
      "#58C4DC"
     ],
@@ -214,12 +213,21 @@
      "#533AFD"
     ],
     [
+     "Shopify",
+     "Apps that plug into the shop a merchant already runs.",
+     [
+      "flintmere"
+     ],
+     "#95BF47"
+    ],
+    [
      "Resend",
      "Order and enquiry emails sent from your own domain, without touching your inbox setup.",
      [
       "farmcompanion",
       "sagheerah",
       "flintmere",
+      "pageperfect",
       "site"
      ],
      "#000000"
@@ -228,6 +236,8 @@
      "Turnstile",
      "A spam check on forms that doesn't make people solve puzzles.",
      [
+      "farmcompanion",
+      "flintmere",
       "site"
      ],
      "#F48120"
@@ -241,7 +251,6 @@
      "Vitest",
      "Tests that fail loudly when a price or a rule changes by mistake.",
      [
-      "farmcompanion",
       "sagheerah",
       "flintmere",
       "pageperfect"
@@ -254,6 +263,8 @@
      [
       "farmcompanion",
       "flintmere",
+      "pageperfect",
+      "callandconsequence",
       "site"
      ],
      "#2EAD33"
