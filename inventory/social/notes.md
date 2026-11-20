@@ -50,9 +50,9 @@ Notes 01–08 were checked on 20 Nov 2026. "Social wording" is the text the post
 
 ---
 
-# Draft batch: notes 09–41 (waiting for the owner's approval)
+# Notes 09–41 (approved by the owner, 20 Nov 2026)
 
-Sourced 20 Nov 2026. Each passage was seen in the source given. Notes 01–41 make 41 working days, about eight weeks. Nothing here posts until it's approved.
+Sourced 20 Nov 2026. Each passage was seen in the source given. Notes 01–41 make 41 working days, about eight weeks. Posting order: 05 went first (20 Nov). The rest go in number order, one each working day: 01, 02, 03, 04, 06, 07, 08, then 09–41, starting Monday 23 Nov 2026.
 
 Left out: Rob Pike (weak for small businesses), Nielsen's five users (too close to Krug, note 05), Calvert's colours (second note from one extract), and the Hopper moth (an easy misattribution). Three disaster stories are held back because they involve deaths: the Hyatt Regency walkways (113), the Patriot battery at Dhahran (28) and Columbia's slides. They're sourced and can come back if the owner wants them.
 
