@@ -96,8 +96,23 @@ function schema(m, body, path) {
   return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replace(/</g, "\\u003c")}</script>`;
 }
 
+// The /sitemap page: every page, grouped, titled from its own front matter, so it never goes stale.
+function siteList() {
+  const legal = ["/privacy", "/terms", "/cookies"];
+  const all = files(SRC).map((f) => {
+    const r = route(relative(SRC, f));
+    const t = JSON.parse(readFileSync(f, "utf8").match(/^<!--(\{.*?\})-->/s)[1]).title;
+    return [r, t === "home" ? "Home" : t];
+  }).filter(([r]) => r !== "/404" && r !== "/sitemap");
+  const group = (name, list) => `<h2>${name}</h2><ul>${list.map(([r, t]) => `<li><a href="${r}">${t}</a></li>`).join("")}</ul>`;
+  const order = (a, b) => (a[0] === "/" ? -1 : b[0] === "/" ? 1 : a[0].localeCompare(b[0]));
+  return group("Pages", all.filter(([r]) => !r.startsWith("/work/") && !legal.includes(r)).sort(order))
+    + group("Work", all.filter(([r]) => r.startsWith("/work/")).sort(order))
+    + group("Legal", legal.map((r) => all.find(([x]) => x === r)).filter(Boolean));
+}
+
 function page(m, body, path) {
-  body = body.replace("<!--#band-->", BAND).replace("<!--#tools-->", () => tools());
+  body = body.replace("<!--#band-->", BAND).replace("<!--#tools-->", () => tools()).replace("<!--#sitemap-->", () => siteList());
   return `<!doctype html>
 <html lang="en-GB">
 <head>
@@ -164,13 +179,22 @@ ${m.sticky === false ? "" : `<a class="sticky-talk" href="/contact">Let's talk �
 
 <footer class="footer">
   <div class="foot-top">
-    <div><p class="muted">Start a project</p><a class="big-email light" href="mailto:info@eazyaccess.org">info@eazyaccess.org</a><p class="foot-phone" data-phone="44679894370" hidden><a></a></p></div>
-    <nav aria-label="Footer"><a href="/work/">Work</a><a href="/how-we-work">How we work</a><a href="/contact">Contact</a></nav>
-    <nav aria-label="Social">${SOCIAL.map(([n, u]) => `<a href="${u}" rel="me">${n}</a>`).join("")}</nav>
-    <nav aria-label="Legal"><a href="/privacy">Privacy</a><a href="/cookies">Cookies</a><a href="/terms">Terms</a></nav>
+    <div class="foot-studio">
+      <p class="foot-lede">A small UK studio that designs and builds websites, shops and tools. One person, from first message to launch.</p>
+      <p class="status foot-status" data-status>UK time</p>
+      <div><a class="big-email light" href="mailto:info@eazyaccess.org">info@eazyaccess.org</a><p class="foot-phone" data-phone="44679894370" hidden><a></a></p></div>
+    </div>
+    <div class="foot-cols">
+      <nav aria-labelledby="foot-pages"><p class="foot-label" id="foot-pages">Pages</p><a href="/work/">Work</a><a href="/how-we-work">How we work</a><a href="/contact">Contact</a></nav>
+      <nav aria-labelledby="foot-follow"><p class="foot-label" id="foot-follow">Follow</p>${SOCIAL.map(([n, u]) => `<a href="${u}" rel="me">${n}</a>`).join("")}<span class="foot-wa" data-phone="44679894370" data-wa hidden><a>WhatsApp</a></span></nav>
+    </div>
   </div>
-  <p class="muted small">${m.main === "legal" ? "EAZY ACCESS LTD · Registered in England and Wales, company number 13205428 · ICO registration ZC137268" : "eazy/access · Web design and build, UK · No tracking cookies"}</p>
-</footer>
+  <div class="foot-base">
+    <p class="foot-copy">${m.main === "legal" ? "EAZY ACCESS LTD · Registered in England and Wales, company number 13205428 · ICO registration ZC137268" : `© ${new Date().getFullYear()} eazy/access · Web design and build, UK`}</p>
+    <nav class="foot-legal" aria-label="Legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/cookies">Cookies</a><a href="/sitemap">Sitemap</a></nav>
+    <p class="foot-note">No tracking cookies</p>
+  </div>
+${path === "/" ? "" : `  <div class="foot-mark" aria-hidden="true"><img src="/brand/wordmark-white.svg" alt="" width="4886" height="920" loading="lazy"><span class="foot-glint"></span></div>\n`}</footer>
 </body>
 </html>
 `;

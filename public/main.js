@@ -330,3 +330,10 @@ if (form) {
   const msg = { sent: ["ok", "Sent. Someone will reply within two working days."], invalid: ["bad", "Please check the form and try again."], slow: ["bad", "Too many messages. Please wait a minute or email us."], failed: ["bad", `It didn't send. Please email ${MAIL} directly.`] }[flag];
   if (msg) { statusEl.classList.add(msg[0]); statusEl.textContent = msg[1]; reveal(statusEl); }
 }
+
+// Footer wordmark: one slow glint the first time it scrolls into view (CSS skips it under reduced motion)
+const mark = $(".foot-mark");
+if (mark && "IntersectionObserver" in window) {
+  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { mark.classList.add("glint"); io.disconnect(); } }, { threshold: 0.6 });
+  io.observe(mark);
+}
