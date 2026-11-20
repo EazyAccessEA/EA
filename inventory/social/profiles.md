@@ -42,7 +42,7 @@ Set up on 20 Nov 2026, owned by the Abigail Archer profile: https://www.facebook
 
 ## LinkedIn
 
-Company page, URL `linkedin.com/company/eazyaccessuk`. Created by the owner on 20 Nov 2026 (company ID 147011103), after LinkedIn first refused this session with its 7-day page creation limit. It still needs a description and location (LinkedIn prompts for both). Approved settings: name eazy/access, industry Design Services, 0–1 employees, Privately held, website `https://eazyaccess.org/contact?utm_source=linkedin&utm_medium=social&utm_campaign=profile`, orange slash logo, the tagline below. The owner's own headline stays as it is (owner's decision). It is in `SOCIAL` in `build.mjs` (footer and sameAs). Tagline (120 max):
+Company page, URL `linkedin.com/company/eazyaccessuk`. Created by the owner on 20 Nov 2026 (company ID 147011103), after LinkedIn first refused this session with its 7-day page creation limit. Description (the About text below) and location (London, GB, no street address, primary) added 20 Nov 2026. Approved settings: name eazy/access, industry Design Services, 0–1 employees, Privately held, website `https://eazyaccess.org/contact?utm_source=linkedin&utm_medium=social&utm_campaign=profile`, orange slash logo, the tagline below. The owner's own headline stays as it is (owner's decision). It is in `SOCIAL` in `build.mjs` (footer and sameAs). Tagline (120 max):
 > Websites, shops and tools for UK small businesses, built by the person you talk to.
 
 About:
