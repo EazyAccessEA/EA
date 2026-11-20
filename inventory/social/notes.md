@@ -2,6 +2,12 @@
 
 Every note is checked against its primary source before it's scheduled. Each one records the page or URL where the wording was seen. A note without a reference doesn't post.
 
+## Future goal: the book (logged 20 Nov 2026)
+
+When the series reaches 1,000 notes, publish them as a book. The owner's idea, logged here so it isn't lost. Nothing is planned yet. Two things to keep in mind from now:
+- Keep every note's primary source (edition, page or URL) in this file, as we already do. A book will need them for its references.
+- Many of the quotes are still in copyright (Norman, Krug, Vignelli and others). Quoting them in a daily post is one thing; collecting 1,000 into a book that's sold is another. Permissions need checking before then, so note which quotes would need one.
+
 Notes 01–08 were checked on 20 Nov 2026. "Social wording" is the text the posts use. Where it differs from the site (`pages/index.html`), the reason is given.
 
 ## 01, Don Norman
