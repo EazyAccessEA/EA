@@ -7,7 +7,7 @@ export const SITES = [
   ["deeper.tools", "https://deeper.tools/"],
   ["Flintmere site", "https://flintmere.com/"],
   ["Flintmere audit", "https://audit.flintmere.com/"],
-  ["Flintmere Shopify app", "https://app.flintmere.com/"],
+  // app.flintmere.com is left out: the Shopify app has never been deployed (Flintmere STATUS.md). Add it back with that deploy.
   ["PagePerfect", "https://pageperfect.studio/"],
   ["Sagheerah shop", "https://shop.sagheerah.com/"],
   ["Hetzner server", "http://meilisearch-b4lhb1p7qjhmhhawwmeslr67.37.27.194.158.sslip.io/health"],
