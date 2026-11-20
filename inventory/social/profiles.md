@@ -63,4 +63,4 @@ Already set up: see `inventory/whatsapp/profile.md`. Status takes the 9:16 file 
 
 ## Google Business Profile
 
-Already set up (`inventory/gbp/`). One post a week: the week's best note, 4:3 at 1200x900.
+Already set up (`inventory/gbp/`). One post a week: the week's best note, 4:3 at 1200x900. Template (from 20 Nov 2026): the Paper board "Google Business 4:3 v2 — crop-safe (weekly)" on the Social page. It has the quote centred in a 600px block at Degular Display 64px, with one orange IvyPresto italic accent word. The wordmark is at the top and NOTE / NN at the bottom, over a faint grid at the slash angle (22.1°), with one orange line through the wordmark's slash. Google crops post images, so the quote and attribution stay inside x 300-900. They survive square and 2:3 centre crops; at 2:1 only the wordmark and the note label drop. The first board (quote left, dark figure panel right) lost the quote in Google's post thumbnail, so don't go back to it. Google's post form won't take a file upload from Claude, so the owner drags the image in.
