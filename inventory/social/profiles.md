@@ -7,7 +7,7 @@ Images for every profile:
 - Avatar: `inventory/whatsapp/profile-photo-1024.png` (the orange slash; it survives a circle crop).
 - Cover/banner: `inventory/whatsapp/cover-1024x576.png`. LinkedIn wants 1128x191, so it needs its own crop.
 
-Platforms: LinkedIn (founder profile first, company page reposts), Facebook Page, Instagram, WhatsApp Status, and Google Business Profile weekly. X and Bluesky were dropped on 20 Nov 2026 (owner's decision, after Ofcom Online Nation 2025 showed X's UK visitors down 13% on the year). Threads gets cross-posts from Instagram only.
+Platforms: LinkedIn (founder profile first, company page reposts), Facebook Page, Instagram, WhatsApp Status, and Google Business Profile weekly. X and Bluesky were dropped on 20 Nov 2026 (owner's decision, after Ofcom Online Nation 2025 showed X's UK visitors down 13% on the year). Threads (@eazyaccessuk, created by the owner 20 Nov 2026 from the Instagram account) gets the same notes, posted by hand: see `threads.md`.
 
 Links all go to the contact page, tagged per platform. All seven returned 200 on 20 Nov 2026:
 `https://eazyaccess.org/contact?utm_source=<platform>&utm_medium=social&utm_campaign=profile`
