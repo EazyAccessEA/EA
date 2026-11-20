@@ -71,7 +71,7 @@ function tools() {
 const decode = (s) => s.replace(/&#x27;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
 const ORG_ID = `${ORIGIN}/#org`;
 // Our social profiles: footer links and the Organization's sameAs.
-const SOCIAL = [["Instagram", "https://www.instagram.com/eazyaccessuk/"], ["Facebook", "https://www.facebook.com/profile.php?id=61596628206529"], ["LinkedIn", "https://www.linkedin.com/company/eazyaccessuk/"]];
+const SOCIAL = [["Instagram", "https://www.instagram.com/eazyaccessuk/"], ["Threads", "https://www.threads.com/@eazyaccessuk"], ["Facebook", "https://www.facebook.com/profile.php?id=61596628206529"], ["LinkedIn", "https://www.linkedin.com/company/eazyaccessuk/"]];
 function schema(m, body, path) {
   const org = {
     "@type": "Organization", "@id": ORG_ID, name: "eazy/access", url: `${ORIGIN}/`, logo: `${ORIGIN}/apple-touch-icon.png`,

@@ -132,7 +132,7 @@ test("SEO-B: each work page describes its project and links to the live site it 
 test("SEO-B: no contact detail or invented proof leaks through structured data", () => {
   for (const p of real) {
     const s = JSON.stringify(ld(p.html));
-    assert.ok(!/@eazyaccess|telephone|aggregateRating|review|award/i.test(s), p.rel);
+    assert.ok(!/@eazyaccess\.org|telephone|aggregateRating|review|award/i.test(s), p.rel);
   }
 });
 
