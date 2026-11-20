@@ -1,6 +1,6 @@
 # Note 04
 
-Scheduled for Thu 26 Nov 2026, 08:30 UK, on Instagram and the Facebook Page (Meta Business Suite), with alt text on every image. WhatsApp Status: post `status-9x16.png` by hand that morning.
+Scheduled for Thu 26 Nov 2026, 08:30 UK, on Instagram and the Facebook Page (Meta Business Suite), with alt text on every image. Also scheduled at the same time on the LinkedIn company page, same caption, alt text on all three images. WhatsApp Status: post `status-9x16.png` by hand that morning.
 
 Files: `1-quote-4x5.png`, `2-figure-4x5.png`, `3-takeaway-4x5.png` (carousel, in that order). Wording checked in `inventory/social/notes.md`.
 
