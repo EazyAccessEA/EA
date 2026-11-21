@@ -233,11 +233,11 @@ for (const html of built)
     hashes.add(`'sha256-${createHash("sha256").update(js).digest("base64")}'`);
 const csp = [
   "default-src 'self'",
-  `script-src 'self' ${[...hashes].join(" ")} https://challenges.cloudflare.com`,
+  `script-src 'self' ${[...hashes].join(" ")} https://challenges.cloudflare.com https://static.cloudflareinsights.com`, // Turnstile; Cloudflare Web Analytics beacon
   "style-src 'self' 'unsafe-inline' https://use.typekit.net https://p.typekit.net", // inline style attributes carry each project's colours
   "font-src 'self' https://use.typekit.net",
   "img-src 'self' data: https://p.typekit.net",
-  "connect-src 'self' https://use.typekit.net https://p.typekit.net https://challenges.cloudflare.com",
+  "connect-src 'self' https://use.typekit.net https://p.typekit.net https://challenges.cloudflare.com https://cloudflareinsights.com",
   "frame-src https://challenges.cloudflare.com",
   "frame-ancestors 'none'", "base-uri 'self'", "form-action 'self'", "object-src 'none'",
 ].join("; ");
