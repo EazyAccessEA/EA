@@ -177,10 +177,20 @@ h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.015em;line-
 .foot-legal{display:flex;flex-wrap:wrap;gap:4px 20px;margin-right:auto}
 .foot-legal a{white-space:nowrap;font-size:14px;color:#C4C4C8;min-height:24px;display:inline-flex;align-items:center;text-decoration:underline;text-decoration-color:#4A4A50;text-underline-offset:4px}
 .foot-legal a:hover{color:#F3F3F1;text-decoration-color:currentColor}
-/* Giant wordmark: faint, cropped at the bottom, one slow glint when it comes into view. Not on home, whose hero has its own. */
-.foot-mark{position:relative;margin:-32px 0 0;aspect-ratio:4886/736;overflow:hidden;-webkit-mask:linear-gradient(#000 35%,transparent);mask:linear-gradient(#000 35%,transparent)}
-.foot-mark img{display:block;width:100%;height:auto;opacity:.14}
-.foot-glint{position:absolute;inset:0;-webkit-mask:url(/brand/wordmark-white.svg) top/100% auto no-repeat;mask:url(/brand/wordmark-white.svg) top/100% auto no-repeat;background:linear-gradient(105deg,transparent 40%,rgba(243,243,241,.35) 50%,transparent 60%) 200% 0/250% 100% no-repeat;opacity:0}
+/* Giant wordmark, after 21st.dev "Text Hover Effect" by Aceternity (MIT), rebuilt as plain SVG: an outline at rest,
+   filled under the pointer (desktop) or by one pulse up the slash (touch). Not on home, whose hero has its own.
+   The outline is a 2x stroke with the letters filled in the footer colour on top, so only the outer edge shows and
+   letters that overlap ("cc", "es") read as one silhouette. Non-scaling, so it stays 1.5px from phone to desktop. */
+.foot-mark{position:relative;margin:-32px 0 0;aspect-ratio:4886/736;overflow:hidden}
+.foot-mark svg{display:block;width:100%;height:auto}
+.fm-line{fill:none;stroke:rgba(243,243,241,.35);stroke-width:3px}
+#fm-l{vector-effect:non-scaling-stroke} /* not inherited through <use>, so it goes on the shared path */
+.fm-bg{fill:var(--pill)}
+.fm-fill{fill:#F3F3F1}
+.fm-slash{fill:var(--orange)}
+.fm-hot{fill:#F7B497}
+.fm-lit,.fm-hot{opacity:0;transition:opacity .45s var(--ease)}
+.foot-mark.on .fm-lit,.foot-mark.on .fm-hot{opacity:1}
 .muted{color:#9A9AA0}
 .big-email.light{color:#F3F3F1}
 
@@ -575,8 +585,4 @@ div.call:last-child{border-bottom:1px solid var(--rule)}
   .fan-sheet .name,.fan-sheet:is(*) .name{font-size:20px!important;max-width:150px!important}
   .fan-sheet .line,.fan-sheet .cta{display:none}
   .fan-sheet img,.fan-sheet:is(*) img{left:14px!important;bottom:14px!important;width:142px!important;height:178px!important}
-}
-@media (prefers-reduced-motion:no-preference){
-  .foot-mark.glint .foot-glint{animation:glint 2.4s var(--ease) .2s 1 both}
-  @keyframes glint{0%{opacity:1;background-position:200% 0}100%{opacity:1;background-position:-100% 0}}
 }

@@ -12,6 +12,15 @@ const route = (rel) => "/" + rel.replace(/\.html$/, "").replace(/(^|\/)index$/, 
 const dot = (w = 8, h = 16) => `<span class="dot" aria-hidden="true"><svg viewBox="0 0 10 20" width="${w}" height="${h}"><path d="M8.5 1.5L1.5 18.5"/></svg></span>`;
 const cur = (m, k) => (m.nav === k ? ' aria-current="page"' : "");
 
+// Footer wordmark, inline so CSS and main.js can outline it and move the reveal mask (see styles.css "Giant wordmark").
+// Paths come from the brand file, so the outlined wordmark stays the single source.
+const [LETTERS, SLASH] = ["#F3F3F1", "#E8663A"].map((f) => readFileSync(join(OUT, "brand/wordmark-white.svg"), "utf8").match(new RegExp(`fill="${f}" d="([^"]+)"`))[1]);
+const FOOT_MARK = `<div class="foot-mark" aria-hidden="true"><svg viewBox="0 -700 4886 920" focusable="false"><defs><path id="fm-l" d="${LETTERS}"/><path id="fm-s" d="${SLASH}"/>`
+  + `<radialGradient id="fm-g" gradientUnits="userSpaceOnUse" cx="-999" cy="-999" r="720"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>`
+  + `<mask id="fm-m" maskUnits="userSpaceOnUse" x="0" y="-700" width="4886" height="920"><rect x="0" y="-700" width="4886" height="920" fill="url(#fm-g)"/></mask></defs>`
+  + `<use href="#fm-l" class="fm-line"/><use href="#fm-l" class="fm-bg"/><g class="fm-lit" mask="url(#fm-m)"><use href="#fm-l" class="fm-fill"/></g>`
+  + `<use href="#fm-s" class="fm-slash"/><use href="#fm-s" class="fm-hot" mask="url(#fm-m)"/></svg></div>`;
+
 const BAND = `<section class="band" aria-labelledby="band-title">
   <div class="band-inner">
     <div><h2 id="band-title">Let's <em>talk.</em></h2><p>Tell us what you need. The person who'd build your site replies within two working days.</p></div>
@@ -194,7 +203,7 @@ ${m.sticky === false ? "" : `<a class="sticky-talk" href="/contact">Let's talk Â
     <nav class="foot-legal" aria-label="Legal"><a href="/privacy">Privacy</a><a href="/terms">Terms of use</a><a href="/terms-of-business">Terms of business</a><a href="/cookies">Cookies</a><a href="/sitemap">Sitemap</a></nav>
     <p class="foot-note">No tracking cookies</p>
   </div>
-${path === "/" ? "" : `  <div class="foot-mark" aria-hidden="true"><img src="/brand/wordmark-white.svg" alt="" width="4886" height="920" loading="lazy"><span class="foot-glint"></span></div>\n`}</footer>
+${path === "/" ? "" : `  ${FOOT_MARK}\n`}</footer>
 </body>
 </html>
 `;

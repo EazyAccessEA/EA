@@ -331,9 +331,41 @@ if (form) {
   if (msg) { statusEl.classList.add(msg[0]); statusEl.textContent = msg[1]; reveal(statusEl); }
 }
 
-// Footer wordmark: one slow glint the first time it scrolls into view (CSS skips it under reduced motion)
-const mark = $(".foot-mark");
-if (mark && "IntersectionObserver" in window) {
-  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { mark.classList.add("glint"); io.disconnect(); } }, { threshold: 0.6 });
-  io.observe(mark);
+// Footer wordmark, after 21st.dev "Text Hover Effect" by Aceternity (MIT): a soft disc (the mask's radial gradient)
+// fills the outline. Desktop: it eases after the pointer. Touch: it runs once up the slash, in viewBox units.
+const fm = $(".foot-mark");
+if (fm && !still) {
+  const svg = $("svg", fm), g = $("#fm-g", fm);
+  let x = 0, y = 0, tx = 0, ty = 0, raf = 0, last = 0;
+  const put = (a, b) => { g.setAttribute("cx", a.toFixed(0)); g.setAttribute("cy", b.toFixed(0)); };
+  const ease = (now) => {
+    const a = 1 - 0.82 ** (Math.min(now - (last || now - 16.7), 50) / 16.7); last = now; // same feel at 60 Hz and 120 Hz
+    x += (tx - x) * a; y += (ty - y) * a; put(x, y);
+    raf = Math.abs(tx - x) + Math.abs(ty - y) > 2 ? requestAnimationFrame(ease) : (last = 0);
+  };
+  if (matchMedia("(hover: hover)").matches) {
+    fm.addEventListener("pointermove", (e) => {
+      const r = svg.getBoundingClientRect();
+      if (!r.width) return;
+      tx = (e.clientX - r.left) / r.width * 4886; ty = (e.clientY - r.top) / r.height * 920 - 700;
+      if (!fm.classList.contains("on")) { x = tx; y = ty; put(x, y); fm.classList.add("on"); }
+      if (!raf) raf = requestAnimationFrame(ease);
+    });
+    fm.addEventListener("pointerleave", () => fm.classList.remove("on"));
+  } else if ("IntersectionObserver" in window && !(() => { try { return sessionStorage.getItem("fm-pulse"); } catch { return 0; } })()) {
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect(); fm.classList.add("on");
+      try { sessionStorage.setItem("fm-pulse", "1"); } catch {} // once per visit, like the hero
+      // Along the slash's own 22.1° axis (centres 1834.5,150 to 2155,-640), run on past both ends: 1794,250 to 2204,-760
+      const t0 = performance.now(), D = 1100;
+      const run = (now) => {
+        const k = Math.min((now - t0) / D, 1), p = 1 - (1 - k) ** 3;
+        put(1794 + 410 * p, 250 - 1010 * p);
+        if (k < 1) requestAnimationFrame(run); else fm.classList.remove("on");
+      };
+      requestAnimationFrame(run);
+    }, { threshold: 0.6 });
+    io.observe(fm);
+  }
 }
