@@ -21,7 +21,9 @@ Name: eazy/access
 
 > Websites, shops and tools for UK small businesses.
 > One person, from first message to launch.
-> A design note every working day.
+> A design note every day.
+
+(Changed from "every working day" on 22 Nov 2026, owner's decision. Not yet changed on Instagram itself.)
 
 Category: Web designer (shown on profile). Business account.
 
@@ -48,7 +50,9 @@ Company page, URL `linkedin.com/company/eazyaccessuk`. Created by the owner on 2
 About:
 > eazy/access is a one-person web studio in the UK. It designs and builds websites, online shops and tools for small businesses. One person, from your first message to launch. Before work starts we agree a fixed price for each stage and a launch date, and nothing extra is charged unless you agree it in writing. You own the domain, hosting and logins from day one.
 >
-> Every working day we post one note: a line or a true story from someone who built things before us, and what it means for a site.
+> Every day we post one note: a line or a true story from someone who built things before us, and what it means for a site.
+
+(Changed from "Every working day" on 22 Nov 2026. Not yet changed on LinkedIn itself.)
 
 Founder profile: the headline needs the owner's own words. Suggested:
 > I design and build websites, shops and tools for UK small businesses at eazy/access.
@@ -59,7 +63,7 @@ Uses the Instagram bio as is.
 
 ## WhatsApp
 
-Already set up: see `inventory/whatsapp/profile.md`. Status takes the 9:16 file each working day, posted by hand from the phone.
+Already set up: see `inventory/whatsapp/profile.md`. Status takes that day's 9:16 file every day, weekends included (owner, 22 Nov 2026), posted by hand from the phone.
 
 ## Google Business Profile
 

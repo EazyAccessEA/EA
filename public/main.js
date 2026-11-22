@@ -207,12 +207,11 @@ if (deck) {
   open(location.hash.slice(1) || "list", false);
 }
 
-// Home: one reflection per working day. Without JS the first one shows.
+// Home: one reflection per day. Without JS the first one shows.
 const notes = $$("[data-note]");
 if (notes.length) {
-  const days = Math.floor(Date.now() / 864e5) + 3; // days since Mon 29 Dec 1969 (1 Jan 1970 was a Thursday)
-  const workdays = Math.floor(days / 7) * 5 + Math.min(days % 7, 4); // Mon–Fri step on; weekends keep Friday's note
-  notes.forEach((n, i) => { n.hidden = i !== workdays % notes.length; });
+  const days = Math.floor(Date.now() / 864e5);
+  notes.forEach((n, i) => { n.hidden = i !== days % notes.length; });
   // The figure draws itself once, when the card is half in view: structure first, then the fix in orange.
   // Without IntersectionObserver, or with reduced motion, it stays on its last frame (no class added).
   const fig = $(".note-card:not([hidden]) .note-fig");
