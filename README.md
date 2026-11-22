@@ -1,34 +1,31 @@
-# Eazy Access
+# eazy/access
 
-Parent brand site for **eazyaccess.org** — a sovereign portfolio of tools for British life.
+The website at eazyaccess.org, for a small UK studio that designs and builds websites, shops and tools.
 
-## Repository layout
+| Path | What it holds |
+|------|---------------|
+| `pages/` | The page sources. `build.mjs` turns them into `public/`. |
+| `public/` | The built site, served as static files. |
+| `src/` | The Cloudflare Worker: it serves `public/` and handles the contact form at `/api/contact`. |
+| `test/` | Tests for the build and the Worker. |
+| `uptime/` | A separate Worker that checks the site is up. |
+| `inventory/` | Social posts, ads and other material that isn't part of the site. |
+| `qa/` | Scripts that check the live site. |
 
-| Path | Purpose |
-|------|---------|
-| `site/` | Next.js 14 app (App Router, TypeScript, Tailwind) |
-| `eazyaccess-complete.jsx` | Original build / portfolio spec (reference) |
-| `eazyaccess-brand.jsx` | Original brand system spec (reference) |
-
-## Run the site locally
-
-```bash
-cd site
-npm install
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
-
-## Build
+## Build and test
 
 ```bash
-cd site
-npm run build
-npm start
+npm test
 ```
+
+This builds `public/` and then runs the tests.
 
 ## Deploy
 
-The app is configured for production at `eazyaccess.org` (see `metadataBase` and sitemap in `site/src/app/`). Deploy `site/` to [Vercel](https://vercel.com) or any Node host that supports Next.js 14.
-# EA
+Deploys are by hand:
+
+```bash
+npx wrangler@4 deploy
+```
+
+DNS for eazyaccess.org changes only with the owner's approval.

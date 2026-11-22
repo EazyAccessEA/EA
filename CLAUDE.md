@@ -3,7 +3,7 @@
 ## Identity
 eazy/access is a small UK studio that designs and builds websites, shops and tools. It's one person. The portfolio is six of the studio's own live products. There are no paying clients yet, so never imply there are.
 
-The old "permanent capital vehicle" positioning, the founder letter, `eazyaccess-*.jsx` and `site/` (Next.js) are **obsolete**. Don't build from them, and leave `site/` alone until the owner decides to delete it.
+The old "permanent capital vehicle" positioning, the founder letter and `eazyaccess-*.jsx` are **obsolete**. Don't build from them. The old Next.js `site/` was deleted on 22 Nov 2026 (owner's decision).
 
 ## What the site is
 A multi-page marketing site at eazyaccess.org, following the global "No long-scroll sites" rule: a short home page, one page per project under `/work/<name>`, How we work, and Contact. Contact is the single goal on every page. The v4 build in `public/` is still one long page; it must be split before it counts as done.
