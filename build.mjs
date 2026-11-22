@@ -12,6 +12,15 @@ const route = (rel) => "/" + rel.replace(/\.html$/, "").replace(/(^|\/)index$/, 
 const dot = (w = 8, h = 16) => `<span class="dot" aria-hidden="true"><svg viewBox="0 0 10 20" width="${w}" height="${h}"><path d="M8.5 1.5L1.5 18.5"/></svg></span>`;
 const cur = (m, k) => (m.nav === k ? ' aria-current="page"' : "");
 
+// Footer wordmark, inline so CSS and main.js can outline it and move the reveal mask (see styles.css "Giant wordmark").
+// Paths come from the brand file, so the outlined wordmark stays the single source.
+const [LETTERS, SLASH] = ["#F3F3F1", "#E8663A"].map((f) => readFileSync(join(OUT, "brand/wordmark-white.svg"), "utf8").match(new RegExp(`fill="${f}" d="([^"]+)"`))[1]);
+const FOOT_MARK = `<div class="foot-mark" aria-hidden="true"><svg viewBox="0 -700 4886 920" focusable="false"><defs><path id="fm-l" d="${LETTERS}"/><path id="fm-s" d="${SLASH}"/>`
+  + `<radialGradient id="fm-g" gradientUnits="userSpaceOnUse" cx="-999" cy="-999" r="720"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>`
+  + `<mask id="fm-m" maskUnits="userSpaceOnUse" x="0" y="-700" width="4886" height="920"><rect x="0" y="-700" width="4886" height="920" fill="url(#fm-g)"/></mask></defs>`
+  + `<use href="#fm-l" class="fm-line"/><use href="#fm-l" class="fm-bg"/><g class="fm-lit" mask="url(#fm-m)"><use href="#fm-l" class="fm-fill"/></g>`
+  + `<use href="#fm-s" class="fm-slash"/><use href="#fm-s" class="fm-hot" mask="url(#fm-m)"/></svg></div>`;
+
 const BAND = `<section class="band" aria-labelledby="band-title">
   <div class="band-inner">
     <div><h2 id="band-title">Let's <em>talk.</em></h2><p>Tell us what you need. The person who'd build your site replies within two working days.</p></div>
@@ -70,11 +79,13 @@ function tools() {
 // legal pages only (Companies Act disclosure rule), and no email or phone (anti-harvesting).
 const decode = (s) => s.replace(/&#x27;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
 const ORG_ID = `${ORIGIN}/#org`;
+// Our social profiles: footer links and the Organization's sameAs.
+const SOCIAL = [["Instagram", "https://www.instagram.com/eazyaccessuk/"], ["Threads", "https://www.threads.com/@eazyaccessuk"], ["Facebook", "https://www.facebook.com/profile.php?id=61596628206529"], ["LinkedIn", "https://www.linkedin.com/company/eazyaccessuk/"]];
 function schema(m, body, path) {
   const org = {
     "@type": "Organization", "@id": ORG_ID, name: "eazy/access", url: `${ORIGIN}/`, logo: `${ORIGIN}/apple-touch-icon.png`,
     description: "A small UK studio that designs and builds websites, shops and tools.", areaServed: "GB",
-    knowsAbout: ["Web design", "Web development", "Online shops", "Web apps"],
+    knowsAbout: ["Web design", "Web development", "Online shops", "Web apps"], sameAs: SOCIAL.map(([, u]) => u),
   };
   if (m.main === "legal") Object.assign(org, {
     legalName: "EAZY ACCESS LTD",
@@ -94,8 +105,23 @@ function schema(m, body, path) {
   return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replace(/</g, "\\u003c")}</script>`;
 }
 
+// The /sitemap page: every page, grouped, titled from its own front matter, so it never goes stale.
+function siteList() {
+  const legal = ["/privacy", "/terms", "/terms-of-business", "/cookies"];
+  const all = files(SRC).map((f) => {
+    const r = route(relative(SRC, f));
+    const t = JSON.parse(readFileSync(f, "utf8").match(/^<!--(\{.*?\})-->/s)[1]).title;
+    return [r, t === "home" ? "Home" : t];
+  }).filter(([r]) => r !== "/404" && r !== "/sitemap");
+  const group = (name, list) => `<h2>${name}</h2><ul>${list.map(([r, t]) => `<li><a href="${r}">${t}</a></li>`).join("")}</ul>`;
+  const order = (a, b) => (a[0] === "/" ? -1 : b[0] === "/" ? 1 : a[0].localeCompare(b[0]));
+  return group("Pages", all.filter(([r]) => !r.startsWith("/work/") && !legal.includes(r)).sort(order))
+    + group("Work", all.filter(([r]) => r.startsWith("/work/")).sort(order))
+    + group("Legal", legal.map((r) => all.find(([x]) => x === r)).filter(Boolean));
+}
+
 function page(m, body, path) {
-  body = body.replace("<!--#band-->", BAND).replace("<!--#tools-->", () => tools());
+  body = body.replace("<!--#band-->", BAND).replace("<!--#tools-->", () => tools()).replace("<!--#sitemap-->", () => siteList());
   return `<!doctype html>
 <html lang="en-GB">
 <head>
@@ -162,12 +188,22 @@ ${m.sticky === false ? "" : `<a class="sticky-talk" href="/contact">Let's talk �
 
 <footer class="footer">
   <div class="foot-top">
-    <div><p class="muted">Start a project</p><a class="big-email light" href="mailto:info@eazyaccess.org">info@eazyaccess.org</a><p class="foot-phone" data-phone="44679894370" hidden><a></a></p></div>
-    <nav aria-label="Footer"><a href="/work/">Work</a><a href="/how-we-work">How we work</a><a href="/contact">Contact</a></nav>
-    <nav aria-label="Legal"><a href="/privacy">Privacy</a><a href="/cookies">Cookies</a><a href="/terms">Terms</a></nav>
+    <div class="foot-studio">
+      <p class="foot-lede">A small UK studio that designs and builds websites, shops and tools. One person, from first message to launch.</p>
+      <p class="status foot-status" data-status>UK time</p>
+      <div><a class="big-email light" href="mailto:info@eazyaccess.org">info@eazyaccess.org</a><p class="foot-phone" data-phone="44679894370" hidden><a></a></p></div>
+    </div>
+    <div class="foot-cols">
+      <nav aria-labelledby="foot-pages"><p class="foot-label" id="foot-pages">Pages</p><a href="/work/">Work</a><a href="/how-we-work">How we work</a><a href="/contact">Contact</a></nav>
+      <nav aria-labelledby="foot-follow"><p class="foot-label" id="foot-follow">Follow</p>${SOCIAL.map(([n, u]) => `<a href="${u}" rel="me">${n}</a>`).join("")}<span class="foot-wa" data-phone="44679894370" data-wa hidden><a>WhatsApp</a></span></nav>
+    </div>
   </div>
-  <p class="muted small">${m.main === "legal" ? "EAZY ACCESS LTD · Registered in England and Wales, company number 13205428 · ICO registration ZC137268" : "eazy/access · Web design and build, UK · No tracking cookies"}</p>
-</footer>
+  <div class="foot-base">
+    <p class="foot-copy">${m.main === "legal" ? "EAZY ACCESS LTD · Registered in England and Wales, company number 13205428 · ICO registration ZC137268" : `© ${new Date().getFullYear()} eazy/access · Web design and build, UK`}</p>
+    <nav class="foot-legal" aria-label="Legal"><a href="/privacy">Privacy</a><a href="/terms">Terms of use</a><a href="/terms-of-business">Terms of business</a><a href="/cookies">Cookies</a><a href="/sitemap">Sitemap</a></nav>
+    <p class="foot-note">No tracking cookies</p>
+  </div>
+${path === "/" ? "" : `  ${FOOT_MARK}\n`}</footer>
 </body>
 </html>
 `;
@@ -197,11 +233,11 @@ for (const html of built)
     hashes.add(`'sha256-${createHash("sha256").update(js).digest("base64")}'`);
 const csp = [
   "default-src 'self'",
-  `script-src 'self' ${[...hashes].join(" ")} https://challenges.cloudflare.com`,
+  `script-src 'self' ${[...hashes].join(" ")} https://challenges.cloudflare.com https://static.cloudflareinsights.com`, // Turnstile; Cloudflare Web Analytics beacon
   "style-src 'self' 'unsafe-inline' https://use.typekit.net https://p.typekit.net", // inline style attributes carry each project's colours
   "font-src 'self' https://use.typekit.net",
   "img-src 'self' data: https://p.typekit.net",
-  "connect-src 'self' https://use.typekit.net https://p.typekit.net https://challenges.cloudflare.com",
+  "connect-src 'self' https://use.typekit.net https://p.typekit.net https://challenges.cloudflare.com https://cloudflareinsights.com",
   "frame-src https://challenges.cloudflare.com",
   "frame-ancestors 'none'", "base-uri 'self'", "form-action 'self'", "object-src 'none'",
 ].join("; ");

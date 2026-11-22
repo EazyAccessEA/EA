@@ -2,7 +2,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "test": "node build.mjs && node --test test/",
+    "test": "node build.mjs && node --test test/ uptime/test/",
     "build": "node build.mjs"
   }
 }

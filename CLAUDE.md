@@ -17,7 +17,7 @@ Promises the copy may make (confirmed by the owner, 16 Nov 2026):
 
 Don't promise that clients can edit their own site. The owner hasn't confirmed it.
 
-Company details (for the legal pages only, never the home page): EAZY ACCESS LTD, registered in England and Wales, company number 13205428, registered office 71–75 Shelton Street, Covent Garden, London WC2H 9JQ, ICO registration ZC137268. Enquiry emails are kept for two years after last contact. Working hours (shown in the site's status line): Monday to Friday, 09:00–17:30 UK time.
+Company details (for the legal pages only, never the home page): EAZY ACCESS LTD, registered in England and Wales, company number 13205428, registered office 71–75 Shelton Street, Covent Garden, London WC2H 9JQ, ICO registration ZC137268. Enquiry emails are kept for two years after last contact. Working hours (shown in the site's status line): Monday to Friday, 09:00–17:00 UK time.
 
 ## Design (source: Paper file "Eazy Access — brand and site", page "v4 — our own")
 - **Ground** `#F3F3F1`, **ink** `#0B0B0C`, **secondary text** `#3F3F44` / `#5E5E62`, **rule** `#E2E2DF`, **dark pill** `#141416`.

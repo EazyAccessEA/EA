@@ -3,8 +3,8 @@ const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// UK status line. Working hours confirmed by the owner, 17 Nov 2026.
-const HOURS = { days: [1, 2, 3, 4, 5], open: 9 * 60, close: 17 * 60 + 30 }; // Mon–Fri 09:00–17:30 UK
+// UK status line. Working hours confirmed by the owner, 20 Nov 2026.
+const HOURS = { days: [1, 2, 3, 4, 5], open: 9 * 60, close: 17 * 60 }; // Mon–Fri 09:00–17:00 UK
 function ukStatus() {
   const parts = Object.fromEntries(new Intl.DateTimeFormat("en-GB", {
     timeZone: "Europe/London", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false,
@@ -26,8 +26,12 @@ for (const a of $$("[data-u][data-d]")) {
 for (const el of $$("[data-phone]")) {
   const d = [...el.dataset.phone].reverse().join(""); // stored reversed in the HTML
   const a = $("a", el);
-  a.href = `tel:+44${d.slice(1)}`;
-  a.textContent = `${d.slice(0, 5)} ${d.slice(5)}`;
+  if ("wa" in el.dataset) { // WhatsApp: open a chat with a message already typed
+    a.href = `https://wa.me/44${d.slice(1)}?text=${encodeURIComponent("Hi, I found you on eazyaccess.org. I'd like to talk about a website.")}`;
+  } else {
+    a.href = `tel:+44${d.slice(1)}`;
+    a.textContent = `${d.slice(0, 5)} ${d.slice(5)}`;
+  }
   el.hidden = false;
 }
 
@@ -203,12 +207,11 @@ if (deck) {
   open(location.hash.slice(1) || "list", false);
 }
 
-// Home: one reflection per working day. Without JS the first one shows.
+// Home: one reflection per day. Without JS the first one shows.
 const notes = $$("[data-note]");
 if (notes.length) {
-  const days = Math.floor(Date.now() / 864e5) + 3; // days since Mon 29 Dec 1969 (1 Jan 1970 was a Thursday)
-  const workdays = Math.floor(days / 7) * 5 + Math.min(days % 7, 4); // Mon–Fri step on; weekends keep Friday's note
-  notes.forEach((n, i) => { n.hidden = i !== workdays % notes.length; });
+  const days = Math.floor(Date.now() / 864e5);
+  notes.forEach((n, i) => { n.hidden = i !== days % notes.length; });
   // The figure draws itself once, when the card is half in view: structure first, then the fix in orange.
   // Without IntersectionObserver, or with reduced motion, it stays on its last frame (no class added).
   const fig = $(".note-card:not([hidden]) .note-fig");
@@ -325,4 +328,43 @@ if (form) {
   const flag = new URLSearchParams(location.search).get("contact");
   const msg = { sent: ["ok", "Sent. Someone will reply within two working days."], invalid: ["bad", "Please check the form and try again."], slow: ["bad", "Too many messages. Please wait a minute or email us."], failed: ["bad", `It didn't send. Please email ${MAIL} directly.`] }[flag];
   if (msg) { statusEl.classList.add(msg[0]); statusEl.textContent = msg[1]; reveal(statusEl); }
+}
+
+// Footer wordmark, after 21st.dev "Text Hover Effect" by Aceternity (MIT): a soft disc (the mask's radial gradient)
+// fills the outline. Desktop: it eases after the pointer. Touch: it runs once up the slash, in viewBox units.
+const fm = $(".foot-mark");
+if (fm && !still) {
+  const svg = $("svg", fm), g = $("#fm-g", fm);
+  let x = 0, y = 0, tx = 0, ty = 0, raf = 0, last = 0;
+  const put = (a, b) => { g.setAttribute("cx", a.toFixed(0)); g.setAttribute("cy", b.toFixed(0)); };
+  const ease = (now) => {
+    const a = 1 - 0.82 ** (Math.min(now - (last || now - 16.7), 50) / 16.7); last = now; // same feel at 60 Hz and 120 Hz
+    x += (tx - x) * a; y += (ty - y) * a; put(x, y);
+    raf = Math.abs(tx - x) + Math.abs(ty - y) > 2 ? requestAnimationFrame(ease) : (last = 0);
+  };
+  if (matchMedia("(hover: hover)").matches) {
+    fm.addEventListener("pointermove", (e) => {
+      const r = svg.getBoundingClientRect();
+      if (!r.width) return;
+      tx = (e.clientX - r.left) / r.width * 4886; ty = (e.clientY - r.top) / r.height * 920 - 700;
+      if (!fm.classList.contains("on")) { x = tx; y = ty; put(x, y); fm.classList.add("on"); }
+      if (!raf) raf = requestAnimationFrame(ease);
+    });
+    fm.addEventListener("pointerleave", () => fm.classList.remove("on"));
+  } else if ("IntersectionObserver" in window && !(() => { try { return sessionStorage.getItem("fm-pulse"); } catch { return 0; } })()) {
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect(); fm.classList.add("on");
+      try { sessionStorage.setItem("fm-pulse", "1"); } catch {} // once per visit, like the hero
+      // Along the slash's own 22.1° axis (centres 1834.5,150 to 2155,-640), run on past both ends: 1794,250 to 2204,-760
+      const t0 = performance.now(), D = 1100;
+      const run = (now) => {
+        const k = Math.min((now - t0) / D, 1), p = 1 - (1 - k) ** 3;
+        put(1794 + 410 * p, 250 - 1010 * p);
+        if (k < 1) requestAnimationFrame(run); else fm.classList.remove("on");
+      };
+      requestAnimationFrame(run);
+    }, { threshold: 0.6 });
+    io.observe(fm);
+  }
 }

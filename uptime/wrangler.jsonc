@@ -1,0 +1,12 @@
+{
+  // Uptime watch for eazyaccess.org and the six portfolio sites. Runs on Cloudflare, outside Hetzner.
+  // Secret: ALERT_URL (the ntfy channel, same as the backup alerts), via `wrangler secret put`.
+  "name": "eazyaccess-uptime",
+  "main": "src/index.js",
+  "compatibility_date": "2026-11-01",
+  "triggers": { "crons": ["*/5 * * * *"] },
+  "kv_namespaces": [{ "binding": "STATE", "id": "e7bd180708a248d4af4be48e4378a2c3" }],
+  "observability": { "enabled": true },
+  "workers_dev": false,
+  "preview_urls": false
+}
