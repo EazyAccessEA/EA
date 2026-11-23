@@ -210,10 +210,11 @@ if (deck) {
 // Home: one reflection per day. Without JS the first one shows.
 const notes = $$("[data-note]");
 if (notes.length) {
-  // Day 0 is 23 Nov 2026, when Note 01 went out on social, so the site shows the same note that day.
-  const days = Math.floor((Date.now() - Date.UTC(2026, 10, 23)) / 864e5);
-  const today = ((days % notes.length) + notes.length) % notes.length;
-  notes.forEach((n, i) => { n.hidden = i !== today; });
+  // Each note carries the UK date it goes out on social; show the latest one already out.
+  const today = new Date().toLocaleDateString("en-CA", { timeZone: "Europe/London" });
+  const out = notes.filter(n => n.dataset.note <= today);
+  const show = out.length ? out.reduce((a, b) => (b.dataset.note > a.dataset.note ? b : a)) : notes[0];
+  notes.forEach(n => { n.hidden = n !== show; });
   // The figure draws itself once, when the card is half in view: structure first, then the fix in orange.
   // Without IntersectionObserver, or with reduced motion, it stays on its last frame (no class added).
   const fig = $(".note-card:not([hidden]) .note-fig");
