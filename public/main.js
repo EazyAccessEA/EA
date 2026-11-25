@@ -35,6 +35,16 @@ for (const el of $$("[data-phone]")) {
   el.hidden = false;
 }
 
+// Phones: "Let's talk" opens WhatsApp. Desktop and no-JS keep /contact.
+const wa = $("[data-wa] a")?.href;
+if (wa && matchMedia("(pointer: coarse)").matches) {
+  for (const a of $$(".talk-pill, .sticky-talk, a.accent[href='/contact']")) {
+    a.href = wa;
+    a.rel = "noopener";
+    a.setAttribute("aria-label", "Let's talk on WhatsApp");
+  }
+}
+
 // Letter roll: split each .roll into letters; the readable text stays in aria-label
 for (const el of $$(".roll")) {
   const text = el.textContent;
