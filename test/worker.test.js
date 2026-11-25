@@ -40,7 +40,9 @@ test("happy path: enquiry to inbox with reply-to, then auto-reply", async () => 
   assert.equal(e.sent[0].to, INBOX);
   assert.equal(e.sent[0].reply_to, "amina@example.co.uk");
   assert.equal(e.sent[0].from, "eazy/access <enquiries@eazyaccess.org>");
-  assert.match(e.sent[1].text, /two working days/);
+  assert.match(e.sent[1].text, /person who'd build your site/);
+  // The two-working-day reply promise was withdrawn on 23 Nov 2026; no reply time may come back.
+  assert.doesNotMatch(e.sent[1].text + e.sent[1].html, /working day/i);
 });
 
 test("gate A: missing or failed Turnstile -> 403, nothing sent", async () => {

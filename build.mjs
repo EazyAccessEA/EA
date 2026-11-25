@@ -23,7 +23,7 @@ const FOOT_MARK = `<div class="foot-mark" aria-hidden="true"><svg viewBox="0 -70
 
 const BAND = `<section class="band" aria-labelledby="band-title">
   <div class="band-inner">
-    <div><h2 id="band-title">Let's <em>talk.</em></h2><p>Tell us what you need. The person who'd build your site replies within two working days.</p></div>
+    <div><h2 id="band-title">Let's <em>talk.</em></h2><p>Tell us what you need. The person who'd build your site reads it and replies.</p></div>
     <div class="band-actions"><a class="band-cta" href="/contact"><span class="roll">Start a project</span>${dot(9, 18)}</a><a class="band-email" href="mailto:info@eazyaccess.org">info@eazyaccess.org</a></div>
   </div>
 </section>`;
@@ -184,7 +184,7 @@ ${path === "/404" ? "" : schema(m, body, path) + "\n"}${m.draw ? `<script>docume
 
 <main id="main"${m.main ? ` class="${m.main}"` : ""}>
 ${body.trim()}
-${m.sticky === false ? "" : `<a class="sticky-talk" href="/contact">Let's talk · replies in 2 working days${dot(9, 18)}</a>\n`}</main>
+${m.sticky === false ? "" : `<a class="sticky-talk" href="/contact">Let's talk${dot(9, 18)}</a>\n`}</main>
 
 <footer class="footer">
   <div class="foot-top">

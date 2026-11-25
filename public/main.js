@@ -313,7 +313,7 @@ if (form) {
         form.reset();
         statusEl.classList.add("ok");
         // Only claim the confirmation email when the server says it went (gate C)
-        statusEl.textContent = "Sent. Someone will reply within two working days." + (data.confirmed ? " We've also emailed you to confirm it arrived." : "");
+        statusEl.textContent = "Sent. The person who'd build your site will reply." + (data.confirmed ? " We've also emailed you to confirm it arrived." : "");
         reveal(statusEl);
       } else {
         showErrors(data.errors);
@@ -329,7 +329,7 @@ if (form) {
     } finally { sending = false; sendBtn.removeAttribute("aria-disabled"); }
   });
   const flag = new URLSearchParams(location.search).get("contact");
-  const msg = { sent: ["ok", "Sent. Someone will reply within two working days."], invalid: ["bad", "Please check the form and try again."], slow: ["bad", "Too many messages. Please wait a minute or email us."], failed: ["bad", `It didn't send. Please email ${MAIL} directly.`] }[flag];
+  const msg = { sent: ["ok", "Sent. The person who'd build your site will reply."], invalid: ["bad", "Please check the form and try again."], slow: ["bad", "Too many messages. Please wait a minute or email us."], failed: ["bad", `It didn't send. Please email ${MAIL} directly.`] }[flag];
   if (msg) { statusEl.classList.add(msg[0]); statusEl.textContent = msg[1]; reveal(statusEl); }
 }
 
