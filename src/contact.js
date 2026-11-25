@@ -168,12 +168,12 @@ export async function handleContact(request, env, fetchFn = fetch, ctx) {
       reply_to: INBOX,
       subject: "We've got your message",
       // Fixed text only: never echo visitor content to an address we haven't verified (anti-relay).
-      text: `Thanks for getting in touch. You'll get a reply from the person who'd build your site, within two working days.\n\nTo add anything, reply to this email.\n\neazy/access\n${INBOX}\n\n${COMPANY.line}`,
+      text: `Thanks for getting in touch. You'll get a reply from the person who'd build your site.\n\nTo add anything, reply to this email.\n\neazy/access\n${INBOX}\n\n${COMPANY.line}`,
       html: layout({
         origin,
-        preheader: "A reply is coming within two working days.",
+        preheader: "A reply is coming from the person who'd build your site.",
         body: heading("Thanks for", "getting in touch.")
-          + para("You'll get a reply from the person who'd build your site, within two working days.")
+          + para("You'll get a reply from the person who'd build your site.")
           + para("To add anything, reply to this email.")
           + `<p style="margin:24px 0 0;color:#0B0B0C">eazy/access<br>${link(`mailto:${INBOX}`, INBOX)}</p>`,
       }),

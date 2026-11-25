@@ -35,6 +35,16 @@ for (const el of $$("[data-phone]")) {
   el.hidden = false;
 }
 
+// Phones: "Let's talk" opens WhatsApp. Desktop and no-JS keep /contact.
+const wa = $("[data-wa] a")?.href;
+if (wa && matchMedia("(pointer: coarse)").matches) {
+  for (const a of $$(".talk-pill, .sticky-talk, a.accent[href='/contact']")) {
+    a.href = wa;
+    a.rel = "noopener";
+    a.setAttribute("aria-label", "Let's talk on WhatsApp");
+  }
+}
+
 // Letter roll: split each .roll into letters; the readable text stays in aria-label
 for (const el of $$(".roll")) {
   const text = el.textContent;
@@ -210,8 +220,11 @@ if (deck) {
 // Home: one reflection per day. Without JS the first one shows.
 const notes = $$("[data-note]");
 if (notes.length) {
-  const days = Math.floor(Date.now() / 864e5);
-  notes.forEach((n, i) => { n.hidden = i !== days % notes.length; });
+  // Each note carries the UK date it goes out on social; show the latest one already out.
+  const today = new Date().toLocaleDateString("en-CA", { timeZone: "Europe/London" });
+  const out = notes.filter(n => n.dataset.note <= today);
+  const show = out.length ? out.reduce((a, b) => (b.dataset.note > a.dataset.note ? b : a)) : notes[0];
+  notes.forEach(n => { n.hidden = n !== show; });
   // The figure draws itself once, when the card is half in view: structure first, then the fix in orange.
   // Without IntersectionObserver, or with reduced motion, it stays on its last frame (no class added).
   const fig = $(".note-card:not([hidden]) .note-fig");
@@ -310,7 +323,7 @@ if (form) {
         form.reset();
         statusEl.classList.add("ok");
         // Only claim the confirmation email when the server says it went (gate C)
-        statusEl.textContent = "Sent. Someone will reply within two working days." + (data.confirmed ? " We've also emailed you to confirm it arrived." : "");
+        statusEl.textContent = "Sent. The person who'd build your site will reply." + (data.confirmed ? " We've also emailed you to confirm it arrived." : "");
         reveal(statusEl);
       } else {
         showErrors(data.errors);
@@ -326,7 +339,7 @@ if (form) {
     } finally { sending = false; sendBtn.removeAttribute("aria-disabled"); }
   });
   const flag = new URLSearchParams(location.search).get("contact");
-  const msg = { sent: ["ok", "Sent. Someone will reply within two working days."], invalid: ["bad", "Please check the form and try again."], slow: ["bad", "Too many messages. Please wait a minute or email us."], failed: ["bad", `It didn't send. Please email ${MAIL} directly.`] }[flag];
+  const msg = { sent: ["ok", "Sent. The person who'd build your site will reply."], invalid: ["bad", "Please check the form and try again."], slow: ["bad", "Too many messages. Please wait a minute or email us."], failed: ["bad", `It didn't send. Please email ${MAIL} directly.`] }[flag];
   if (msg) { statusEl.classList.add(msg[0]); statusEl.textContent = msg[1]; reveal(statusEl); }
 }
 
