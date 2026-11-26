@@ -1,5 +1,5 @@
 {
-  // Uptime watch for eazyaccess.org and the six portfolio sites. Runs on Cloudflare, outside Hetzner.
+  // Uptime watch for eazyaccess.org, the six portfolio sites and DocuSeal signing. Runs on Cloudflare, outside Hetzner.
   // Secret: ALERT_URL (the ntfy channel, same as the backup alerts), via `wrangler secret put`.
   "name": "eazyaccess-uptime",
   "main": "src/index.js",
