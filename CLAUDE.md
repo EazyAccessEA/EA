@@ -39,6 +39,8 @@ Company details (for the legal pages only, never the home page): EAZY ACCESS LTD
 - **Every email we send uses our style**: the branded layout in `src/email.js` (wordmark PNG from the site's origin, ground `#F3F3F1`, white card, ink text, one orange IvyPresto-style accent word per heading via a Georgia fallback, company details in the footer), plus a plain-text part. Email clients can't load Adobe Fonts, so type falls back to system sans. Inline styles and tables only.
 - `npm test` runs the Worker's gate tests (node:test). Every gate has a test that has been shown to fail.
 - Hosting: Cloudflare. DNS for eazyaccess.org is changed only after the owner approves.
+- **Agreements are signed in DocuSeal** at sign.eazyaccess.org: DocuSeal 3.4.0 in Docker (container `docuseal`) on the Hetzner server in Helsinki (`ssh hetzner`), data in `/opt/docuseal/data/docuseal` (SQLite and attachments), no outside database or storage. It has no email set up, so it sends nothing itself: we email the signing link from Gmail and send the signed copy ourselves. The privacy notice covers what it records (name, email, signature, IP, browser, time zone, times).
+- **VAT:** EAZY ACCESS LTD isn't registered for VAT. Every agreement and invoice says so in words: "We aren't registered for VAT, so no VAT is added."
 
 ## Rules before calling anything done
 - Measure at 375×812 and report the numbers:
