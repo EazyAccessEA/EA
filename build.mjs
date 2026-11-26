@@ -153,7 +153,7 @@ function page(m, body, path) {
 <link rel="stylesheet" href="/styles.css">
 ${path === "/404" ? "" : schema(m, body, path) + "\n"}${m.draw ? `<script>document.documentElement.classList.add("mark-on");try{sessionStorage.getItem("drawn")?document.documentElement.classList.add("drawn"):sessionStorage.setItem("drawn","1")}catch(e){}</script>\n` : ""}${m.turnstile ? `<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>\n` : ""}<script src="/main.js" defer></script>
 </head>
-<body${m.main === "legal" ? ' class="legal-page"' : ""}>
+<body id="top"${m.main === "legal" ? ' class="legal-page"' : ""}>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="site-header">
@@ -199,6 +199,7 @@ ${m.sticky === false ? "" : `<a class="sticky-talk" href="/contact">Let's talk${
     </div>
   </div>
   <div class="foot-base">
+    <a class="foot-back" href="#top"><svg viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path d="M205.66,141.66a8,8,0,0,1-11.32,0L136,83.31V224a8,8,0,0,1-16,0V83.31L61.66,141.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,141.66ZM216,32H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg>Back to top</a>
     <p class="foot-copy">${m.main === "legal" ? "EAZY ACCESS LTD · Registered in England and Wales, company number 13205428 · ICO registration ZC137268" : `© ${new Date().getFullYear()} eazy/access · Web design and build, UK`}</p>
     <nav class="foot-legal" aria-label="Legal"><a href="/privacy">Privacy</a><a href="/terms">Terms of use</a><a href="/terms-of-business">Terms of business</a><a href="/cookies">Cookies</a><a href="/sitemap">Sitemap</a></nav>
     <p class="foot-note">No tracking cookies</p>
