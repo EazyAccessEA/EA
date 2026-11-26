@@ -19,5 +19,5 @@
     { "pattern": "www.eazyaccess.org", "custom_domain": true }
   ],
   "workers_dev": false, // the site lives on eazyaccess.org only (cutover step 7, 17 Nov 2026)
-  "preview_urls": false
+  "preview_urls": true
 }
