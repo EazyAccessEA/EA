@@ -11,7 +11,7 @@ A multi-page marketing site at eazyaccess.org, following the global "No long-scr
 Promises the copy may make (confirmed by the owner, 16 Nov 2026):
 - A person replies within two working days.
 - One person: whoever replies is the person building the site.
-- The client owns the domain, hosting and logins from day one.
+- The client owns the domain, hosting and logins from day one. A client's agreement can change this (owner, 26 Nov 2026): for a Shopify shop built as a client transfer store, the studio holds the store until launch and then transfers it, and the agreement says so and discloses Shopify's referral commission (clause in `inventory/shopify/plan.md`).
 - A fixed price per stage, and nothing extra unless the client agrees it in writing.
 - The launch date is agreed before work starts.
 
