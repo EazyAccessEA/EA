@@ -36,7 +36,7 @@ test("run: a failed alert send does not save state, so the alert retries next ru
 test("run: a new outage sends one alert and saves state", async () => {
   const sent = [];
   const env = { STATE: kv(), ALERT_URL: "https://ntfy.example/t" };
-  const fetchFn = async (url, init) => { if (url === env.ALERT_URL) { sent.push(init.body); return res(200); } return url.includes("eazyaccess.org") ? res(502) : res(200); };
+  const fetchFn = async (url, init) => { if (url === env.ALERT_URL) { sent.push(init.body); return res(200); } return url === "https://eazyaccess.org/" ? res(502) : res(200); };
   await run(env, fetchFn, noWait);
   await run(env, fetchFn, noWait);
   assert.deepEqual(sent, ["DOWN: eazyaccess.org (HTTP 502)"]);

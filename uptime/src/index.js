@@ -10,6 +10,7 @@ export const SITES = [
   // app.flintmere.com is left out: the Shopify app has never been deployed (Flintmere STATUS.md). Add it back with that deploy.
   ["PagePerfect", "https://pageperfect.studio/"],
   ["Sagheerah shop", "https://shop.sagheerah.com/"],
+  ["DocuSeal signing", "https://sign.eazyaccess.org/"],
   ["Hetzner server", "http://meilisearch-b4lhb1p7qjhmhhawwmeslr67.37.27.194.158.sslip.io/health"],
 ];
 
