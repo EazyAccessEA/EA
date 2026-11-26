@@ -179,6 +179,7 @@ h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.015em;line-
 .foot-wa{display:contents}
 .foot-base{display:flex;align-items:center;gap:12px 28px;flex-wrap:wrap;padding:20px 0 32px;border-top:1px solid #2A2A2E;font-size:15px;color:#9A9AA0}
 .foot-legal{display:flex;flex-wrap:wrap;gap:4px 20px;margin-right:auto}
+.foot-back{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-size:16px;font-weight:500;color:#F3F3F1;text-decoration:none}.foot-back svg{width:18px;height:18px;flex-shrink:0;fill:#E8663A}.foot-back:hover{text-decoration:underline;text-underline-offset:4px}
 .foot-legal a{white-space:nowrap;font-size:14px;color:#C4C4C8;min-height:24px;display:inline-flex;align-items:center;text-decoration:underline;text-decoration-color:#4A4A50;text-underline-offset:4px}
 .foot-legal a:hover{color:#F3F3F1;text-decoration-color:currentColor}
 /* Giant wordmark, after 21st.dev "Text Hover Effect" by Aceternity (MIT), rebuilt as plain SVG: an outline at rest,
