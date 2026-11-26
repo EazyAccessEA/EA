@@ -1,13 +1,17 @@
 /* eazy/access v4 — tokens from Paper "v4 — our own" */
-/* Fallbacks sized to Degular's width, so text wraps the same before and after Adobe Fonts arrive (no layout shift) */
-@font-face{font-family:"Degular Fallback";src:local("Arial"),local("ArialMT");size-adjust:92.8%}
-@font-face{font-family:"Degular Display Fallback";src:local("Arial Bold"),local("Arial-BoldMT");font-weight:600;size-adjust:79%}
+/* Fallbacks matched to the Adobe fonts' width AND height (ascent/descent), so lines wrap and sit the same before and
+   after Adobe Fonts swap in (no layout shift). Measured in Chrome, 26 Nov 2026: size-adjust = real width / fallback width;
+   ascent/descent-override = the real font's ascent/descent (em) / size-adjust. Arimo, Liberation Sans and Gelasio are
+   metric-compatible stand-ins for Arial and Georgia on Linux/ChromeOS. */
+@font-face{font-family:"Degular Fallback";src:local("Arial"),local("ArialMT"),local("Arimo"),local("Liberation Sans");size-adjust:91.8%;ascent-override:99.1%;descent-override:22.9%;line-gap-override:0%}
+@font-face{font-family:"Degular Display Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Arimo Bold"),local("Liberation Sans Bold");font-weight:600;size-adjust:81.7%;ascent-override:108.9%;descent-override:25.7%;line-gap-override:0%}
+@font-face{font-family:"IvyPresto Fallback";src:local("Georgia Italic"),local("Georgia-Italic"),local("Gelasio Italic");font-style:italic;font-weight:400;size-adjust:89.7%;ascent-override:120.4%;descent-override:30.1%;line-gap-override:0%}
 :root{
   --ground:#F3F3F1; --ink:#0B0B0C; --text-2:#3F3F44; --text-3:#5E5E62; --rule:#E2E2DF; --pill:#141416;
   --orange:#E8663A; --orange-text:#E65B2C;--orange-small:#B93F16; /* text on light ground: 3.21:1 (brand #E8663A is 2.96:1) */ --white:#FFFFFF;
   --display:"degular-display","Degular Display","Degular","Degular Display Fallback",system-ui,sans-serif;
   --body:"degular","Degular","Degular Fallback",system-ui,sans-serif;
-  --accent:"ivypresto-display","IvyPresto Display",Georgia,serif;
+  --accent:"ivypresto-display","IvyPresto Display","IvyPresto Fallback",Georgia,serif;
   --gut:clamp(16px,2.8vw,40px);
   --ease:cubic-bezier(.16,1,.3,1);
 }
