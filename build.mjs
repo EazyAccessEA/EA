@@ -160,7 +160,7 @@ ${path === "/404" ? "" : schema(m, body, path) + "\n"}${m.draw ? `<script>docume
 <header class="site-header">
   <a class="wordmark" href="/" aria-label="eazy/access, home"><img src="/brand/wordmark-ink.svg" alt="" width="133" height="25"></a>
   <nav class="nav-pill" aria-label="Main">
-    <span class="nav-ind" aria-hidden="true"></span><a class="roll" href="/work/"${cur(m, "work")}>Work</a><a class="roll" href="/how-we-work"${cur(m, "how")}>How we work</a><a class="roll" href="/contact"${cur(m, "contact")}>Contact</a>
+    <span class="nav-ind" aria-hidden="true"></span><a class="roll" href="/work/"${cur(m, "work")}>Work</a><a class="roll" href="/services/moving-your-shop"${cur(m, "shopify")}>Shopify</a><a class="roll" href="/how-we-work"${cur(m, "how")}>How we work</a><a class="roll" href="/contact"${cur(m, "contact")}>Contact</a>
   </nav>
   <a class="talk-pill" href="/contact"><span class="roll">Let's talk</span>${dot()}</a>
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu<span class="burger" aria-hidden="true"><i></i><i></i></span></button>
@@ -173,8 +173,9 @@ ${path === "/404" ? "" : schema(m, body, path) + "\n"}${m.draw ? `<script>docume
   </div>
   <nav class="menu-links" aria-label="Menu">
     <a href="/work/" style="--i:0"><span class="t">Work</span> <small>six sites</small></a>
-    <a href="/how-we-work" style="--i:1"><span class="t">How we work</span></a>
-    <a href="/contact" class="accent" style="--i:2"><span class="t">Let's talk</span></a>
+    <a href="/services/moving-your-shop" style="--i:1"><span class="t">Shopify</span> <small>move your shop</small></a>
+    <a href="/how-we-work" style="--i:2"><span class="t">How we work</span></a>
+    <a href="/contact" class="accent" style="--i:3"><span class="t">Let's talk</span></a>
   </nav>
   <div class="menu-foot">
     <p class="status" data-status style="--i:3">UK time</p>
@@ -195,7 +196,7 @@ ${m.sticky === false ? "" : `<a class="sticky-talk" href="/contact">Let's talk${
       <div><a class="big-email light" href="mailto:info@eazyaccess.org">info@eazyaccess.org</a><p class="foot-phone" data-phone="44679894370" hidden><a></a></p></div>
     </div>
     <div class="foot-cols">
-      <nav aria-labelledby="foot-pages"><p class="foot-label" id="foot-pages">Pages</p><a href="/work/">Work</a><a href="/how-we-work">How we work</a><a href="/contact">Contact</a></nav>
+      <nav aria-labelledby="foot-pages"><p class="foot-label" id="foot-pages">Pages</p><a href="/work/">Work</a><a href="/services/moving-your-shop">Shopify</a><a href="/how-we-work">How we work</a><a href="/contact">Contact</a></nav>
       <nav aria-labelledby="foot-follow"><p class="foot-label" id="foot-follow">Follow</p>${SOCIAL.map(([n, u]) => `<a href="${u}" rel="me">${n}</a>`).join("")}<span class="foot-wa" data-phone="44679894370" data-wa hidden><a>WhatsApp</a></span></nav>
     </div>
   </div>
