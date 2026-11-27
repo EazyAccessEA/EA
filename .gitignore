@@ -45,6 +45,7 @@ inventory/*.png
 # Built by build.mjs from pages/
 public/*.html
 public/work/*.html
+public/services/*.html
 qa/pages/
 qa/review/shots/
 public/_headers
