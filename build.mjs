@@ -83,12 +83,13 @@ const ORG_ID = `${ORIGIN}/#org`;
 const SOCIAL = [["Instagram", "https://www.instagram.com/eazyaccessuk/"], ["Threads", "https://www.threads.com/@eazyaccessuk"], ["Facebook", "https://www.facebook.com/profile.php?id=61596628206529"], ["LinkedIn", "https://www.linkedin.com/company/eazyaccessuk/"]];
 function schema(m, body, path) {
   const org = {
-    "@type": "Organization", "@id": ORG_ID, name: "eazy/access", url: `${ORIGIN}/`, logo: `${ORIGIN}/apple-touch-icon.png`,
+    "@type": "Organization", "@id": ORG_ID, name: "eazy/access", alternateName: ["eazy access", "Eazy Access", "eazyaccess.org"], url: `${ORIGIN}/`, logo: `${ORIGIN}/apple-touch-icon.png`,
     description: "A small UK studio that designs and builds websites, shops and tools.", areaServed: "GB",
     knowsAbout: ["Web design", "Web development", "Online shops", "Web apps"], sameAs: SOCIAL.map(([, u]) => u),
   };
   if (m.main === "legal") Object.assign(org, {
     legalName: "EAZY ACCESS LTD",
+    sameAs: [...SOCIAL.map(([, u]) => u), "https://find-and-update.company-information.service.gov.uk/company/13205428"],
     identifier: { "@type": "PropertyValue", propertyID: "Companies House company number", value: "13205428" },
     address: { "@type": "PostalAddress", streetAddress: "71–75 Shelton Street, Covent Garden", addressLocality: "London", postalCode: "WC2H 9JQ", addressCountry: "GB" },
   });
