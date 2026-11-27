@@ -416,6 +416,7 @@ p.call>span{min-width:88px} /* contact rows: the links share one left edge */
 .facts dt{font-weight:500;font-size:15px;color:var(--text-3)}
 .facts dd{font-size:16px}
 .facts .arrow-link{min-height:24px;text-decoration:underline}
+.facts dd a:not(.arrow-link){display:inline-block;padding:3px 0;text-decoration:underline}
 .showcase{position:relative;margin:0 var(--gut);height:clamp(480px,52vw,760px);border-radius:28px;background:var(--bg);overflow:hidden}
 /* When a site's hero is the panel's own colour, the panel steps darker so the window stands off it */
 .showcase.deep{background:color-mix(in oklab,var(--bg) 78%,#000)}
