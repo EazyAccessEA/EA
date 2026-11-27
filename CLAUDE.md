@@ -8,8 +8,7 @@ The old "permanent capital vehicle" positioning, the founder letter and `eazyacc
 ## What the site is
 A multi-page marketing site at eazyaccess.org, following the global "No long-scroll sites" rule: a short home page, one page per project under `/work/<name>`, How we work, and Contact. Contact is the single goal on every page. The v4 build in `public/` is still one long page; it must be split before it counts as done.
 
-Promises the copy may make (confirmed by the owner, 16 Nov 2026):
-- A person replies within two working days.
+Promises the copy may make (confirmed by the owner, 16 Nov 2026; the two-working-day reply promise was withdrawn on 23 Nov 2026, so never use it):
 - One person: whoever replies is the person building the site.
 - The client owns the domain, hosting and logins from day one. A client's agreement can change this (owner, 26 Nov 2026): for a Shopify shop built as a client transfer store, the studio holds the store until launch and then transfers it, and the agreement says so and discloses Shopify's referral commission (clause in `inventory/shopify/plan.md`).
 - A fixed price per stage, and nothing extra unless the client agrees it in writing.
@@ -32,6 +31,11 @@ Company details (for the legal pages only, never the home page): EAZY ACCESS LTD
   - Never retype it as text.
 - **Hero (v6.2, Paper "v5 — pages"):** one 2.6 s sequence per visit, ending still. The headline lines rise out of their masks, the slash slides in along its own axis, and the wordmark opens outward from the slash. A hairline grid leans at the slash angle (after 21st.dev Grid Pulse, MIT). An orange pulse runs once along the slash's column; on desktop, cells light where the mouse passes. Phones: the wordmark sits above the sticky bar, and the header wordmark hides while the big one is on screen. Reduced motion shows the final frame.
 - **Work:** each site on a tilted phone, set on a panel in that site's own brand colour.
+- **Paper and Affinity together:**
+  - **Paper** is for screens: site pages, components, email templates, and social and ad layouts. Its theme in "Eazy Access — brand and site" is the source of truth for colour, type and spacing.
+  - **Affinity** is for vector and print: the wordmark and slash geometry, icons, illustration, photo editing, and anything printed (business cards, signage, print PDFs with bleed and CMYK).
+  - **Handoff:** draw vectors in Affinity, export them as SVG into `public/brand/`, then place them in Paper. Never redraw an Affinity asset in Paper or code.
+  - **One palette:** Affinity swatches and text styles copy the Paper theme. When a brand value changes, update the Paper theme first, then Affinity, then the CSS.
 
 ## Stack
 - Static `public/` (HTML, CSS, a little JS), served by a Cloudflare Worker (`src/worker.js`) as static assets.
@@ -47,7 +51,7 @@ Company details (for the legal pages only, never the home page): EAZY ACCESS LTD
   - Where the primary action sits.
   - Every tap target at least 24×24.
 - Run Lighthouse and axe, and report the numbers.
-- Reader-facing copy must score slopmonster 5/5. Never invent proof, metrics or testimonials.
+- Edit reader-facing copy with the `humanizer` skill. Check every claim against the confirmed promises above. Never invent proof, metrics or testimonials. Ads get a five-second test with real people before they run.
 - Never log or store enquiry contents.
 
 ## Git
