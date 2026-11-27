@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "eazyaccess-org",
+  "account_id": "6fc4067833a60f72116ad04a55bcaf13",
   "main": "src/worker.js",
   "build": { "command": "node build.mjs" },
   "compatibility_date": "2026-11-01",
